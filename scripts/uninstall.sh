@@ -6,16 +6,16 @@
 set -euo pipefail
 
 REPO_DIR="$HOME/projects/personal/.claude"
-SKILLS=(recall understand design forge verify chronicle)
 DEST_SKILLS="$HOME/.claude/skills"
 SPINE_LINK="$HOME/projects/personal/CLAUDE.md"
 
-for s in "${SKILLS[@]}"; do
-  link="$DEST_SKILLS/$s"
-  if [ -L "$link" ] && [ "$(readlink "$link")" = "$REPO_DIR/skills/$s" ]; then
-    rm "$link"
-    echo "unlinked skill: $s"
-  fi
+# Remove any symlink in ~/.claude/skills that points into this repo — covers every
+# lorekeep skill without a hand-maintained list.
+for link in "$DEST_SKILLS"/*; do
+  [ -L "$link" ] || continue
+  case "$(readlink "$link")" in
+    "$REPO_DIR"/skills/*) rm "$link"; echo "unlinked skill: $(basename "$link")" ;;
+  esac
 done
 
 if [ -L "$SPINE_LINK" ] && [ "$(readlink "$SPINE_LINK")" = "$REPO_DIR/CLAUDE.md" ]; then

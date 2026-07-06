@@ -34,9 +34,14 @@ Knowledge lives in two homes: **in-repo** (`CONTEXT.md` + `docs/adr/`) by defaul
 scripts/install.sh
 ```
 
-This symlinks the six skills into `~/.claude/skills/` (so `/recall`, `/forge`, … work in any
-session) and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code auto-loads the
-workflow for every project under `~/projects/personal/` — and nowhere else.
+This symlinks every skill under `skills/` into `~/.claude/skills/` (so `/recall`, `/forge`, … work
+in any session) and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
+auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
+script auto-discovers skills, so new ones are picked up on the next run.
+
+Alongside the six phases, two optional **Jira** skills bridge the tracker: `start-ticket` (fetch a
+ticket, branch, and drop onto the spine) and `file-ticket` (turn understood work into a ticket).
+They use the Jira MCP server configured in `~/.claude.json`.
 
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
 reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):

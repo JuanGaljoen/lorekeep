@@ -14,15 +14,16 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-SKILLS=(recall understand design forge verify chronicle)
 DEST_SKILLS="$HOME/.claude/skills"
 SPINE_LINK="$HOME/projects/personal/CLAUDE.md"
 
 mkdir -p "$DEST_SKILLS"
 
 echo "Linking skills into $DEST_SKILLS"
-for s in "${SKILLS[@]}"; do
-  target="$REPO_DIR/skills/$s"
+for target in "$REPO_DIR"/skills/*/; do
+  target="${target%/}"                  # strip trailing slash
+  [ -f "$target/SKILL.md" ] || continue # only real skills
+  s="$(basename "$target")"
   link="$DEST_SKILLS/$s"
   if [ -e "$link" ] && [ ! -L "$link" ]; then
     echo "  ! $link exists and is not a symlink — leaving it alone" >&2
