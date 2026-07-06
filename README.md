@@ -28,6 +28,23 @@ skill the agent reaches for automatically, or that you invoke by name (`/recall`
 Knowledge lives in two homes: **in-repo** (`CONTEXT.md` + `docs/adr/`) by default, and
 **Obsidian** for the rare lesson that outlives a single repo.
 
+## Install
+
+```bash
+scripts/install.sh
+```
+
+This symlinks the six skills into `~/.claude/skills/` (so `/recall`, `/forge`, … work in any
+session) and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code auto-loads the
+workflow for every project under `~/projects/personal/` — and nowhere else.
+
+The symlinks point back into this repo, so editing a skill here updates your live workflow with no
+reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):
+
+```bash
+scripts/uninstall.sh
+```
+
 ## Credit
 
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —
