@@ -1,0 +1,38 @@
+---
+name: understand
+description: Close the alignment gap before writing code. Use when a request is ambiguous, when the user says "grill me", "interview me", "help me think this through", or before any non-trivial fix or feature so you build the right thing.
+---
+
+# Understand 🧭
+
+*What problem are we solving?*
+
+The most common failure in software is misalignment: you build a thing, and it turns out that
+wasn't what was wanted at all. This phase closes that gap **before** any code exists.
+
+## The interview
+
+Interview me relentlessly about this change until we reach a shared understanding. Walk down
+each branch of the decision tree, resolving dependencies between decisions one at a time.
+
+- **Ask one question at a time.** Wait for my answer before the next. A wall of questions is
+  bewildering and gets shallow answers.
+- **For each question, give your recommended answer.** Don't just ask — propose, and let me
+  correct you. That's faster and surfaces your assumptions.
+- **Look up facts; ask about decisions.** If the codebase can answer it, go read the code. The
+  *decisions* are mine — put each one to me and wait.
+- **Don't start building until I confirm** we've reached a shared understanding.
+
+## What we're pinning down
+
+- **The real problem** — not the solution I first reached for. Why do we want this?
+- **Constraints and assumptions** — what must stay true, what we're taking for granted.
+- **Success criteria** — how we'll both know it's done and correct. Concrete and checkable.
+- **The shape of the work** — is this a *question* (just answer it), a *fix* (reproduce first),
+  or a *feature* (full spine)? This decides how much process the rest of the work earns.
+
+## Output
+
+A crisp statement of the problem, the constraints, the success criteria, and the classification —
+enough that Design can start without re-asking. If the work touches project vocabulary that's
+fuzzy or overloaded, note it for a `CONTEXT.md` update.
