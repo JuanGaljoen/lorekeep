@@ -50,6 +50,24 @@ reinstall, and a `git pull` keeps it current. To remove the symlinks (never the 
 scripts/uninstall.sh
 ```
 
+## Safety floor (the one hook)
+
+lorekeep is prose-first, but prose can only *ask* the model not to do something — it can't
+*guarantee* a block. A single `PreToolUse` hook (`hooks/pre_tool_use.py`, stdlib only) is the sole
+always-on enforcement. It blocks a short list of catastrophic, hard-to-undo actions and secret
+leaks — nothing about style or process:
+
+- catastrophic filesystem wipes (`rm -rf /`, `~`, `$HOME`, `/*`)
+- fork bombs
+- piping a remote download into a shell (`curl … | sh`)
+- raw-disk destruction (`dd of=/dev/…`, `mkfs`, `> /dev/sd…`)
+- writing to `.env` / credential files
+- writing a hardcoded provider secret (AWS / GitHub / Slack / OpenAI / private key)
+
+Force-push and `git reset --hard` are deliberately *not* blocked — recoverable and often
+intentional. The hook fails open: a bug in it never blocks your work. `install.sh` symlinks it into
+`~/.claude/hooks/` and registers it globally; `uninstall.sh` removes it.
+
 ## Credit
 
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —

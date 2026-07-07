@@ -41,4 +41,33 @@ else
   echo "  $SPINE_LINK -> $REPO_DIR/CLAUDE.md"
 fi
 
+echo "Linking safety-floor hook"
+DEST_HOOKS="$HOME/.claude/hooks"
+mkdir -p "$DEST_HOOKS"
+chmod +x "$REPO_DIR/hooks/pre_tool_use.py"
+ln -sfn "$REPO_DIR/hooks/pre_tool_use.py" "$DEST_HOOKS/pre_tool_use.py"
+echo "  pre_tool_use.py -> $REPO_DIR/hooks/pre_tool_use.py"
+
+echo "Registering the hook in ~/.claude/settings.json (idempotent)"
+python3 - "$HOME/.claude/settings.json" <<'PY'
+import json, os, sys
+path = sys.argv[1]
+data = {}
+if os.path.exists(path):
+    with open(path) as f:
+        try: data = json.load(f)
+        except Exception: data = {}
+cmd = "~/.claude/hooks/pre_tool_use.py"
+pre = data.setdefault("hooks", {}).setdefault("PreToolUse", [])
+already = any(h.get("command") == cmd for e in pre for h in e.get("hooks", []))
+if already:
+    print("  already registered")
+else:
+    pre.append({"matcher": "Bash|Edit|Write",
+                "hooks": [{"type": "command", "command": cmd}]})
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2); f.write("\n")
+    print("  registered PreToolUse -> " + cmd)
+PY
+
 echo "Done. Start a session under ~/projects/personal/ and the workflow is live."
