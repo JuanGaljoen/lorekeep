@@ -31,8 +31,20 @@ each branch of the decision tree, resolving dependencies between decisions one a
 - **The shape of the work** — is this a *question* (just answer it), a *fix* (reproduce first),
   or a *feature* (full spine)? This decides how much process the rest of the work earns.
 
+## Close with a recommendation
+
+Don't end on a neutral problem statement and leave me to infer the direction. Once we're aligned,
+state your **recommendation**: the direction you'd take and *why*, in plain terms — the approach
+you'd reach for, the trade-off you're accepting, the risk you're watching. Make it concrete enough
+that I can accept it, refine it, or reject it in one read.
+
+This doesn't cross into Design (which works the direction into a plan, files, and tests) — it's
+the synthesized read that *points* at Design. And it doesn't take the decision from me: a
+recommendation is how you help me decide, not a substitute for my call. State it plainly, then
+wait for my steer.
+
 ## Output
 
 A crisp statement of the problem, the constraints, the success criteria, and the classification —
-enough that Design can start without re-asking. If the work touches project vocabulary that's
-fuzzy or overloaded, note it for a `CONTEXT.md` update.
+plus your recommendation on how to proceed — enough that Design can start without re-asking. If
+the work touches project vocabulary that's fuzzy or overloaded, note it for a `CONTEXT.md` update.
