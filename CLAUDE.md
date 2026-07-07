@@ -52,6 +52,15 @@ current model doesn't match the phase, **say so and recommend the switch** (e.g.
 real constraint. It's a recommendation, not a rule: I may keep the strong model on a gnarly Forge —
 my call.
 
+**Before a long or repeated mechanical run on the strong model** — a test suite, a batch build,
+watching a slow loop — stop and offer the switch first ("you're on Opus about to run the suite;
+`/model sonnet` saves your window — switch, or keep Opus?"), then wait for my answer. Running the
+strong model to *wait on pytest* is the most wasteful thing you can do on a limited plan.
+
+Caveat — **auto mode**: in auto mode I won't pause to ask (auto mode is "run, don't check in"), so
+there you'll just flag it and continue. If you want the switch offered *before* a run, drop out of
+auto for that step.
+
 ## Where knowledge lives
 
 Two homes, split by scope. Recall reads from both; Chronicle writes to the right one.

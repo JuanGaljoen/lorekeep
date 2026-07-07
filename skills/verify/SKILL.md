@@ -10,6 +10,28 @@ description: Prove a change is correct before calling it done. Use after Forge, 
 Forge makes the tests pass. Verify proves the change actually does what Understand asked for, and
 that it didn't break anything on the way. Two axes: does it work, and is it good.
 
+## Trust the oracle first
+
+"The tests pass" only means something if the tests are worth passing. Before you trust green, vet
+the tests that gate this change — **especially any you inherited or didn't write.** Green from an
+unvetted oracle is not evidence.
+
+Fast checks (minutes, not a project):
+
+- **Does it fail on a known-bad?** A test currently red on a real defect has proven it can
+  discriminate. A test that's always green proves nothing.
+- **Mutation check** — break the code on purpose (comment out the step, zero a constant) and
+  confirm the test goes red. If it stays green, that test is asleep: fix it, or don't trust it.
+- **No tautology** — the expected value must come from an independent source of truth (a known-good
+  literal, a worked example, an objective property of the output), not recomputed the way the code
+  computes it.
+- **At a seam** — it exercises the public interface and observes behaviour, not private internals.
+- **Fast enough to run** — a suite too slow to run in the loop can't drive one. Carve a quick
+  subset for iteration; keep the slow full set as an occasional gate.
+
+You don't re-vet trusted tests every time — **vet on first encounter or unknown provenance, then
+trust.** But until the oracle is vetted, treat green as unproven, not as done.
+
 ## Does it work — against the spec
 
 - **Run it.** Not just the unit tests — exercise the real behaviour end to end. Drive the flow a
