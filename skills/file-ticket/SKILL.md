@@ -19,7 +19,7 @@ and success criteria are clear). Don't file a ticket that just says "improve the
 From the conversation, draft:
 - **Title** — one crisp line naming the outcome.
 - **Description** — the problem, the intended behaviour, constraints, and success criteria. Use
-  the project's vocabulary (`CONTEXT.md`) so it reads like the rest of the tracker.
+  the project's vocabulary (`CLAUDE.md`) so it reads like the rest of the tracker.
 - **Type** — Feature / Bug / Task, inferred from the work; confirm if ambiguous.
 
 ### 3. Fill in Jira metadata

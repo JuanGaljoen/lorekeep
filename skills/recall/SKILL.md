@@ -13,8 +13,9 @@ research essay.
 
 ## Where to look, in order
 
-1. **`CONTEXT.md`** (repo root, if it exists) — the shared vocabulary. Read it so your names and
-   questions match the project's language.
+1. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
+   session, so it's usually already in front of you; re-read the parts your task touches so your
+   names and questions match the project's language.
 2. **`docs/adr/`** (or wherever this repo keeps ADRs) — past decisions in the area you're
    touching. A decision already made is a question you don't have to re-litigate.
 3. **The code itself** — existing patterns, the seam you'll work at, how similar things are done

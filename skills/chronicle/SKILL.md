@@ -14,20 +14,25 @@ patterns, hard-won lessons — and skip everything trivial. A chronicle of noise
 
 - **A decision that was hard to reverse or hard to reach.** Why we chose this over the
   alternative — so nobody re-litigates it or quietly undoes it. → an **ADR**.
-- **A reusable pattern** the codebase should follow consistently. → `CONTEXT.md` or a convention note.
 - **A non-obvious lesson** — a bug whose cause surprised you, a sharp edge in a dependency, a
-  gotcha the next person will hit. → wherever it'll be found again.
+  gotcha the next person will hit. → an **ADR** (it's a dated finding).
+- **A reusable pattern or convention** the codebase should follow consistently. → a note in
+  `CLAUDE.md`.
 - **New or sharpened vocabulary** — a fuzzy term you pinned down, an overloaded word you split. →
-  `CONTEXT.md`, the shared glossary.
+  `CLAUDE.md`, alongside the project's facts.
 
-## Where it goes — pick by scope
+## Where it goes — pick by kind
 
-| Scope | Home |
-|-------|------|
-| **Code-local** (this repo's decision, pattern, or vocabulary) | `CONTEXT.md` or `docs/adr/NNNN-title.md` **in the repo** — the default |
-| **Cross-project** (a lesson that outlives this repo) | **Obsidian** (`~/ObsidianVault/Personal/`) — a dated file, a title, a paragraph. No schema, no ceremony. |
+| Kind | Home |
+|------|------|
+| **A decision or hard-won lesson** (code-local) | `docs/adr/NNNN-title.md` — a **dated, immutable** ADR: the decision, *why*, and what it rules out. "We chose X; never do Y, it bit us" lives here. |
+| **A fact, convention, or vocabulary term** (code-local) | `CLAUDE.md` — the **living** project doc that loads every session. |
+| **A lesson that outlives this repo** (cross-project) | **Obsidian** (`~/ObsidianVault/Personal/`) — a dated file, a title, a paragraph. No schema, no ceremony. |
 
-In-repo is the default. Reach for Obsidian only when the lesson genuinely travels beyond this repo.
+The split that matters: **decisions and lessons are ADRs** (dated; you don't edit them, you
+supersede them); **facts and conventions are `CLAUDE.md`** (living; you keep it current). A lesson
+never goes in `CLAUDE.md`; a live convention never goes in an ADR. There is no `CONTEXT.md`. In-repo
+is the default — reach for Obsidian only when the lesson genuinely travels beyond this repo.
 
 ## Rules
 

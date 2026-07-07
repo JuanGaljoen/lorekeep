@@ -25,7 +25,7 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 work first (question / fix / feature), then walk only the phases the work earns. Each phase is a
 skill the agent reaches for automatically, or that you invoke by name (`/recall`, `/forge`, …).
 
-Knowledge lives in two homes: **in-repo** (`CONTEXT.md` + `docs/adr/`) by default, and
+Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` for decisions) by default, and
 **Obsidian** for the rare lesson that outlives a single repo.
 
 ## Install
@@ -71,4 +71,4 @@ intentional. The hook fails open: a bug in it never blocks your work. `install.s
 ## Credit
 
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —
-the small-and-composable philosophy, the grilling interview, the CONTEXT.md idea.
+the small-and-composable philosophy and the grilling interview.

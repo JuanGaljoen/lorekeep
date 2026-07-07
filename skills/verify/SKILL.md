@@ -43,7 +43,7 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
 
 ## Is it good — against the standards
 
-- **Follows the repo's conventions** — naming, structure, idiom, the vocabulary in `CONTEXT.md`.
+- **Follows the repo's conventions** — naming, structure, idiom, the vocabulary in `CLAUDE.md`.
 - **Simplicity holds up** — is this still the smallest sound change, or did complexity creep in
   during Forge? Now is when refactoring happens, with tests green.
 - **Blast radius understood** — what else touches this code path? Anything downstream affected?

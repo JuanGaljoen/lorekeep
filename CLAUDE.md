@@ -14,7 +14,7 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 
 | Phase | Question | What it does |
 |-------|----------|--------------|
-| **Recall 📚** | What do we already know? | Load only the knowledge the task needs — repo `CONTEXT.md`, ADRs, past decisions. |
+| **Recall 📚** | What do we already know? | Load only the knowledge the task needs — repo `CLAUDE.md`, ADRs, past decisions. |
 | **Understand 🧭** | What problem are we solving? | Interview until aligned. Clarify, constrain, define success. Classify the work. |
 | **Design ✍️** | What's the cleanest way? | Explore one or two approaches, pick the simplest, name the files and tests. Freeze it. |
 | **Forge ⚒️** | Build exactly what's needed. | Implement test-first in vertical slices. Only what the plan requires. |
@@ -67,7 +67,7 @@ Two homes, split by scope. Recall reads from both; Chronicle writes to the right
 
 | Scope | Example | Home |
 |-------|---------|------|
-| **Code-local** | this module's seam, a named concept, why we chose X *in this repo* | `CONTEXT.md` + `docs/adr/` **in the repo** — version-controlled, travels with a clone |
+| **Code-local** | this module's seam, a named concept, why we chose X *in this repo* | `CLAUDE.md` (facts, conventions, vocabulary) + `docs/adr/` (dated decisions & lessons) **in the repo** — version-controlled, travels with a clone |
 | **Cross-project** | a lesson that bit you in several repos, a pattern you reuse everywhere | **Obsidian** (`~/ObsidianVault/Personal/`) — the only thing that needs an external, cross-repo store |
 
 In-repo is the default. Promote to Obsidian only when the lesson outlives this repo, and keep

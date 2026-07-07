@@ -47,4 +47,4 @@ wait for my steer.
 
 A crisp statement of the problem, the constraints, the success criteria, and the classification —
 plus your recommendation on how to proceed — enough that Design can start without re-asking. If
-the work touches project vocabulary that's fuzzy or overloaded, note it for a `CONTEXT.md` update.
+the work touches project vocabulary that's fuzzy or overloaded, note it for a `CLAUDE.md` update.
