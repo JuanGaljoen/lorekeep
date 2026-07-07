@@ -28,11 +28,24 @@ guessing. Use the helper tools to offer valid values: `mcp__jira__jira_get_issue
 `mcp__jira__jira_get_priorities`, `mcp__jira__jira_search_users`. Auth via
 `mcp__jira__jira_get_myself` if needed.
 
-### 4. Create it
-`mcp__jira__jira_create_ticket`. Show the draft (title + description + fields) and **confirm with
-me before creating** — a filed ticket is outward-facing.
+### 4. Link it into the backlog — never file standalone
+A ticket in a linked backlog that links to nothing is a bug. Before creating, **read one or two
+recent tickets** (`mcp__jira__jira_search`, `mcp__jira__jira_get_ticket`) to learn the house style,
+then match it:
+- **Dependencies & ordering** — what must land before this, and what it unblocks. If the project
+  writes an explicit note ("should land before RNG-9") or a **"Depends on"** section, include it.
+- **Issue links** — the real Jira links the relationship deserves (blocks / is blocked by /
+  relates to), via `mcp__jira__jira_get_link_types` + `mcp__jira__jira_link_tickets`.
+- **Parent / epic** — attach it under the epic or parent the related work sits in.
 
-### 5. Return the handle
+Trace *why this ticket exists now*: what surfaced it, which earlier ticket introduced the gap —
+those are the links. If it genuinely blocks nothing, say so, but still link what it relates to.
+
+### 5. Create it
+`mcp__jira__jira_create_ticket`. Show the draft (title + description + fields + links) and **confirm
+with me before creating** — a filed ticket is outward-facing.
+
+### 6. Return the handle
 Output the new key and URL, and the natural next step:
 ```
 Filed: <KEY> — <title>
@@ -46,4 +59,6 @@ Next: /start-ticket <KEY> to branch and begin, or keep going here.
 - **Confirm before creating.** Show the draft first; don't create silently.
 - **The description is a spec, not a title restated.** If you can't write the success criteria,
   you haven't Understood it yet — go back.
-- **Match the tracker's conventions** — read a recent ticket or two if unsure of the house style.
+- **File it linked, never standalone.** Read a recent ticket or two and match the house style —
+  dependencies, issue links, ordering, parent/epic. A ticket that links to nothing in a linked
+  backlog is a bug, not a shortcut.
