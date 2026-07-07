@@ -36,6 +36,22 @@ Skip a phase when it adds nothing: a one-line config change doesn't need a Desig
 throwaway fix doesn't need a Chronicle entry. **When in doubt, do the phase.** The cost of a
 skipped Understand is building the wrong thing; the cost of an extra question is a minute.
 
+## Model discipline
+
+Thinking phases and doing phases reward different models. Spend the strong model where judgement
+lives; use the cheaper, faster one where the work is mechanical.
+
+- **Strong model** (e.g. Opus) — **Understand, Design, diagnose.** Ambiguity, trade-offs, and
+  hard bugs are where reasoning pays for itself.
+- **Cheaper/faster model** (e.g. Sonnet) — **Forge and routine edits.** Red→green against a frozen
+  plan is mechanical; the strong model adds little and burns the budget.
+
+You can't switch the model yourself — only I can (`/model …`). So at each phase boundary, if the
+current model doesn't match the phase, **say so and recommend the switch** (e.g. "moving to Forge —
+`/model sonnet` saves your window"). This matters most on a Pro plan, where the usage window is the
+real constraint. It's a recommendation, not a rule: I may keep the strong model on a gnarly Forge —
+my call.
+
 ## Where knowledge lives
 
 Two homes, split by scope. Recall reads from both; Chronicle writes to the right one.
