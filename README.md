@@ -3,8 +3,8 @@
 A lean, six-phase workflow for doing real engineering with Claude Code.
 
 No orchestrator owns the process. No hook blocks your keystrokes. No state machine to appease.
-Just a spine you move along and six small skills that hold the discipline — composable, easy to
-adapt, and yours to bend.
+Just a spine you move along and a handful of small skills that hold the discipline — composable,
+easy to adapt, and yours to bend.
 
 ```
 Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  Verify 🔍  →  Chronicle 📖
