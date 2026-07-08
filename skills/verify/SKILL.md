@@ -75,3 +75,25 @@ worth an ADR, rather than burying the rationale in an in-line comment and moving
 - **Genuinely nothing** → say "nothing worth chronicling here" explicitly, then it's clear to ship.
 
 Either way the decision is **visible and mine** — never silently skipped.
+
+## Close the checkpoint — keep the tracker honest
+
+**Multi-checkpoint tickets only.** This fires when `specs/<TICKET-KEY>.md` exists **and** this green
+Verify closed one checkpoint with more still to come. No spec file → single-shot work → skip this
+entirely; ship moves the ticket when it delivers.
+
+A checkpoint is done the moment its slice passes Verify — but that's usually not a ship (you commit
+it and move to the next checkpoint on the same branch). Between ships, nothing else talks to the
+tracker, so if Verify doesn't, Jira silently drifts from the repo and a fresh session — or
+`/start-ticket` resuming — can't tell where things stand. So when a checkpoint lands, record it in
+the two places that must agree:
+
+- **Tick the spec.** Check off the landed checkpoint in `specs/<TICKET-KEY>.md`.
+- **Comment the ticket.** One line via `mcp__jira__jira_add_comment` — what landed and what's next,
+  e.g. *"CP2 complete (side_loc geometry, commit `98d15bb`). CP3 (MODULES/ARCHETYPES registration)
+  next — stays In Progress."* Include the commit hash when the checkpoint is committed.
+- **Leave the status alone.** The ticket stays **In Progress** — a checkpoint is not the ticket.
+  Transitioning (In Review / Done) is ship's job, at the terminal checkpoint.
+
+The spec and the Jira comment should tell the same story. Ship, when it later delivers, *reads* this
+progress rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.

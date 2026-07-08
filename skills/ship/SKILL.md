@@ -175,10 +175,11 @@ git branch -d <feature-branch>            # -d refuses to delete if it isn't mer
 **c. Update Jira — only if this finished the ticket.** A merge is not automatically "ticket done."
 - **Whole ticket delivered** → transition to **Done** (`mcp__jira__jira_get_transitions` →
   `mcp__jira__jira_transition`) and comment the merge.
-- **One checkpoint of many** → leave the ticket **In Progress**. Don't transition; instead note the
-  checkpoint that landed and what's next (e.g. "CP3 landed; RNG-9 stays In Progress until CP4"). If
-  `specs/<TICKET-KEY>.md` exists (see Design), check off the landed checkpoint there too — the spec
-  and the Jira comment should agree on what's done.
+- **One checkpoint of many** → the ticket stays **In Progress** for the next checkpoint (if step 7
+  bumped it to In Review, move it back). Don't re-author the progress note — Verify already recorded
+  which checkpoint landed and ticked `specs/<TICKET-KEY>.md` when it closed the checkpoint (see
+  Verify, "Close the checkpoint"). Just comment the merge URL, and glance that the spec and the
+  ticket already agree — reconcile only if they've drifted.
 - **Unsure which** → ask before transitioning. Closing a ticket mid-work is worse than a question.
 
 **d. Report the landing.**
