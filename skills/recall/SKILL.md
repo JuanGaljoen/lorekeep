@@ -16,14 +16,17 @@ research essay.
 
 ## Where to look, in order
 
-1. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
+1. **`specs/<TICKET-KEY>.md`**, if the task is a Jira ticket already in progress — a frozen,
+   multi-checkpoint Design plan lives here (see Design). If it exists, that's the plan; read it
+   before anything else so you resume the checkpoint rather than re-deriving the design.
+2. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
    session, so it's usually already in front of you; re-read the parts your task touches so your
    names and questions match the project's language.
-2. **`docs/adr/`** (or wherever this repo keeps ADRs) — past decisions in the area you're
+3. **`docs/adr/`** (or wherever this repo keeps ADRs) — past decisions in the area you're
    touching. A decision already made is a question you don't have to re-litigate.
-3. **The code itself** — existing patterns, the seam you'll work at, how similar things are done
+4. **The code itself** — existing patterns, the seam you'll work at, how similar things are done
    here. Facts live in the code; read it rather than guessing.
-4. **Obsidian** (`~/ObsidianVault/Personal/`) — *only* if the task smells like something hit
+5. **Obsidian** (`~/ObsidianVault/Personal/`) — *only* if the task smells like something hit
    before in another repo. Don't trawl the vault for routine work.
 
 ## Rules

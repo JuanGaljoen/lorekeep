@@ -17,7 +17,9 @@ tools aren't authed yet, call `mcp__jira__jira_get_myself` to trigger auth.
 
 ### 2. Fetch it
 `mcp__jira__jira_get_ticket` — pull title, description, type/labels, priority, status. This is the
-raw material Understand will sharpen; read it, don't skim it.
+raw material Understand will sharpen; read it, don't skim it. Also check for `specs/<TICKET-KEY>.md`
+— if it exists, this ticket is already mid-flight on a multi-checkpoint plan; Recall will read it
+next, so don't re-derive the design from scratch.
 
 ### 3. Branch
 Name it `<type>/<lowercase-key>-<short-kebab-title>` — `feature/` by default, `fix/` if a `bug`

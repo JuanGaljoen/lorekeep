@@ -25,6 +25,12 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
    seams with me before Forge writes anything.
 5. **Freeze the plan.** Once we agree, that's the plan. Scope creep — "while I'm in here…" — is
    how simple changes become balls of mud. New ideas go on a list for later, not into this change.
+6. **If the plan spans more than one checkpoint** (CP1, CP2, …), write it to a durable spec file —
+   `specs/<TICKET-KEY>.md` — before Forge starts: the chosen approach, the placement/formula or
+   contract details, and the file list per checkpoint. A multi-checkpoint plan that lives only in
+   the conversation is invisible to a fresh session; the spec file is what lets `/start-ticket` (or
+   Recall) resume mid-ticket without re-deriving the design. Single-checkpoint work doesn't need
+   this — the frozen plan in this response is enough.
 
 ## Rules
 
