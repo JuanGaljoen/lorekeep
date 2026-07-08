@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Commit, push the branch, and open a solid pull request once the work is done and verified. Use when the user says "ship it", "ship this", "push and open a PR", "raise the PR", or wants to deliver finished work to the remote.
+description: Commit, push the branch, and open a solid pull request once the work is done and verified — then, once the PR is merged, sync the default branch and clean up the merged branch. Use when the user says "ship it", "ship this", "push and open a PR", "raise the PR", "I merged the branch", "clean up the merged branch", or wants to deliver finished work to the remote.
 ---
 
 # ship 🚢
@@ -10,6 +10,16 @@ and open a real pull request in one motion. Two steps people forget are separate
 only pushes; a PR is a second action on top — so this skill does both and never leaves you
 half-shipped, and it writes a PR a reviewer can actually act on instead of GitHub's branch-name
 default.
+
+**Two halves, one skill.** Shipping isn't done when the PR opens — it's done when the branch is
+merged and cleaned up. So `/ship` is lifecycle-aware:
+- **Deliver** (steps 1–8) — the branch isn't merged yet: commit → push → PR.
+- **Land** (step 9) — you've merged the PR and say so: verify it really merged, sync the default
+  branch, and delete the merged branch.
+
+**Pick the half by state, first thing.** If I say the branch/PR is merged ("I merged the branch",
+"clean up the merged branch"), or `gh pr view` reports the current branch's PR as `MERGED`, go
+straight to **step 9 (Land)** — don't re-run the deliver steps. Otherwise run Deliver.
 
 Not a spine phase. The spine ends at Chronicle (knowledge); shipping is the delivery action that
 follows a green **Verify**. Cheap, mechanical work — no strong model needed; if you're on the strong
@@ -129,6 +139,48 @@ When a `--ticket`/`Refs` key exists, close the loop on the tracker:
 Next: merge when checks pass, or keep iterating on this branch.
 ```
 
+### 9. Land — after the PR merges
+Triggered when I tell you the PR is merged (or `gh pr view` shows `MERGED`). This half syncs the
+default branch and removes the merged branch. It deletes a branch, so **verify before you cut** —
+don't act on my word alone.
+
+**a. Confirm it actually merged.** Fetch, prune remote-tracking refs, and check the PR state:
+```bash
+git fetch origin --prune
+gh pr view <branch-or-#> --json state,mergedAt,mergeCommit -q '.state + " @ " + (.mergedAt // "n/a")'
+```
+If the PR is **not** `MERGED` (still open, or closed-unmerged), **stop** — say what the real state
+is and don't delete anything. Only a genuine merge earns the cleanup.
+
+**b. Sync the default branch and delete the merged branch.**
+```bash
+git checkout <default>
+git merge --ff-only origin/<default>      # fast-forward only — never a merge commit here
+git branch -d <feature-branch>            # -d refuses to delete if it isn't merged (a safety net)
+```
+- If the remote branch still exists (origin didn't auto-delete on merge), remove it too:
+  `git push origin --delete <feature-branch>`.
+- If `git branch -d` refuses ("not fully merged"), **don't force with `-D`** — that means git can't
+  see the merge (e.g. squash-merge). Confirm the PR is `MERGED` from step a, tell me it was a
+  squash/rebase merge, and only then delete.
+
+**c. Update Jira — only if this finished the ticket.** A merge is not automatically "ticket done."
+- **Whole ticket delivered** → transition to **Done** (`mcp__jira__jira_get_transitions` →
+  `mcp__jira__jira_transition`) and comment the merge.
+- **One checkpoint of many** → leave the ticket **In Progress**. Don't transition; instead note the
+  checkpoint that landed and what's next (e.g. "CP3 landed; RNG-9 stays In Progress until CP4").
+- **Unsure which** → ask before transitioning. Closing a ticket mid-work is worse than a question.
+
+**d. Report the landing.**
+```
+## Landed 🛬
+- <default>: fast-forwarded to <hash> (the #<pr> merge) — in sync with origin/<default>
+- Merged branch <feature-branch> deleted (local<, and remote> if applicable)
+- Jira: <KEY> → Done   (or "stays In Progress — CP<n> landed, CP<n+1> next"; omit if no ticket)
+
+Next: <the next piece of work, if one is obvious from the ticket/plan — else "ready for the next task">.
+```
+
 ## Rules
 - **Verified before shipped.** No green Verify, no ship — offer to run it, don't deliver on faith.
 - **Never push to the default branch.** On `main`? Branch first.
@@ -140,3 +192,11 @@ Next: merge when checks pass, or keep iterating on this branch.
 - **One PR per branch.** If one exists, push and report it — don't open a duplicate.
 - **Report honestly.** If checks fail after push, say so with the output. Not shipped until the PR is
   actually open.
+- **Never delete on my word alone.** In Land, confirm `MERGED` via `gh pr view` before touching a
+  branch. Not merged → stop and say so. Never `git branch -D` (force) to work around an unmerged
+  check unless the PR is confirmed merged (squash/rebase case).
+- **Fast-forward only when syncing the default branch.** `git merge --ff-only` — never create a
+  merge commit on `main` during Land.
+- **Don't close a ticket mid-ticket.** A merged PR closes a *ticket* only when it finished the whole
+  ticket. If the PR delivered one checkpoint of many, the ticket stays **In Progress** — advance the
+  checkpoint, not the ticket. When unsure whether this was the last piece, ask before transitioning.
