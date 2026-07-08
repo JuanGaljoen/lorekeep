@@ -7,6 +7,9 @@ description: Implement a frozen plan with minimal complexity, test-first. Use wh
 
 *Build exactly what's needed.*
 
+**Open by naming the phase:** lead with a one-line banner — `**⚒️ Forge** — <what you're building>` —
+so it's clear on the spine which phase is active. Then get on with it.
+
 Implementation. Build only what the plan requires, in small verifiable steps, with tests leading
 where they earn their keep.
 

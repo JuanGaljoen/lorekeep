@@ -7,6 +7,9 @@ description: Turn an understood problem into the simplest implementation plan. U
 
 *What's the cleanest way to build this?*
 
+**Open by naming the phase:** lead with a one-line banner — `**✍️ Design** — <what you're shaping>` —
+so it's clear on the spine which phase is active. Then get on with it.
+
 Design is where you buy simplicity. A few minutes choosing the smallest sound approach saves
 hours of untangling a clever one. The output is a plan concrete enough to build against.
 

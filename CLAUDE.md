@@ -36,6 +36,15 @@ Skip a phase when it adds nothing: a one-line config change doesn't need a Desig
 throwaway fix doesn't need a Chronicle entry. **When in doubt, do the phase.** The cost of a
 skipped Understand is building the wrong thing; the cost of an extra question is a minute.
 
+**Name the phase as you enter it.** Whether you walk the spine organically or via `/<skill>`, open
+each phase with a one-line banner so I always know where on the spine we are — the phase name, its
+emoji, and a clause on what it's doing here:
+
+> **🧭 Understand** — pinning CP4's request contract before any code
+
+Use the spine's emojis (Recall 📚 · Understand 🧭 · Design ✍️ · Forge ⚒️ · Verify 🔍 · Chronicle 📖 ·
+ship 🚢). One line, then get on with the work — don't turn it into a header block.
+
 **Delivering the work.** The spine ends at knowledge, not delivery. When Verify is green and you
 want it on the remote, `/ship` publishes the branch and opens the PR in one motion (they're two
 separate steps otherwise). Optional and outward-facing — it confirms before opening the PR.
