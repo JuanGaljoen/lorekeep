@@ -62,3 +62,16 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
 
 A verdict: each success criterion met or not (with evidence), the quality findings and what you
 did about them, and any regressions surfaced. If it's not done, say what's left.
+
+## Hand off to Chronicle before delivery
+
+Green Verify points at Chronicle, not straight at ship — the spine ends at knowledge. So **before
+you offer to ship, ask the Chronicle question out loud**: did anything here earn a record? A
+surprising bug, a decision that was hard to reach, a lesson the next person will trip on. If a
+verify turned up a real one — a stale proxy, a sharp dependency edge — name it and ask whether it's
+worth an ADR, rather than burying the rationale in an in-line comment and moving on.
+
+- **Something worth keeping** → say so and offer `/chronicle` before `/ship`.
+- **Genuinely nothing** → say "nothing worth chronicling here" explicitly, then it's clear to ship.
+
+Either way the decision is **visible and mine** — never silently skipped.
