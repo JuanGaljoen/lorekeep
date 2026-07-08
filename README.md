@@ -28,6 +28,13 @@ skill the agent reaches for automatically, or that you invoke by name (`/recall`
 Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` for decisions) by default, and
 **Obsidian** for the rare lesson that outlives a single repo.
 
+A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
+spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
+per-checkpoint file list. `start-ticket` and `Recall` read it to resume mid-ticket instead of
+re-deriving the design, and `ship` checks off checkpoints there as they land. Unlike an ADR (a
+permanent decision record written by Chronicle), a spec file is working scaffolding for the life of
+the ticket — it doesn't need to outlive it.
+
 ## Install
 
 ```bash
