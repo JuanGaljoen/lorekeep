@@ -29,6 +29,10 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
 - **Simplest sound option wins.** If you're reaching for a framework, a new dependency, or an
   abstraction, justify it against the smaller alternative.
 - **Surface risks, don't bury them.** Name the two or three things most likely to go wrong.
+- **Recommend, don't lay out neutrally.** When you put the approach choice to me as a picker
+  (`AskUserQuestion`), the option you'd take **must** be the **first** one, its label ending with
+  **"(Recommended)"**, with the *why* in its description. Simplest-sound-option-wins means you have
+  a lean — state it. A neutral picker is only for a genuine toss-up; say so if it is one.
 
 ## Output
 

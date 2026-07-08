@@ -18,7 +18,11 @@ each branch of the decision tree, resolving dependencies between decisions one a
 - **Ask one question at a time.** Wait for my answer before the next. A wall of questions is
   bewildering and gets shallow answers.
 - **For each question, give your recommended answer.** Don't just ask — propose, and let me
-  correct you. That's faster and surfaces your assumptions.
+  correct you. That's faster and surfaces your assumptions. When you present the choice as a
+  picker (`AskUserQuestion`), the recommended option **must** be the **first** option and its
+  label **must** end with **"(Recommended)"** — never lay the options out neutrally and leave me
+  to infer your steer. Reserve a neutral picker (no recommendation) for the rare case where you
+  genuinely have no lean; then say so in the prompt.
 - **Look up facts; ask about decisions.** If the codebase can answer it, go read the code. The
   *decisions* are mine — put each one to me and wait.
 - **Don't start building until I confirm** we've reached a shared understanding.
