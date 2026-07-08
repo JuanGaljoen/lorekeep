@@ -39,9 +39,11 @@ in any session) and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Cl
 auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
 script auto-discovers skills, so new ones are picked up on the next run.
 
-Alongside the six phases, two optional **Jira** skills bridge the tracker: `start-ticket` (fetch a
-ticket, branch, and drop onto the spine) and `file-ticket` (turn understood work into a ticket).
-They use the Jira MCP server configured in `~/.claude.json`.
+Alongside the six phases, a few optional skills bridge to the outside world. Two **Jira** skills
+bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and
+`file-ticket` (turn understood work into a ticket) — they use the Jira MCP server configured in
+`~/.claude.json`. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
+branch and opens the pull request in one motion — the two steps people forget are separate.
 
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
 reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):

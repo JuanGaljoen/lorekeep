@@ -36,6 +36,10 @@ Skip a phase when it adds nothing: a one-line config change doesn't need a Desig
 throwaway fix doesn't need a Chronicle entry. **When in doubt, do the phase.** The cost of a
 skipped Understand is building the wrong thing; the cost of an extra question is a minute.
 
+**Delivering the work.** The spine ends at knowledge, not delivery. When Verify is green and you
+want it on the remote, `/ship` publishes the branch and opens the PR in one motion (they're two
+separate steps otherwise). Optional and outward-facing — it confirms before opening the PR.
+
 ## Model discipline
 
 Thinking phases and doing phases reward different models. Spend the strong model where judgement
