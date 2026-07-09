@@ -31,9 +31,13 @@ Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` f
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
 per-checkpoint file list. `start-ticket` and `Recall` read it to resume mid-ticket instead of
-re-deriving the design, and `ship` checks off checkpoints there as they land. Unlike an ADR (a
-permanent decision record written by Chronicle), a spec file is working scaffolding for the life of
-the ticket — it doesn't need to outlive it.
+re-deriving the design, `Verify` checks off checkpoints there as they land, and `ship` reads them to
+deliver. Unlike an ADR (a permanent decision record written by Chronicle), a spec file is working
+scaffolding for the life of the ticket — it doesn't need to outlive it.
+
+For a ticket in flight, **the repo is the source of truth** for where things stand — the spec file
+and the branch's commits. Jira is a mirror. When they drift (a progress write got interrupted),
+`start-ticket` reconciles the tracker from the spec on the next resume; the spec always wins.
 
 ## Install
 

@@ -84,16 +84,21 @@ entirely; ship moves the ticket when it delivers.
 
 A checkpoint is done the moment its slice passes Verify — but that's usually not a ship (you commit
 it and move to the next checkpoint on the same branch). Between ships, nothing else talks to the
-tracker, so if Verify doesn't, Jira silently drifts from the repo and a fresh session — or
-`/start-ticket` resuming — can't tell where things stand. So when a checkpoint lands, record it in
-the two places that must agree:
+tracker, so if Verify doesn't, Jira drifts from the repo and a fresh session — or `/start-ticket`
+resuming — can't tell where things stand. So when a checkpoint lands, record it in the source of
+truth, then mirror it:
 
-- **Tick the spec.** Check off the landed checkpoint in `specs/<TICKET-KEY>.md`.
-- **Comment the ticket.** One line via `mcp__jira__jira_add_comment` — what landed and what's next,
-  e.g. *"CP2 complete (side_loc geometry, commit `98d15bb`). CP3 (MODULES/ARCHETYPES registration)
-  next — stays In Progress."* Include the commit hash when the checkpoint is committed.
+- **Tick the spec — this is the load-bearing write.** Check off the landed checkpoint in
+  `specs/<TICKET-KEY>.md`. The repo is the source of truth (see CLAUDE.md, *"Source of truth for
+  work in flight"*); once this tick is in, the checkpoint is done whether or not anything else fires.
+- **Comment the ticket — the mirror.** One line via `mcp__jira__jira_add_comment` — what landed and
+  what's next, e.g. *"CP2 complete (side_loc geometry, commit `98d15bb`). CP3 (MODULES/ARCHETYPES
+  registration) next — stays In Progress."* Include the commit hash when the checkpoint is committed.
+  If this write is interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile
+  reposts it from the spec (see start-ticket, *"Reconcile the tracker"*).
 - **Leave the status alone.** The ticket stays **In Progress** — a checkpoint is not the ticket.
   Transitioning (In Review / Done) is ship's job, at the terminal checkpoint.
 
-The spec and the Jira comment should tell the same story. Ship, when it later delivers, *reads* this
-progress rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.
+Order matters: tick the spec **before** commenting Jira, so an interruption leaves the mirror stale
+(recoverable) rather than the source of truth. Ship, when it later delivers, *reads* this progress
+rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.

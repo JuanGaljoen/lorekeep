@@ -178,8 +178,9 @@ git branch -d <feature-branch>            # -d refuses to delete if it isn't mer
 - **One checkpoint of many** → the ticket stays **In Progress** for the next checkpoint (if step 7
   bumped it to In Review, move it back). Don't re-author the progress note — Verify already recorded
   which checkpoint landed and ticked `specs/<TICKET-KEY>.md` when it closed the checkpoint (see
-  Verify, "Close the checkpoint"). Just comment the merge URL, and glance that the spec and the
-  ticket already agree — reconcile only if they've drifted.
+  Verify, "Close the checkpoint"). Just comment the merge URL, then run the idempotent reconcile
+  (see start-ticket, *"Reconcile the tracker"*) so a mirror that drifted during the checkpoint gets
+  repaired from the spec — a no-op when they already agree.
 - **Unsure which** → ask before transitioning. Closing a ticket mid-work is worse than a question.
 
 **d. Report the landing.**
