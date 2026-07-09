@@ -39,11 +39,13 @@ model, say so and offer the switch before a long push/CI wait.
 Don't deliver work that isn't done. Confirm, quickly:
 - **Verify passed.** Tests green, success criteria met. If Verify never ran, say so and offer to run
   it first — don't ship on faith.
-- **Chronicle considered.** The spine ends at knowledge, then ship delivers — so before you deliver,
-  ask the Chronicle question once: did anything here earn a record (a surprising bug, a hard-won
-  decision, a lesson)? If yes and nothing's captured, offer `/chronicle` first. If genuinely
-  nothing, say "nothing worth chronicling" and carry on. Don't let knowledge fall off the end
-  silently — a skipped Chronicle should be a conscious call, not an accident.
+- **Chronicle considered.** Verify hands off to Chronicle before delivery (see Verify, "Hand off to
+  Chronicle"), so on a normal flow the call was already made — **confirm it happened, don't re-ask.**
+  Only if you arrived straight at ship without that handoff (no Verify this session) do you raise the
+  Chronicle question yourself: did anything earn a record (a surprising bug, a hard-won decision, a
+  lesson)? If yes and nothing's captured, offer `/chronicle` first; if genuinely nothing, say so.
+  Ship is the backstop, not a second prompt — don't let knowledge fall off the end silently, but
+  don't ask twice either.
 - **There's something to ship.** If `git status` is clean *and* the branch is already pushed with a
   PR, there's nothing to do — say so and stop.
 

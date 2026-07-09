@@ -68,6 +68,12 @@ did about them, and any regressions surfaced. If it's not done, say what's left.
 
 ## Hand off to Chronicle before delivery
 
+**This is the terminal handoff — it fires when the spine is actually ending:** single-shot work, or
+the *final* checkpoint of a multi-checkpoint ticket. For a non-terminal checkpoint, **skip it** —
+you're committing and moving to the next checkpoint, not delivering, so Chronicle waits for the end
+(see "Close the checkpoint" below, which is what a mid-ticket checkpoint runs instead). Asking
+"anything to chronicle?" after every checkpoint is just noise.
+
 Green Verify points at Chronicle, not straight at ship — the spine ends at knowledge. So **before
 you offer to ship, ask the Chronicle question out loud**: did anything here earn a record? A
 surprising bug, a decision that was hard to reach, a lesson the next person will trip on. If a
