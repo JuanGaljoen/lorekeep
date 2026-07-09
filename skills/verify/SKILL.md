@@ -39,8 +39,11 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
 
 - **Run it.** Not just the unit tests — exercise the real behaviour end to end. Drive the flow a
   user would drive, and observe the result. "The tests pass" is necessary, not sufficient.
-- **Check every success criterion** from Understand, one by one. Each should be demonstrably met,
-  with evidence — a command's output, a rendered screen — not "I read the code and it looks right".
+- **Check every success criterion**, one by one — from the spec's acceptance bar
+  (`specs/<TICKET-KEY>.md`, the *Success criteria* checklist) when one exists, else from Understand
+  in this session. On a resume the conversation that set the bar is gone, so the spec *is* the bar;
+  a Verify with no criteria to check hasn't proven anything. Each should be demonstrably met, with
+  evidence — a command's output, a rendered screen — not "I read the code and it looks right".
 - **Hunt regressions and edge cases.** Empty, null, error, boundary, the auth edge. Run the full
   test suite and look at what the change is adjacent to.
 
@@ -88,17 +91,21 @@ tracker, so if Verify doesn't, Jira drifts from the repo and a fresh session —
 resuming — can't tell where things stand. So when a checkpoint lands, record it in the source of
 truth, then mirror it:
 
-- **Tick the spec — this is the load-bearing write.** Check off the landed checkpoint in
-  `specs/<TICKET-KEY>.md`. The repo is the source of truth (see CLAUDE.md, *"Source of truth for
-  work in flight"*); once this tick is in, the checkpoint is done whether or not anything else fires.
-- **Comment the ticket — the mirror.** One line via `mcp__jira__jira_add_comment` — what landed and
-  what's next, e.g. *"CP2 complete (side_loc geometry, commit `98d15bb`). CP3 (MODULES/ARCHETYPES
-  registration) next — stays In Progress."* Include the commit hash when the checkpoint is committed.
-  If this write is interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile
-  reposts it from the spec (see start-ticket, *"Reconcile the tracker"*).
+- **Tick the spec, then commit — together the source-of-truth write.** Check the landed checkpoint
+  off in `specs/<TICKET-KEY>.md`, then commit the slice — its code, its tests, and the spec tick —
+  on the feature branch, in the repo's house style (match recent commits; no `Co-Authored-By`
+  trailer). **This commit is Verify's to make.** It's what makes the closed checkpoint durable in
+  the source of truth and gives the mirror a real hash to cite; a checkpoint no one committed is the
+  exact gap that used to bite. (The *terminal* checkpoint is the one exception — it flows on to
+  Chronicle then ship, which commits and delivers it.)
+- **Comment the ticket — the mirror.** One line via `mcp__jira__jira_add_comment`, citing the hash
+  from the commit above — what landed and what's next, e.g. *"CP2 complete (side_loc geometry, commit
+  `98d15bb`). CP3 (MODULES/ARCHETYPES registration) next — stays In Progress."* If this write is
+  interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile reposts it from
+  the spec (see start-ticket, *"Reconcile the tracker"*).
 - **Leave the status alone.** The ticket stays **In Progress** — a checkpoint is not the ticket.
   Transitioning (In Review / Done) is ship's job, at the terminal checkpoint.
 
-Order matters: tick the spec **before** commenting Jira, so an interruption leaves the mirror stale
-(recoverable) rather than the source of truth. Ship, when it later delivers, *reads* this progress
-rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.
+Order matters: tick and commit the spec **before** the Jira comment, so an interruption leaves the
+mirror stale (recoverable) rather than the source of truth. Ship, when it later delivers, *reads*
+this progress rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.

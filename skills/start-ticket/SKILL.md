@@ -58,8 +58,9 @@ Only when resuming an in-progress ticket (a `specs/<TICKET-KEY>.md` exists). The
 of truth; Jira is a mirror that may have drifted — an earlier Verify could have been interrupted
 between ticking the spec and commenting the ticket. Bring the tracker back in line, idempotently:
 
-- **Read the spec's checkpoints.** The `- [x]`/`- [ ]` tickboxes in `specs/<TICKET-KEY>.md` are the
-  real progress — that's the source of truth.
+- **Read the spec's checkpoints.** The `- [x]`/`- [ ]` tickboxes under `## Checkpoints` in
+  `specs/<TICKET-KEY>.md` are the real progress — that's the source of truth. (The *Success criteria*
+  checklist is the acceptance bar, not progress — don't reconcile against it.)
 - **Read the ticket.** Its status and latest progress comment (`mcp__jira__jira_get_ticket`).
 - **In sync? Do nothing.** If the ticket already reflects the spec's state, say "tracker in sync"
   and move on. This is the common case and the reason it's safe to run every resume.

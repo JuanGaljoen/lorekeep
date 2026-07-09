@@ -53,5 +53,8 @@ wait for my steer.
 ## Output
 
 A crisp statement of the problem, the constraints, the success criteria, and the classification —
-plus your recommendation on how to proceed — enough that Design can start without re-asking. If
+plus your recommendation on how to proceed — enough that Design can start without re-asking. On
+multi-checkpoint work the **success criteria and the classification outlive this conversation**:
+Design writes them into `specs/<TICKET-KEY>.md` as the durable acceptance bar a resuming Verify
+checks against, so make them concrete enough to survive into a file a later session reads cold. If
 the work touches project vocabulary that's fuzzy or overloaded, note it for a `CLAUDE.md` update.

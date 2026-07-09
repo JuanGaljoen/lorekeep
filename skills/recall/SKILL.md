@@ -18,7 +18,10 @@ research essay.
 
 1. **`specs/<TICKET-KEY>.md`**, if the task is a Jira ticket already in progress — a frozen,
    multi-checkpoint Design plan lives here (see Design). If it exists, that's the plan; read it
-   before anything else so you resume the checkpoint rather than re-deriving the design.
+   before anything else so you resume the checkpoint rather than re-deriving the design. It carries
+   more than the plan: the **classification** and the **success criteria** (the acceptance bar Verify
+   checks) live here too, because the conversation that set them is gone on a resume — surface both,
+   not just the checkpoint list.
 2. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
    session, so it's usually already in front of you; re-read the parts your task touches so your
    names and questions match the project's language.

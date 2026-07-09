@@ -26,13 +26,39 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
 5. **Freeze the plan.** Once we agree, that's the plan. Scope creep — "while I'm in here…" — is
    how simple changes become balls of mud. New ideas go on a list for later, not into this change.
 6. **If the plan spans more than one checkpoint** (CP1, CP2, …), write it to a durable spec file —
-   `specs/<TICKET-KEY>.md` — before Forge starts: the chosen approach, the placement/formula or
-   contract details, and the file list per checkpoint. Write the checkpoints as a `- [ ]` tickbox
-   list, one line per checkpoint, so Verify can check each off as it lands (see Verify, "Close the
-   checkpoint") and the spec and the Jira ticket stay in step. A multi-checkpoint plan that lives
-   only in the conversation is invisible to a fresh session; the spec file is what lets
-   `/start-ticket` (or Recall) resume mid-ticket without re-deriving the design. Single-checkpoint
-   work doesn't need this — the frozen plan in this response is enough.
+   `specs/<TICKET-KEY>.md` — before Forge starts. This is the **resume artifact**: a fresh session
+   (or `/start-ticket`, or Recall) rebuilds the whole picture from it without re-deriving anything,
+   so it has to carry the *bar* as well as the *plan* — otherwise a resuming Verify has nothing to
+   check against. Include:
+   - **Classification** — fix / feature / refactor (from Understand), so a resume knows how much
+     process the work earns.
+   - **Success criteria** — the definition of done from Understand, verbatim, as a `- [ ]` checklist.
+     This is the acceptance bar Verify checks against; if it lives only in the conversation it dies
+     with the session.
+   - **Approach & contracts** — the chosen approach and the placement/formula/contract details.
+   - **Checkpoints** — a `- [ ]` tickbox list, one line per checkpoint with its file list, so Verify
+     can commit and tick each off as it lands (see Verify, "Close the checkpoint") and the spec stays
+     in step with the tracker.
+
+   A skeleton:
+   ```markdown
+   # <TICKET-KEY> — <title>
+   Classification: feature
+
+   ## Success criteria (the bar Verify checks)
+   - [ ] <criterion 1 — concrete and checkable>
+   - [ ] <criterion 2>
+
+   ## Approach
+   <chosen approach; contracts, placement, formulae>
+
+   ## Checkpoints
+   - [ ] CP1 — <slice> · files: <paths>
+   - [ ] CP2 — <slice> · files: <paths>
+   ```
+
+   Single-checkpoint work doesn't need this — the frozen plan in this response, plus the success
+   criteria from Understand, is enough to build and verify in one session.
 
 ## Rules
 
