@@ -134,9 +134,14 @@ gh pr create --base <default> --title "…" --body-file <path>
 ```
 
 ### 7. Update Jira — if a ticket's in play
-When a `--ticket`/`Refs` key exists, close the loop on the tracker:
-- Transition it to **In Review** (`mcp__jira__jira_get_transitions` → `mcp__jira__jira_transition`).
-- Comment the PR URL (`mcp__jira__jira_add_comment`).
+When a `--ticket`/`Refs` key exists, close the loop on the tracker — but first check whether this
+PR is the **whole ticket** or **one checkpoint of many** (`specs/<TICKET-KEY>.md` exists with
+checkpoints still unticked after this one):
+- **Whole ticket** → transition to **In Review** (`mcp__jira__jira_get_transitions` →
+  `mcp__jira__jira_transition`) and comment the PR URL.
+- **One checkpoint of many** → **don't transition.** The ticket stays **In Progress** — a checkpoint
+  PR is not the ticket being ready for review. Just comment the PR URL, noting which checkpoint this
+  is and that more are coming (matching Verify's checkpoint-comment format).
 
 ### 8. Report
 ```
@@ -144,7 +149,7 @@ When a `--ticket`/`Refs` key exists, close the loop on the tracker:
 - Branch: <branch>
 - Commit: <hash> — <summary>
 - PR:     <url>
-- Jira:   <KEY> → In Review   (if applicable)
+- Jira:   <KEY> → In Review   (if applicable; or "stays In Progress — CP<n> of <TICKET-KEY>, more to come")
 
 Next: merge when checks pass, or keep iterating on this branch.
 ```
