@@ -11,6 +11,8 @@ Blocks (exit 2, with a reason on stderr):
   - fork bombs
   - piping a remote download into a shell  (curl … | sh)
   - raw-disk destruction  (dd of=/dev/…, mkfs, > /dev/sd…)
+  - destructive SQL with no undo  (DROP TABLE/DATABASE, TRUNCATE TABLE, DELETE FROM with no WHERE)
+  - chmod -R 777  (recursive world-writable — a real security footgun, not just messy)
   - writing to a .env / credential file
   - writing a hardcoded provider secret  (AWS / GitHub / Slack / OpenAI / private key)
 
@@ -41,7 +43,16 @@ DANGEROUS_BASH = [
     (r"\bdd\b[^\n]*\bof=/dev/(disk|sd|nvme|hd)", "raw write to a block device"),
     (r"\bmkfs(\.\w+)?\b", "formatting a filesystem"),
     (r">\s*/dev/(sd|nvme|disk|hd)\w", "redirect onto a raw disk device"),
+    (r"(?i)\bDROP\s+TABLE\b", "DROP TABLE"),
+    (r"(?i)\bDROP\s+DATABASE\b", "DROP DATABASE"),
+    (r"(?i)\bTRUNCATE\s+TABLE\b", "TRUNCATE TABLE"),
+    (r"\bchmod\s+-R\s+777\b", "chmod -R 777"),
 ]
+
+# DELETE FROM with no WHERE clause — checked separately since it's an absence, not a pattern.
+# SQL keywords aren't reliably uppercase in practice, so this check is case-insensitive.
+DELETE_FROM = re.compile(r"\bDELETE\s+FROM\b", re.IGNORECASE)
+HAS_WHERE = re.compile(r"\bWHERE\b", re.IGNORECASE)
 
 CREDENTIAL_FILE = re.compile(
     r"(^|/)\.env(\.[\w.-]+)?$|(^|/)(\.aws/credentials|id_rsa|id_ed25519|\.npmrc|\.pypirc)$"
@@ -67,6 +78,9 @@ def main():
         for pattern, why in DANGEROUS_BASH:
             if re.search(pattern, cmd):
                 block(f"blocked a dangerous command ({why}). Run it yourself if you truly mean to.")
+        if DELETE_FROM.search(cmd) and not HAS_WHERE.search(cmd):
+            block("blocked a dangerous command (DELETE FROM with no WHERE clause). "
+                  "Run it yourself if you truly mean to delete every row.")
 
     if tool in ("Write", "Edit", "MultiEdit"):
         path = ti.get("file_path", "") or ""
