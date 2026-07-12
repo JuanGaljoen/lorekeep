@@ -133,6 +133,14 @@ outward-facing. Then create it, passing the body via a file so markdown survives
 gh pr create --base <default> --title "…" --body-file <path>
 ```
 
+**If, instead of confirming, I say it's already merged** — a normal shortcut: GitHub shows its own
+"Compare & pull request" banner right after every push, and it's easy to create and merge it there
+before answering here. Don't treat this as a mismatch to puzzle over. You never ran `gh pr create`,
+so creating one now would only make a duplicate — skip straight to verifying what's actually on the
+remote (`gh pr view <branch>`), and once it shows `MERGED`, jump to **step 9 (Land)**. Step 7 (Jira
+→ In Review) never ran in this path, and that's fine — Land's Jira step (9c) transitions from
+wherever the ticket actually is, not from an assumed In Review.
+
 ### 7. Update Jira — if a ticket's in play
 When a `--ticket`/`Refs` key exists, close the loop on the tracker — but first check whether this
 PR is the **whole ticket** or **one checkpoint of many** (`specs/<TICKET-KEY>.md` exists with
@@ -164,8 +172,11 @@ don't act on my word alone.
 git fetch origin --prune
 gh pr view <branch-or-#> --json state,mergedAt,mergeCommit -q '.state + " @ " + (.mergedAt // "n/a")'
 ```
-If the PR is **not** `MERGED` (still open, or closed-unmerged), **stop** — say what the real state
-is and don't delete anything. Only a genuine merge earns the cleanup.
+Works the same whether *you* opened the PR (step 6) or *I* opened and merged it myself on GitHub —
+`gh pr view` reads the branch's PR regardless of who created it, so there's nothing to reconcile
+about *who* did it, only whether it's actually `MERGED`. If the PR is **not** `MERGED` (still open,
+or closed-unmerged), **stop** — say what the real state is and don't delete anything. Only a genuine
+merge earns the cleanup.
 
 **b. Sync the default branch and delete the merged branch.**
 ```bash
