@@ -74,25 +74,6 @@ Caveat — **auto mode**: in auto mode I won't pause to ask (auto mode is "run, 
 there you'll just flag it and continue. If you want the switch offered *before* a run, drop out of
 auto for that step.
 
-This recommendation is itself a live example of the next principle's limit: it's prose asking
-nicely, not a hook guaranteeing anything — it has been silently skipped in real sessions before.
-Treat it as advisory, not as proof the switch will always be offered.
-
-## Enforcement vs. guidance
-
-Before adding a "never do X" to a skill, decide which kind of rule it is:
-
-- **Deterministic and checkable** (a regex, a file path, a git state) → belongs in the **hook**
-  (`hooks/pre_tool_use.py`), which can actually block it. Prose can only ask.
-- **Judgement-based** (depends on context, has legitimate exceptions) → belongs in a **skill**,
-  where the model's judgement is the point.
-
-The hook stays a narrow safety floor on purpose — catastrophic, hard-to-undo actions and secret
-leaks, nothing about style or process (see the hook's own header). Widening it is a real decision
-with global reach (every repo this installs into), not a drive-by edit — raise it explicitly rather
-than folding a new block in quietly. Full discipline for applying this when writing or auditing any
-skill: `skills/writing-skills/SKILL.md`.
-
 ## Where knowledge lives
 
 Two homes, split by scope. Recall reads from both; Chronicle writes to the right one.

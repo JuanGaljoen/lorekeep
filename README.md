@@ -56,10 +56,6 @@ bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the sp
 `~/.claude.json`. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
 branch and opens the pull request in one motion — the two steps people forget are separate.
 
-One more is a reference rather than a phase or a bridge: `writing-skills` — the discipline for
-authoring or auditing a `SKILL.md` itself (enforcement vs. guidance, progressive disclosure,
-pruning). Reach for it when writing a new skill or trimming an existing one, not mid-task.
-
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
 reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):
 
