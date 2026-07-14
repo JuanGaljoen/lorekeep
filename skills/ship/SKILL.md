@@ -21,9 +21,9 @@ merged and cleaned up. So `/ship` is lifecycle-aware:
 "clean up the merged branch"), or `gh pr view` reports the current branch's PR as `MERGED`, go
 straight to **step 9 (Land)** — don't re-run the deliver steps. Otherwise run Deliver.
 
-Not a spine phase. The spine ends at Chronicle (knowledge); shipping is the delivery action that
-follows a green **Verify**. Cheap, mechanical work — no strong model needed; if you're on the strong
-model, say so and offer the switch before a long push/CI wait.
+Not a spine phase — shipping is the delivery action that follows a green **Verify**. Cheap,
+mechanical work — no strong model needed; if you're on the strong model, say so and offer the switch
+before a long push/CI wait.
 
 **Optional flags** (read them off the invocation; all optional):
 - `--dry-run` — compute the branch, commit, and PR, print the preview, change nothing.

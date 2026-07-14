@@ -71,8 +71,8 @@ you're committing and moving to the next checkpoint, not delivering, so Chronicl
 (see "Close the checkpoint" below, which is what a mid-ticket checkpoint runs instead). Asking
 "anything to chronicle?" after every checkpoint is just noise.
 
-Green Verify points at Chronicle, not straight at ship — the spine ends at knowledge. So **before
-you offer to ship, ask the Chronicle question out loud**: did anything here earn a record? A
+Green Verify points at Chronicle, not straight at ship. So **before you offer to ship, ask the
+Chronicle question out loud**: did anything here earn a record? A
 surprising bug, a decision that was hard to reach, a lesson the next person will trip on. If a
 verify turned up a real one — a stale proxy, a sharp dependency edge — name it and ask whether it's
 worth an ADR, rather than burying the rationale in an in-line comment and moving on.
