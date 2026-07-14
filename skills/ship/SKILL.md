@@ -5,9 +5,6 @@ description: Commit, push the branch, and open a solid pull request once the wor
 
 # ship 🚢
 
-**Open by naming the phase:** lead with a one-line banner — `**🚢 ship** — <deliver or land>` — so it's
-clear which motion is running. Then get on with it.
-
 The outward tail. Take work that's **done and verified** and deliver it: commit, publish the branch,
 and open a real pull request in one motion. Two steps people forget are separate — "Publish Branch"
 only pushes; a PR is a second action on top — so this skill does both and never leaves you

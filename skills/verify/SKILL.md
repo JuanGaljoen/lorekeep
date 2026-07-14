@@ -7,9 +7,6 @@ description: Prove a change is correct before calling it done. Use after Forge, 
 
 *Did we build the right thing?*
 
-**Open by naming the phase:** lead with a one-line banner — `**🔍 Verify** — <what you're proving>` —
-so it's clear on the spine which phase is active. Then get on with it.
-
 Forge makes the tests pass. Verify proves the change actually does what Understand asked for, and
 that it didn't break anything on the way. Two axes: does it work, and is it good.
 

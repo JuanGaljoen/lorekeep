@@ -7,9 +7,6 @@ description: Load only the knowledge a task needs before starting. Use at the st
 
 *What do we already know?*
 
-**Open by naming the phase:** lead with a one-line banner — `**📚 Recall** — <what you're loading>` —
-so it's clear on the spine which phase is active. Then get on with it.
-
 Before designing or building, spend a few minutes loading the knowledge this specific task
 needs — and nothing more. The goal is a short brief you carry into Understand and Design, not a
 research essay.

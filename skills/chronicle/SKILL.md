@@ -7,9 +7,6 @@ description: Preserve knowledge that will improve future work. Use after a chang
 
 *What should future-us know?*
 
-**Open by naming the phase:** lead with a one-line banner — `**📖 Chronicle** — <what you're capturing>` —
-so it's clear on the spine which phase is active. Then get on with it.
-
 The closing phase. Capture the knowledge that makes the next change cheaper — decisions,
 patterns, hard-won lessons — and skip everything trivial. A chronicle of noise is worse than none.
 

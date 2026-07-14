@@ -7,10 +7,7 @@ description: Implement a frozen plan with minimal complexity, test-first. Use wh
 
 *Build exactly what's needed.*
 
-**Open by naming the phase:** lead with a one-line banner — `**⚒️ Forge** — <what you're building>` —
-so it's clear on the spine which phase is active.
-
-**Then check the model before you build — don't let momentum skip this.** Forge is mechanical:
+**Check the model before you build — don't let momentum skip this.** Forge is mechanical:
 red→green against a frozen plan is where the strong model adds least and burns the most window. At
 this boundary, if you're on the strong model (Opus), **stop, recommend the switch** — *"entering Forge
 — `/model sonnet` saves your window"* — and **wait for my go**. Already on the cheap/fast model? Just

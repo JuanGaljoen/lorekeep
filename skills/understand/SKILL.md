@@ -7,9 +7,6 @@ description: Close the alignment gap before writing code. Use when a request is 
 
 *What problem are we solving?*
 
-**Open by naming the phase:** lead with a one-line banner — `**🧭 Understand** — <the gap you're closing>` —
-so it's clear on the spine which phase is active. Then get on with it.
-
 The most common failure in software is misalignment: you build a thing, and it turns out that
 wasn't what was wanted at all. This phase closes that gap **before** any code exists.
 
