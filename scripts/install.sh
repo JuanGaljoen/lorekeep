@@ -5,6 +5,8 @@
 #   - Symlinks the six phase skills into ~/.claude/skills/ (globally available).
 #   - Symlinks the spine to ~/projects/personal/CLAUDE.md so Claude Code auto-loads
 #     it for anything under ~/projects/personal/ — but not globally.
+#   - Symlinks the safety-floor hook and the status line into ~/.claude/ and registers
+#     both in settings.json.
 #
 # Idempotent: safe to re-run after a `git pull`. Symlinks point back into this repo,
 # so edits here flow through to your live workflow with no reinstall.
@@ -48,7 +50,17 @@ chmod +x "$REPO_DIR/hooks/pre_tool_use.py"
 ln -sfn "$REPO_DIR/hooks/pre_tool_use.py" "$DEST_HOOKS/pre_tool_use.py"
 echo "  pre_tool_use.py -> $REPO_DIR/hooks/pre_tool_use.py"
 
-echo "Registering the hook in ~/.claude/settings.json (idempotent)"
+echo "Linking status line"
+STATUS_LINK="$HOME/.claude/statusline.sh"
+chmod +x "$REPO_DIR/hooks/statusline.sh"
+if [ -e "$STATUS_LINK" ] && [ ! -L "$STATUS_LINK" ]; then
+  mv "$STATUS_LINK" "$STATUS_LINK.pre-lorekeep.bak"
+  echo "  backed up your existing statusline.sh -> statusline.sh.pre-lorekeep.bak"
+fi
+ln -sfn "$REPO_DIR/hooks/statusline.sh" "$STATUS_LINK"
+echo "  statusline.sh -> $REPO_DIR/hooks/statusline.sh"
+
+echo "Registering the hook and status line in ~/.claude/settings.json (idempotent)"
 python3 - "$HOME/.claude/settings.json" <<'PY'
 import json, os, sys
 path = sys.argv[1]
@@ -61,13 +73,21 @@ cmd = "~/.claude/hooks/pre_tool_use.py"
 pre = data.setdefault("hooks", {}).setdefault("PreToolUse", [])
 already = any(h.get("command") == cmd for e in pre for h in e.get("hooks", []))
 if already:
-    print("  already registered")
+    print("  hook already registered")
 else:
     pre.append({"matcher": "Bash|Edit|Write",
                 "hooks": [{"type": "command", "command": cmd}]})
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2); f.write("\n")
     print("  registered PreToolUse -> " + cmd)
+
+status = {"type": "command", "command": "~/.claude/statusline.sh"}
+if data.get("statusLine") == status:
+    print("  status line already registered")
+else:
+    data["statusLine"] = status
+    print("  registered statusLine -> " + status["command"])
+
+with open(path, "w") as f:
+    json.dump(data, f, indent=2); f.write("\n")
 PY
 
 echo "Done. Start a session under ~/projects/personal/ and the workflow is live."

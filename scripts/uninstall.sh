@@ -29,6 +29,18 @@ if [ -L "$HOOK_LINK" ] && [ "$(readlink "$HOOK_LINK")" = "$REPO_DIR/hooks/pre_to
   rm "$HOOK_LINK"
   echo "unlinked safety-floor hook"
 fi
+# Status line: remove our symlink, restoring the pre-lorekeep file if we backed one up.
+STATUS_LINK="$HOME/.claude/statusline.sh"
+if [ -L "$STATUS_LINK" ] && [ "$(readlink "$STATUS_LINK")" = "$REPO_DIR/hooks/statusline.sh" ]; then
+  rm "$STATUS_LINK"
+  if [ -f "$STATUS_LINK.pre-lorekeep.bak" ]; then
+    mv "$STATUS_LINK.pre-lorekeep.bak" "$STATUS_LINK"
+    echo "restored your pre-lorekeep statusline.sh"
+  else
+    echo "unlinked status line"
+  fi
+fi
+
 python3 - "$HOME/.claude/settings.json" <<'PY'
 import json, os, sys
 path = sys.argv[1]
@@ -43,13 +55,24 @@ kept = []
 for e in pre:
     e["hooks"] = [h for h in e.get("hooks", []) if h.get("command") != cmd]
     if e["hooks"]: kept.append(e)
+dirty = False
 if pre:
     if kept: hooks["PreToolUse"] = kept
     else: hooks.pop("PreToolUse", None)
     if not hooks: data.pop("hooks", None)
+    dirty = True
+    print("deregistered safety-floor hook")
+
+# Only deregister the status line if a real file wasn't restored in its place above.
+if data.get("statusLine", {}).get("command") == "~/.claude/statusline.sh" \
+        and not os.path.exists(os.path.expanduser("~/.claude/statusline.sh")):
+    data.pop("statusLine")
+    dirty = True
+    print("deregistered status line")
+
+if dirty:
     with open(path, "w") as f:
         json.dump(data, f, indent=2); f.write("\n")
-    print("deregistered safety-floor hook")
 PY
 
 echo "Done."
