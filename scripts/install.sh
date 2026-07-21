@@ -52,13 +52,13 @@ echo "  pre_tool_use.py -> $REPO_DIR/hooks/pre_tool_use.py"
 
 echo "Linking status line"
 STATUS_LINK="$HOME/.claude/statusline.sh"
-chmod +x "$REPO_DIR/hooks/statusline.sh"
+chmod +x "$REPO_DIR/statusline/statusline.sh"
 if [ -e "$STATUS_LINK" ] && [ ! -L "$STATUS_LINK" ]; then
   mv "$STATUS_LINK" "$STATUS_LINK.pre-lorekeep.bak"
   echo "  backed up your existing statusline.sh -> statusline.sh.pre-lorekeep.bak"
 fi
-ln -sfn "$REPO_DIR/hooks/statusline.sh" "$STATUS_LINK"
-echo "  statusline.sh -> $REPO_DIR/hooks/statusline.sh"
+ln -sfn "$REPO_DIR/statusline/statusline.sh" "$STATUS_LINK"
+echo "  statusline.sh -> $REPO_DIR/statusline/statusline.sh"
 
 echo "Registering the hook and status line in ~/.claude/settings.json (idempotent)"
 python3 - "$HOME/.claude/settings.json" <<'PY'

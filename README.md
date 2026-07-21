@@ -83,7 +83,7 @@ intentional. The hook fails open: a bug in it never blocks your work. `install.s
 
 ## Status line
 
-`hooks/statusline.sh` renders model, context usage, and the Pro/Max rate-limit windows — and,
+`statusline/statusline.sh` renders model, context usage, and the Pro/Max rate-limit windows — and,
 while a test suite is running, a live `⚒ pytest 7m35s` segment. Claude Code's own footer tells
 you a shell exists but not *what* it is or how long it's been going, which is the one thing you
 want while waiting on a suite. Test runners only (pytest, jest, vitest, mocha, rspec, `go test`,

@@ -31,7 +31,7 @@ if [ -L "$HOOK_LINK" ] && [ "$(readlink "$HOOK_LINK")" = "$REPO_DIR/hooks/pre_to
 fi
 # Status line: remove our symlink, restoring the pre-lorekeep file if we backed one up.
 STATUS_LINK="$HOME/.claude/statusline.sh"
-if [ -L "$STATUS_LINK" ] && [ "$(readlink "$STATUS_LINK")" = "$REPO_DIR/hooks/statusline.sh" ]; then
+if [ -L "$STATUS_LINK" ] && [ "$(readlink "$STATUS_LINK")" = "$REPO_DIR/statusline/statusline.sh" ]; then
   rm "$STATUS_LINK"
   if [ -f "$STATUS_LINK.pre-lorekeep.bak" ]; then
     mv "$STATUS_LINK.pre-lorekeep.bak" "$STATUS_LINK"
