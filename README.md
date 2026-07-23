@@ -39,6 +39,24 @@ For a ticket in flight, **the repo is the source of truth** for where things sta
 and the branch's commits. Jira is a mirror. When they drift (a progress write got interrupted),
 `start-ticket` reconciles the tracker from the spec on the next resume; the spec always wins.
 
+## Keeping the token window cheap
+
+On a Pro plan the usage window is the real constraint, so three moves protect it:
+
+- **Model discipline.** Thinking phases (Understand, Design, diagnosis) earn the strong model;
+  mechanical phases don't. At each phase boundary the agent recommends the switch when the current
+  model doesn't match the phase (e.g. "entering Forge — `/model sonnet` saves your window"). A
+  recommendation, not a rule — keeping Opus on a gnarly Forge is your call.
+- **The runner agent** ([`agents/runner.md`](agents/runner.md)). Long mechanical runs — a test
+  suite, a batch build, a slow loop — go to a **Haiku-pinned** agent instead of idling the session
+  model. The pin lives in the agent's frontmatter, so the downshift is config, not a prose request
+  that can be skipped. The runner executes, waits, and reports compactly (headline numbers, failing
+  output verbatim); it never edits and never diagnoses — judgement comes back to the session. The
+  full output dump dies in the runner's context, so only a handful of lines enter yours.
+- **Disposable context.** Because the spec's ticks and the branch's commits are the complete
+  working state, a `/clear` mid-ticket loses nothing — Recall rebuilds from those two and continues
+  at the open checkpoint. Clearing a heavy context is a routine move, not a loss.
+
 ## Install
 
 ```bash
@@ -46,12 +64,10 @@ scripts/install.sh
 ```
 
 This symlinks every skill under `skills/` into `~/.claude/skills/` (so `/recall`, `/forge`, … work
-in any session), every agent under `agents/` into `~/.claude/agents/` (currently just `runner`, a
-Haiku-pinned babysitter for long mechanical runs — it absorbs the test-suite dump and reports
-compactly, so a strong session model never waits out pytest), and symlinks the spine to
-`~/projects/personal/CLAUDE.md`, so Claude Code auto-loads the workflow for every project under
-`~/projects/personal/` — and nowhere else. The script auto-discovers both, so new ones are picked
-up on the next run.
+in any session), every agent under `agents/` into `~/.claude/agents/` (currently just the
+`runner`, above), and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
+auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
+script auto-discovers both, so new ones are picked up on the next run.
 
 Alongside the six phases, a few optional skills bridge to the outside world. Two **Jira** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and
