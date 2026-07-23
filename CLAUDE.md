@@ -104,6 +104,11 @@ hope every write always fires, one is authoritative and the rest are recoverable
   idempotent step (see start-ticket, *"Reconcile the tracker"*) — safe to run any time, a no-op when
   they already agree. Recovery never depends on every earlier step having fired perfectly.
 
+The payoff of one authoritative home: **the conversation is disposable.** The spec's ticks plus the
+branch's commits are the complete working state, so a `/clear` mid-ticket costs nothing — Recall
+rebuilds from those two and continues at the open checkpoint. Clearing a heavy context is a routine
+token-saving move, not a loss to be avoided.
+
 ## Standing principles
 
 - **Simplicity is the job.** The best change is the smallest one that solves the real problem.

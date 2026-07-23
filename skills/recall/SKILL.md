@@ -18,7 +18,10 @@ research essay.
    before anything else so you resume the checkpoint rather than re-deriving the design. It carries
    more than the plan: the **classification** and the **success criteria** (the acceptance bar Verify
    checks) live here too, because the conversation that set them is gone on a resume — surface both,
-   not just the checkpoint list.
+   not just the checkpoint list. Pair it with `git log --oneline` on the ticket branch: the spec's
+   ticked checkpoints plus the branch's commits **are the complete working state**. Rebuild from
+   those two and nothing else — don't re-derive the design, don't re-interview, don't mourn the lost
+   conversation. This is what makes a `/clear` mid-ticket a routine move rather than a loss.
 2. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
    session, so it's usually already in front of you; re-read the parts your task touches so your
    names and questions match the project's language.
