@@ -3,6 +3,7 @@
 # Install lorekeep for all personal projects.
 #
 #   - Symlinks the six phase skills into ~/.claude/skills/ (globally available).
+#   - Symlinks the agents into ~/.claude/agents/ (globally available).
 #   - Symlinks the spine to ~/projects/personal/CLAUDE.md so Claude Code auto-loads
 #     it for anything under ~/projects/personal/ — but not globally.
 #   - Symlinks the safety-floor hook and the status line into ~/.claude/ and registers
@@ -33,6 +34,22 @@ for target in "$REPO_DIR"/skills/*/; do
   fi
   ln -sfn "$target" "$link"
   echo "  $s -> $target"
+done
+
+DEST_AGENTS="$HOME/.claude/agents"
+mkdir -p "$DEST_AGENTS"
+
+echo "Linking agents into $DEST_AGENTS"
+for target in "$REPO_DIR"/agents/*.md; do
+  [ -f "$target" ] || continue
+  a="$(basename "$target")"
+  link="$DEST_AGENTS/$a"
+  if [ -e "$link" ] && [ ! -L "$link" ]; then
+    echo "  ! $link exists and is not a symlink — leaving it alone" >&2
+    continue
+  fi
+  ln -sfn "$target" "$link"
+  echo "  $a -> $target"
 done
 
 echo "Linking spine"

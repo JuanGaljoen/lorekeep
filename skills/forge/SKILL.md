@@ -43,6 +43,9 @@ understand the implementation.
   change. If the plan is wrong, stop and say so — don't quietly build something else.
 - **Follow the repo's existing patterns.** Match the surrounding code's naming and idiom.
 - **Refactoring is not part of this loop.** Cleanup belongs to Verify, with tests green.
+- **Long runs go to the `runner` agent.** A quick red→green test is yours; a full suite or batch
+  build is not — hand it to the Haiku-pinned runner and read its report. Never sit on a strong
+  model waiting out a run.
 
 ## Output
 

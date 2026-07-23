@@ -46,9 +46,12 @@ scripts/install.sh
 ```
 
 This symlinks every skill under `skills/` into `~/.claude/skills/` (so `/recall`, `/forge`, … work
-in any session) and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
-auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
-script auto-discovers skills, so new ones are picked up on the next run.
+in any session), every agent under `agents/` into `~/.claude/agents/` (currently just `runner`, a
+Haiku-pinned babysitter for long mechanical runs — it absorbs the test-suite dump and reports
+compactly, so a strong session model never waits out pytest), and symlinks the spine to
+`~/projects/personal/CLAUDE.md`, so Claude Code auto-loads the workflow for every project under
+`~/projects/personal/` — and nowhere else. The script auto-discovers both, so new ones are picked
+up on the next run.
 
 Alongside the six phases, a few optional skills bridge to the outside world. Two **Jira** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and

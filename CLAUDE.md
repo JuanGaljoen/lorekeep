@@ -65,14 +65,15 @@ current model doesn't match the phase, **say so and recommend the switch** (e.g.
 real constraint. It's a recommendation, not a rule: I may keep the strong model on a gnarly Forge —
 my call.
 
-**Before a long or repeated mechanical run on the strong model** — a test suite, a batch build,
-watching a slow loop — stop and offer the switch first ("you're on Opus about to run the suite;
-`/model sonnet` saves your window — switch, or keep Opus?"), then wait for my answer. Running the
-strong model to *wait on pytest* is the most wasteful thing you can do on a limited plan.
+**Long mechanical runs never wait on the strong model.** A test suite, a batch build, watching a
+slow loop — hand it to the **`runner` agent** (`agents/runner.md`, pinned to Haiku): it executes the
+command, waits it out, and returns a compact report — headline numbers, failing output verbatim. No
+pause, no asking; the downshift is config, not a request that can be forgotten. The full dump stays
+in the runner's context, so only the distilled report enters this session. Diagnosing a failure is
+judgement — that comes back here, to the strong model.
 
-Caveat — **auto mode**: in auto mode I won't pause to ask (auto mode is "run, don't check in"), so
-there you'll just flag it and continue. If you want the switch offered *before* a run, drop out of
-auto for that step.
+Caveat — **auto mode**: in auto mode I won't pause to answer the phase-boundary offer (auto mode is
+"run, don't check in"), so there you'll just flag it and continue.
 
 ## Where knowledge lives
 

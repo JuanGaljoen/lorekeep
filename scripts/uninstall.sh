@@ -18,6 +18,15 @@ for link in "$DEST_SKILLS"/*; do
   esac
 done
 
+# Same for agents in ~/.claude/agents.
+DEST_AGENTS="$HOME/.claude/agents"
+for link in "$DEST_AGENTS"/*; do
+  [ -L "$link" ] || continue
+  case "$(readlink "$link")" in
+    "$REPO_DIR"/agents/*) rm "$link"; echo "unlinked agent: $(basename "$link")" ;;
+  esac
+done
+
 if [ -L "$SPINE_LINK" ] && [ "$(readlink "$SPINE_LINK")" = "$REPO_DIR/CLAUDE.md" ]; then
   rm "$SPINE_LINK"
   echo "unlinked spine"

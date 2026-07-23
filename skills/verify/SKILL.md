@@ -42,7 +42,9 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
   a Verify with no criteria to check hasn't proven anything. Each should be demonstrably met, with
   evidence — a command's output, a rendered screen — not "I read the code and it looks right".
 - **Hunt regressions and edge cases.** Empty, null, error, boundary, the auth edge. Run the full
-  test suite and look at what the change is adjacent to.
+  test suite — hand a long one to the `runner` agent (Haiku-pinned; it babysits and reports
+  compactly) rather than waiting it out on a strong model — and look at what the change is
+  adjacent to.
 
 ## Is it good — against the standards
 
