@@ -52,6 +52,11 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
 - **Simplicity holds up** — is this still the smallest sound change, or did complexity creep in
   during Forge? Now is when refactoring happens, with tests green.
 - **Blast radius understood** — what else touches this code path? Anything downstream affected?
+- **Every magic number has a source.** Walk the constants, thresholds and tolerances this change
+  introduced or moved, and ask where each one came from. A value justified by reasoning — or worse,
+  by how the output looked, or by my reaction to it — is **unverified**, not verified, however
+  green the suite is. Tests confirm the code does what you told it; they can't tell you that what
+  you told it is right. Send those to **Research 🔬** before you call this done.
 
 ## Rules
 

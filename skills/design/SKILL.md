@@ -62,6 +62,10 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
 - **Design against the success criteria from Understand**, not against a vague sense of "good".
 - **Simplest sound option wins.** If you're reaching for a framework, a new dependency, or an
   abstraction, justify it against the smaller alternative.
+- **Don't freeze a plan resting on an unsourced external fact.** If the approach depends on a
+  tolerance, a threshold, a standard or someone else's contract that neither the repo nor this
+  conversation can source, run **Research 🔬** first and freeze against the answer. A number
+  invented at Design becomes a number everything is built on.
 - **Surface risks, don't bury them.** Name the two or three things most likely to go wrong.
 - **Recommend, don't lay out neutrally.** When you put the approach choice to me as a picker
   (`AskUserQuestion`), the option you'd take **must** be the **first** one, its label ending with

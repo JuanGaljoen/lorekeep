@@ -24,6 +24,12 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 Each phase is a skill under `skills/`. The agent reaches for them as it moves through the
 work; you can also invoke any of them by name (`/recall`, `/understand`, …).
 
+**Research 🔬 is off-spine, reachable from any phase.** The six phases assume the facts are
+available; when a decision turns on one that isn't — a trade tolerance, a standard, someone else's
+API contract — `skills/research` fetches it from primary sources. It fires on a narrow tell: *about
+to justify a value with my own reasoning instead of a citation*. Not doubt — invention. Understand
+and Design use it to get the number right up front; Verify uses it to catch one that was invented.
+
 ## Moving along the spine
 
 **Classify first, then walk only the phases the work earns.**
@@ -71,6 +77,13 @@ command, waits it out, and returns a compact report — headline numbers, failin
 pause, no asking; the downshift is config, not a request that can be forgotten. The full dump stays
 in the runner's context, so only the distilled report enters this session. Diagnosing a failure is
 judgement — that comes back here, to the strong model.
+
+**Reading the web never happens in this session either.** Research goes to the **`researcher` agent**
+(`agents/researcher.md`, pinned to Sonnet) — it chases claims to primary sources, writes a cited
+note, and returns a verdict with numbers and confidence. Same firewall: twenty fetched pages die in
+its context, a dozen lines come back. Sonnet rather than Haiku because judging whether a source
+actually owns the answer takes more than the runner needs. Deciding what to *do* with the finding
+stays here.
 
 Caveat — **auto mode**: in auto mode I won't pause to answer the phase-boundary offer (auto mode is
 "run, don't check in"), so there you'll just flag it and continue.

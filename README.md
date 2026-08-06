@@ -19,6 +19,12 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 | **Verify 🔍** | Did we build the right thing? | [`skills/verify`](skills/verify/SKILL.md) |
 | **Chronicle 📖** | What should future-us know? | [`skills/chronicle`](skills/chronicle/SKILL.md) |
 
+Plus one off-spine skill any phase can reach for:
+
+| | Question | Skill |
+|-------|----------|-------|
+| **Research 🔬** | What does the world know that we don't? | [`skills/research`](skills/research/SKILL.md) |
+
 ## How it works
 
 [`CLAUDE.md`](CLAUDE.md) is the spine — loaded every session. It tells the agent to classify the
@@ -27,6 +33,14 @@ skill the agent reaches for automatically, or that you invoke by name (`/recall`
 
 Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` for decisions) by default, and
 **Obsidian** for the rare lesson that outlives a single repo.
+
+**Research 🔬** is the outward arm of Recall, and the one skill that isn't a phase. Recall loads what
+*we* know; Research fetches what nobody here does — a trade tolerance, a standard, someone else's API
+contract — from primary sources, and leaves a cited note behind so the question is only asked once.
+It fires on a deliberately narrow tell: *about to justify a value with reasoning instead of a
+citation*. Not doubt — invention. A plausible derivation is indistinguishable from a correct one
+until someone checks, so Design researches before freezing a number and Verify treats any constant
+without a source as unverified, however green the suite is.
 
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
@@ -53,6 +67,12 @@ On a Pro plan the usage window is the real constraint, so three moves protect it
   that can be skipped. The runner executes, waits, and reports compactly (headline numbers, failing
   output verbatim); it never edits and never diagnoses — judgement comes back to the session. The
   full output dump dies in the runner's context, so only a handful of lines enter yours.
+- **The researcher agent** ([`agents/researcher.md`](agents/researcher.md)). Same firewall, applied
+  to reading instead of waiting: a **Sonnet-pinned** agent chases claims to primary sources and
+  returns a verdict, the numbers with citations, and a confidence rating. Twenty fetched pages die
+  in its context; a dozen lines come back. Sonnet rather than Haiku because judging whether a source
+  actually owns the answer takes real judgement — but deciding what to do with the finding comes
+  back to your session.
 - **Disposable context.** Because the spec's ticks and the branch's commits are the complete
   working state, a `/clear` mid-ticket loses nothing — Recall rebuilds from those two and continues
   at the open checkpoint. Clearing a heavy context is a routine move, not a loss.
@@ -64,8 +84,8 @@ scripts/install.sh
 ```
 
 This symlinks every skill under `skills/` into `~/.claude/skills/` (so `/recall`, `/forge`, … work
-in any session), every agent under `agents/` into `~/.claude/agents/` (currently just the
-`runner`, above), and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
+in any session), every agent under `agents/` into `~/.claude/agents/` (the `runner` and the
+`researcher`, above), and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
 auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
 script auto-discovers both, so new ones are picked up on the next run.
 
