@@ -38,6 +38,12 @@ is the default — reach for Obsidian only when the lesson genuinely travels bey
 
 - **Skip the trivial.** A routine change, an obvious fix, a rename — nothing to chronicle. Say so
   and stop. Don't manufacture an entry to look thorough.
+- **Don't cache what the environment already answers.** The repo is a source of truth in its own
+  right — `package.json` scripts, config files, the directory layout, `--help` output. An entry that
+  restates one is a *cache* of a lookup, and it earns its keep only when that lookup is expensive.
+  The test: **could the agent find this by looking?** If yes, leave it in the environment, where it
+  can't go stale. Chronicle what looking *can't* find — the unwritten convention, the reason behind
+  the choice, the gotcha no config confesses.
 - **State the lesson, not the diff.** Git already has the diff. Record *why*, and what future-us
   should do differently — the thing the code can't tell them.
 - **Write it where it'll be found.** An entry nobody stumbles on later is wasted effort.

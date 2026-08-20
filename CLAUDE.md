@@ -123,6 +123,12 @@ branch's commits are the complete working state, so a `/clear` mid-ticket costs 
 rebuilds from those two and continues at the open checkpoint. Clearing a heavy context is a routine
 token-saving move, not a loss to be avoided.
 
+Disposable isn't the same as worthless, so **rule out simply continuing first.** Clearing costs
+nothing *when the spec holds everything the next phase needs* — true at a checkpoint boundary, false
+in the middle of one. The case that catches people is Understand → Forge: the build wants the
+reasoning verbatim, and the spec carries the plan, not the argument behind it. Clear at the
+boundaries between checkpoints, not inside one.
+
 ## Standing principles
 
 - **Simplicity is the job.** The best change is the smallest one that solves the real problem.
