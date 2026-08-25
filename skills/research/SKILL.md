@@ -65,8 +65,11 @@ value, a confidence rating, and the path to a cited note.
   reasoning that happened to land right will mislead them somewhere else.
 - **Contested or thin? Surface it and decide with me.** A genuine conflict between sources is a
   judgement call, and judgement calls are mine.
-- **Don't re-research settled ground.** The note is durable — it exists so the question is asked
-  once. Recall reads it on the next pass.
+- **Don't re-research settled ground — but a null result is not settled ground.** The note is
+  durable so a question that *has* an answer is asked once; Recall reads it on the next pass. A
+  question that came back empty is a record of one search, not an answer: don't cite it as a
+  negative, and if the decision still turns on it, run it again with a wider surface than last
+  time. Absence hardens into "nothing exists" precisely by being read twice.
 
 ## Where the note lands
 
@@ -83,7 +86,10 @@ note. Promote to Obsidian only if the lesson outlives this repo.
   signpost — follow it home.
 - **Cite everything, inline.** An uncited number in the note is worth exactly as much as the guess
   it replaced.
-- **"The sources don't say" is a valid result.** Report it and decide with me. Never close the gap
-  with a plausible number — that's the thing research exists to prevent.
+- **"The sources don't say" is a valid result — if it shows its work.** An absence is only worth
+  something when it names where it looked: which authorities were actually consulted, and the
+  strongest place the answer would have lived had it existed. "We searched and found nothing" is a
+  claim about our search, not about the world. Report it that way and decide with me. Never close
+  the gap with a plausible number — that's the thing research exists to prevent.
 - **Never research to justify a decision already made.** That's not research, it's a search for
   supporting evidence, and it will find some. Go in willing to be wrong.

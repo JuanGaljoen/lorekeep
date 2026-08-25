@@ -34,9 +34,26 @@ Not your reading history. This shape:
 - **The verdict** — the direct answer, in a line or two.
 - **The numbers** — each value with its source, as a short list.
 - **Agrees / contradicts** — for any current value the question named, which it is.
-- **Confidence** — *settled* (primary sources agree), *contested* (they differ — say how), or
-  *thin* (little authoritative material; say what you'd trust and what you wouldn't).
+- **Confidence** — *settled* (primary sources agree), *contested* (they differ — say how), *thin*
+  (little authoritative material; say what you'd trust and what you wouldn't), or *not found*
+  (nobody who should own this answers it — then the search surface below is mandatory).
 - **The note's path.**
+
+## When you find nothing
+
+An empty result is a real finding, but only the search behind it makes it worth anything. Return it
+as **not found**, and with it:
+
+- **Where you looked** — the authorities you actually consulted, by name, and the queries that got
+  you there.
+- **Where it would have been** — the one place a positive answer should have lived: this spec's
+  section, this API's reference page, this body's published tables. Naming it is what turns your
+  silence into evidence.
+- **What you'd try next** — the search you didn't run, so the next pass widens instead of repeating.
+
+Put the same three in the note, and word it *"not found by this search"* — never *"there is no such
+standard."* You searched a surface; you did not survey the world. And never soften a null into a
+guess to make the digest feel useful: the honest empty **is** the finding.
 
 ## What you never do
 
