@@ -26,8 +26,8 @@ Fast checks (minutes, not a project):
   literal, a worked example, an objective property of the output), not recomputed the way the code
   computes it.
 - **At a seam** — it exercises the public interface and observes behaviour, not private internals.
-- **Fast enough to run** — a suite too slow to run in the loop can't drive one. Carve a quick
-  subset for iteration; keep the slow full set as an occasional gate.
+- **Fast enough to run** — a suite too slow to run in the loop can't drive one. See "Which tests to
+  run" below: you iterate against a targeted gate, and the full set is ship's, once.
 
 You don't re-vet trusted tests every time — **vet on first encounter or unknown provenance, then
 trust.** But until the oracle is vetted, treat green as unproven, not as done.
@@ -41,10 +41,40 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
   in this session. On a resume the conversation that set the bar is gone, so the spec *is* the bar;
   a Verify with no criteria to check hasn't proven anything. Each should be demonstrably met, with
   evidence — a command's output, a rendered screen — not "I read the code and it looks right".
-- **Hunt regressions and edge cases.** Empty, null, error, boundary, the auth edge. Run the full
-  test suite — hand a long one to the `runner` agent (Haiku-pinned; it babysits and reports
-  compactly) rather than waiting it out on a strong model — and look at what the change is
-  adjacent to.
+- **Hunt regressions and edge cases.** Empty, null, error, boundary, the auth edge — and look at
+  what the change is adjacent to. Which tests you run for this is the next section's job.
+
+## Which tests to run — the gate, not the full suite
+
+**Verify does not run the full test suite. Ship does, once, before it opens the PR** (see ship,
+step 1). There's no CI to absorb the cost, so a 3,800-test run is a real half hour off the clock,
+and it answers a question — *did I break the code I didn't touch?* — that doesn't change between
+two attempts at the same slice. Running it per attempt is how four hours disappear.
+
+What Verify runs instead is **the gate**. Pick it in this order:
+
+1. **The repo's named fast target, if it has one** — a `fast`/`sweep` marker, a make target, a
+   documented subset. A standing, readable set beats anything you assemble from a diff: you can see
+   what's in it, and it can't quietly under-select. Prefer it even when a hand-built filter would
+   be narrower.
+2. **Otherwise, the tests covering this change** — the module's test files, or a `-k` filter over
+   the concepts the diff touched. Say what you selected and why, because now the selection is a
+   judgement call and I should be able to check it.
+3. **Never the full suite.** That run is ship's, once, on the final tree.
+
+The gate is what you iterate against and what a checkpoint commits on. Case 2 is weaker than case 1
+— a hand-built filter is a guess at blast radius, and a cross-cutting change (a shared constant, a
+config default, a base class) is exactly where the guess goes wrong. When that happens, **widen the
+filter — don't escalate to the full suite**: grep for the thing that moved and select its consumers.
+If a repo keeps landing you in case 2 on cross-cutting work, the fix is to give it a named fast
+target, and that's worth saying out loud rather than reaching for 3,800 tests each time.
+
+A red gate is confirmed by re-running the gate. If you're about to start a full run inside Verify,
+you're in the wrong phase.
+
+**Long runs never wait on a strong model.** Hand the gate to the `runner` agent (Haiku-pinned; it
+babysits and returns headline numbers plus failing output verbatim). Kill a run the moment you know
+you'll be changing code anyway — a run whose result you've already invalidated is pure waste.
 
 ## Is it good — against the standards
 
