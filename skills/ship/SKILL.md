@@ -21,10 +21,9 @@ merged and cleaned up. So `/ship` is lifecycle-aware:
 "clean up the merged branch"), or `gh pr view` reports the current branch's PR as `MERGED`, go
 straight to **step 9 (Land)** — don't re-run the deliver steps. Otherwise run Deliver.
 
-Not a spine phase — shipping is the delivery action that follows a green **Verify**. Mechanical work
-— no strong model needed; if you're on the strong model, say so and offer the switch before step 1's
-full suite. It isn't a *quick* step: ship owns the branch's one full test run, so budget the suite's
-wall clock. Diagnosing a red one is judgement and goes back to the strong model.
+Not a spine phase — shipping is the delivery action that follows a green **Verify**. Cheap,
+mechanical work — no strong model needed; if you're on the strong model, say so and offer the switch
+before a long push/CI wait.
 
 **Optional flags** (read them off the invocation; all optional):
 - `--dry-run` — compute the branch, commit, and PR, print the preview, change nothing.
@@ -48,20 +47,6 @@ Don't deliver work that isn't done. Confirm, quickly:
   PR, there's nothing to do — say so and stop.
 
 If the work is clearly unfinished, say so and stop. Shipping half-work is worse than not shipping.
-
-**Then run the full test suite — the branch's one full run.** Verify never runs it; ship does, here,
-exactly once per PR (see Verify, "Which tests to run"). Ship fires once per PR by construction,
-which is why the run lives here: there's no judgement call about whether it's already been paid.
-
-- **Skip it entirely on `--dry-run`.** A preview changes nothing and doesn't earn half an hour.
-- **Run it on the tree you're about to ship** — everything Forge produced, nothing pending. This is
-  the result the PR's test plan cites, so it has to be the final code.
-- **Hand it to the `runner` agent** (Haiku-pinned). Never sit on a strong model for twenty-eight
-  minutes; the runner returns headline numbers plus any failing output verbatim.
-- **Red stops the ship.** Fix the failure, then re-run — that re-run is the *only* second full run
-  the workflow permits. Don't open a PR on a red suite and don't explain the failures away.
-- **State the numbers in your report** — passed/failed and wall clock — and carry them into the PR
-  body's Test Plan.
 
 ### 2. Determine branch, commit, and PR — then, if `--dry-run`, stop
 Work out everything *before* touching the remote: the branch name (step 3), the commit message
@@ -129,7 +114,6 @@ What this delivers and why it exists — one or two sentences.
 - [x] The success criteria from Understand/Verify, checked off.
 
 ## Test Plan
-- [x] Full suite: <passed>/<total> passed in <wall clock> (step 1).
 - [ ] How a reviewer confirms it: what to run, what to look at.
 
 ## Jira
@@ -226,8 +210,6 @@ Next: <the next piece of work, if one is obvious from the ticket/plan — else "
 
 ## Rules
 - **Verified before shipped.** No green Verify, no ship — offer to run it, don't deliver on faith.
-- **One full suite per PR, and ship is where it happens.** Nothing upstream runs it; ship always
-  does (except `--dry-run`). The only second run is confirming a red one.
 - **Never push to the default branch.** On `main`? Branch first.
 - **Never stage a secret.** Warn and exclude `.env` / credential files — the safety hook blocks it
   anyway, but don't rely on the floor.

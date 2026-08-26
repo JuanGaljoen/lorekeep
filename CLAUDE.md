@@ -55,16 +55,6 @@ ship 🚢). One line, then get on with the work — don't turn it into a header 
 want it on the remote, `/ship` publishes the branch and opens the PR in one motion (they're two
 separate steps otherwise). Optional and outward-facing — it confirms before opening the PR.
 
-**The full test suite runs once per PR, and ship is the only place it runs.** There's no CI here, so
-a full run is real wall clock off my window — and re-running it per attempt is how an afternoon
-disappears. Forge and Verify iterate against a *gate* instead: the repo's named fast target if it has
-one, else the tests covering this change. A big blast radius means widening the gate, never
-escalating to the full suite. Ship then runs the full suite once, on the final tree, before the PR
-(`/ship --dry-run` skips it). The only second full run permitted is confirming a red one.
-
-A repo with no named fast target leaves the gate a judgement call, which is the weak spot in this
-arrangement — worth naming one there rather than paying for the full suite per checkpoint.
-
 ## Model discipline
 
 Thinking phases and doing phases reward different models. Spend the strong model where judgement

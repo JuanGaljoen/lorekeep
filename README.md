@@ -73,15 +73,6 @@ On a Pro plan the usage window is the real constraint, so three moves protect it
   in its context; a dozen lines come back. Sonnet rather than Haiku because judging whether a source
   actually owns the answer takes real judgement — but deciding what to do with the finding comes
   back to your session.
-- **One full test suite per PR.** Where the runner agent decides *where* a long run happens, this
-  decides *how often*. With no CI, a full suite is wall clock off your own window, and it answers a
-  question — *did I break the code I didn't touch?* — that doesn't change between two attempts at
-  the same slice; run it per attempt and an afternoon disappears. So Forge and Verify iterate
-  against a **gate** (the repo's named fast target if it has one, else the tests covering the
-  change), a cross-cutting change **widens** the gate rather than escalating to the full suite, and
-  **`ship` runs the full suite exactly once**, on the final tree, before the PR. The only second
-  full run permitted is confirming a red one. A repo with no named fast target leaves the gate a
-  judgement call — that's the weak spot, and the fix is to name one there.
 - **Disposable context.** Because the spec's ticks and the branch's commits are the complete
   working state, a `/clear` mid-ticket loses nothing — Recall rebuilds from those two and continues
   at the open checkpoint. Clearing a heavy context is a routine move, not a loss.
@@ -101,10 +92,8 @@ script auto-discovers both, so new ones are picked up on the next run.
 Alongside the six phases, a few optional skills bridge to the outside world. Two **Jira** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and
 `file-ticket` (turn understood work into a ticket) — they use the Jira MCP server configured in
-`~/.claude.json`. And `ship` (`/ship`) is the delivery tail: once Verify is green, it runs the
-branch's one full test suite, then publishes the branch and opens the pull request in one motion —
-the two steps people forget are separate. Ship owns that run because it fires once per PR by
-construction, so there's no judgement call about whether the suite has already been paid for.
+`~/.claude.json`. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
+branch and opens the pull request in one motion — the two steps people forget are separate.
 
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
 reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):
