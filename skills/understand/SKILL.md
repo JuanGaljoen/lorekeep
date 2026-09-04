@@ -55,3 +55,7 @@ multi-checkpoint work the **success criteria and the classification outlive this
 Design writes them into `specs/<TICKET-KEY>.md` as the durable acceptance bar a resuming Verify
 checks against, so make them concrete enough to survive into a file a later session reads cold. If
 the work touches project vocabulary that's fuzzy or overloaded, note it for a `CLAUDE.md` update.
+
+Crisp means **a handful of lines, not a document**. The spec file is where this gets written at
+length for a session that reads it cold; the reply to me is the short version that lets me steer.
+Don't pre-draft the spec in chat.

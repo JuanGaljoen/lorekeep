@@ -63,6 +63,9 @@ value, a confidence rating, and the path to a cited note.
 - **Correct reasoning is not the same as a correct answer.** If research confirms the value but for
   a different reason than you gave, **say both**. The next person inherits your reasoning, and
   reasoning that happened to land right will mislead them somewhere else.
+- **Relay the finding, don't re-narrate the search.** What comes back is already cited and
+  hedged; the note holds the trail. I need the number, whether it agrees with what we had, and
+  how confident it is — the sources and the searching stay in the note.
 - **Contested or thin? Surface it and decide with me.** A genuine conflict between sources is a
   judgement call, and judgement calls are mine.
 - **Don't re-research settled ground — but a null result is not settled ground.** The note is
