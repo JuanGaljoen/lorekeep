@@ -37,6 +37,26 @@ wait, and report facts. Nothing else.
   for flakiness; a modified command never is.
 - **Never summarise a failure into prose.** The main session needs the actual assertion and
   traceback text, not your paraphrase of it.
+- **Never kill anything.** Not a stray process, not a competing run, not your own command when it
+  drags. If something else on the machine is interfering, report it as an anomaly — PID, elapsed,
+  command — and let the main session decide what happens to it.
+
+## The caller's half of the contract
+
+You only hold up your end if the main session holds up its own. These rules live on the other side
+of the handoff, and they live here because this is the file that owns the run.
+
+- **One owner per run.** A suite handed to a runner belongs to the runner. The main session does not
+  also start its own copy to watch progress with. Two of the same suite on one machine isn't
+  redundancy — it's contention, and both crawl.
+- **Slow is not broken.** A long run is waited out, not engineered around. Progress pollers,
+  log-tailing loops and `ps` sweeps add load to the very thing you're waiting on, and a run that
+  looks stuck is usually a run that's competing.
+- **Stop the task, not the PID.** To end a background run, stop the *agent*. Killing its processes
+  leaves the owner alive to start another — that's how one run becomes three.
+- **`kill` is confirm-first.** It's destructive and it is never implied by "run the tests". Report
+  what's running — PIDs, elapsed, command — and ask. Using `ps` to confirm something is gone
+  afterwards is fine; using it to go hunting mid-run is the smell above.
 
 The full output dump lives and dies in your context — only the distilled report goes back. That's
 the token firewall: you absorb the noise so the main session reads a handful of lines.

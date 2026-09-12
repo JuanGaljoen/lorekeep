@@ -46,6 +46,20 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
   compactly) rather than waiting it out on a strong model — and look at what the change is
   adjacent to.
 
+### Running the suite without making it worse
+
+A long suite is the one place Verify can do real damage to a machine it doesn't own.
+
+- **One owner per run.** Hand the suite to a runner *or* run it here — never both. A second copy of
+  the same suite isn't a safety net, it's contention, and it makes the run you're waiting on slower.
+- **Wait it out.** Slow is not stuck. Don't build progress pollers, log-tailing loops or `ps` sweeps
+  to feel better about the wait; they add load to the thing you're waiting on.
+- **Never kill your way out of it.** To end a background run, stop the *task* — killing its PIDs
+  leaves the owner alive to spawn another. And `kill` is confirm-first regardless: "run the tests"
+  never authorises process surgery. Say what's running and ask.
+
+Full contract, both sides of the handoff: `agents/runner.md`.
+
 ## Is it good — against the standards
 
 - **Follows the repo's conventions** — naming, structure, idiom, the vocabulary in `CLAUDE.md`.
