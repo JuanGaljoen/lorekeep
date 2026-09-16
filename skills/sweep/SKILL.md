@@ -1,174 +1,132 @@
 ---
 name: sweep
-description: Scan a whole repo for code that no longer earns its place — unreachable files and exports, orphaned dependencies, dead cruft, and modules worth deepening — and report ranked candidates with evidence. Use when the user says "sweep", "garbage collect", "find dead code", "what can we delete", or wants a codebase-health pass with no change in flight.
+description: Scan a whole repo for code that stopped earning its place — unreachable files and exports, orphaned dependencies, shallow modules worth deepening — and report ranked candidates with evidence. Use for "sweep", "garbage collect", "find dead code", "what can we delete", or a codebase-health pass with no change in flight.
 ---
 
-# Sweep 🧹
+Every other skill on the spine follows a change. Sweep is pointed at a repo with nothing in flight,
+and asks the one question a diff review structurally cannot, because the answer lives outside the
+diff: **is this reachable?**
 
-*What in here is no longer earning its place?*
+Verify reads a diff; Sweep reads a codebase. Where the two overlap — judging whether code is any
+good — Verify's smell baseline (`skills/verify/SKILL.md`) is the single source for that vocabulary,
+and Sweep consults it rather than holding its own copy.
 
-Every other skill on the spine follows a change. Sweep doesn't — you point it at a repo with
-nothing in flight and ask what has rotted. It answers in candidates, never in deletions.
+Sweep reports. The candidates it produces become ordinary work on the spine, or a ticket via
+`/file-ticket`, once you choose from them.
 
-It isn't a phase. Like Research 🔬, it's a move you make when you want it, and what it produces
-feeds back onto the spine as ordinary work.
+## Reachability is a hypothesis, not a verdict
 
-## The boundary with Verify
+A reachability result is evidence about a graph, and the graph is always a model of the program
+rather than the program itself. Dynamic dispatch, framework convention and serialization all move
+real calls outside it. Tool authors say so themselves: the standard remedy for their output is an
+afternoon of tuning entry points before anyone deletes on it.
 
-**Verify reads a diff. Sweep reads a repo.** That's the whole split, and it matters because the two
-share vocabulary.
+So every candidate carries two things — **why it looks dead**, and **what would make it live**. The
+second is the load-bearing half. A candidate whose counter-evidence you haven't looked for is a
+hypothesis dressed as a finding, and acting on it spends exactly what the tiers below protect.
 
-Verify's smell baseline (`skills/verify/SKILL.md`, *The smell baseline*) is Fowler's catalogue, and
-it's the shared language for *is this good*. Sweep uses that list as-is — don't restate it here and
-don't fork a second copy. What Sweep adds is the one question a diff review structurally cannot ask,
-because the answer lives outside the diff:
+The blind spots that generate false positives are in [BLIND-SPOTS.md](BLIND-SPOTS.md). Read it
+before step 4; it's what makes that step mean something.
 
-> **Is this reachable at all?**
+## Process
 
-## Be honest about why
+### 1. Scope the sweep
 
-State this plainly when you report, because it's the part most sweeps oversell:
+A whole monorepo produces a list no one reads. Take a package, a directory, a layer — whatever the
+user named, or the area whose commit history is busiest.
 
-**There is no evidence that dead code causes bugs.** No study isolating unreachable or unused code
-as a defect-rate predictor turned up in research; neither did any build-time or onboarding
-measurement. The general complexity-and-churn literature exists, but it doesn't isolate *dead* code
-as the variable.
+*Done when:* the boundary is stated, and you can say what falls outside it.
 
-The real case is maintenance and comprehension, and it has named backing:
+### 2. Find the real entry points
 
-- **Google** (*Software Engineering at Google*, ch. 15) frames unused code as a liability paid
-  **continuously**, not once at write time. It also warns the other way: badly run deprecation
-  *"may cost more than leaving them alone."* Removal has its own cost.
-- **Kent Beck** treats it as zero-ceremony tidying: *"Delete it. That's all. If the code doesn't get
-  executed, delete it."*
+Everything downstream rests on this, and it's the step tools get wrong. Entry points run well past
+`main`: CLI bins, route files, task registries, migrations, plugin manifests, framework-convention
+directories, test harnesses, anything named in a build config or package manifest. Read the build
+configuration — it's the source of truth for what the program actually starts from.
 
-So sell Sweep on comprehension, not on defect rates. A repo where every file is reachable is one a
-newcomer — human or agent — can trust. That's the claim, and it's enough.
+Establish here whether this is an application or a library. For a library's public API, "no internal
+caller" is the correct state, and reporting it as dead is the single most expensive mistake a sweep
+can make.
 
-Full citations: `docs/research/dead-code-detection-and-removal.md`.
+*Done when:* every entry point traces back to something in the environment that names it — a config
+key, a manifest script, a framework convention — rather than to your assumption about the stack.
 
-## The method
+### 3. Trace outward and collect the leftovers
 
-Language-agnostic by design. Don't arrive with a tool in mind — find the repo's own, or work
-without one.
+Prefer what the repo already has. A linter that flags unused imports has settled part of this, and
+whatever CI already runs owns its own checks. Reach for a new tool only where the repo has none.
 
-1. **Find the real entry points first.** Everything downstream depends on this being right, and it
-   is the step tools get wrong. Entry points are rarely just `main`: CLI bins, route files, task
-   registries, migrations, plugin manifests, framework-convention directories, test harnesses, and
-   anything named in a build config or `package.json`/`pyproject.toml` script. Read the build
-   configuration, not your assumptions about the stack.
-2. **Find out what the repo already uses.** A repo with a linter that already flags unused imports
-   has settled part of this question; don't relitigate what tooling owns
-   (Verify's *skip what tooling enforces* applies here too). Check dev-dependencies and CI config
-   before reaching for anything new.
-3. **Trace reachability outward** from the entry points, and collect what's left over. If a
-   maintained tool for this ecosystem exists and the repo will tolerate it, use it and treat its
-   output as **a hypothesis list, not a verdict**. If there isn't one, trace by hand across a
-   bounded area rather than guessing across the whole repo.
-4. **Attack your own list** with the five blind spots below. This is the step that makes Sweep
-   trustworthy rather than dangerous; a candidate that hasn't survived it doesn't get reported.
-5. **Rank what survives** into the three tiers below.
-6. **Then, and separately, look for refactor candidates** — the second axis. Walk `git log
-   --oneline` for hot spots and read those for shallowness: modules whose interface is nearly as
-   complex as their implementation, seams that leak, concepts that require bouncing between files
-   to understand. Apply the **deletion test** to each: *would deleting this concentrate complexity,
-   or just move it?* "Concentrates" is the signal worth reporting. These are proposals for work, not
-   cleanups — keep them in their own section, well clear of the deletion candidates.
+Treat any tool's output as a hypothesis list. Where no maintained tool exists for the ecosystem,
+trace by hand across the scoped area, which is why step 1 keeps the area small.
 
-Long scans go to the **`runner` agent**; broad reads go to a sub-agent. Neither the raw tool output
-nor a directory-by-directory read belongs in the main session's context.
+Long scans go to the **`runner` agent** and broad reads to a sub-agent, so raw output stays out of
+the main context.
 
-## The five ways the tools lie
+*Done when:* every leftover has a path and a reason it surfaced.
 
-Every dead-code tool across every ecosystem documents its own false positives, and they converge on
-the same five classes. knip's own FAQ puts it bluntly: **"You will get false positives on day one."**
-Its recommended remedy is not to trust the output but to budget time tuning entry points first.
-Treat any tool's output accordingly.
+### 4. Attack your own list
 
-Code that is live but will be reported dead:
+Take each candidate through [BLIND-SPOTS.md](BLIND-SPOTS.md) and try to prove it live. Search for
+the dynamic reference, the registry that loads it by string, the decoder that fills it, the test
+that's its only caller.
 
-1. **Dynamic or computed reference** — `import(someVariable)`, reflection, string-keyed dependency
-   injection, anything assembled at runtime from a name. Invisible to static analysis by
-   construction.
-2. **Framework-convention entry points** — routes, migrations, plugin registries, CLI bins, config
-   files loaded by string. Live only because a framework knows where to look; the tool doesn't
-   unless a plugin taught it.
-3. **Serialization targets** — a field only ever set by a JSON decoder, an ORM, or a wire format.
-   Nothing in the codebase assigns it, and it is still load-bearing.
-4. **Test-only usage** — many tools don't load test files into the graph by default, so a helper
-   used exclusively by tests reads as orphaned.
-5. **A library's public API** — for anything consumed from outside this repo, "no internal caller"
-   is the **correct** state, not a defect. Establish whether the repo is an application or a library
-   before you report a single unused export.
+*Done when:* every surviving candidate carries the specific counter-evidence you looked for and
+failed to find. Candidates that don't clear this bar leave the list.
 
-Two more worth carrying:
+### 5. Rank what survives
 
-- **Build-config blindness.** A reachability graph is usually valid for exactly one build
-  configuration — one platform, one feature-flag set, one set of tags. Code dead under the config
-  you scanned can be live under another.
-- **The converse case, which no tool catches.** Code statically reachable from an entry point but
-  never actually executed — an error branch that can't fire, a feature-flag path switched off two
-  years ago. Static analysis answers *reachable*; only coverage answers *exercised*. If the repo has
-  coverage data, read it as a second signal; production sampling is the stronger version of it
-  (Coverband's operators removed tens of thousands of lines that way), but that's a tool to propose,
-  not to install mid-sweep.
+- **Tier 1 — safe.** Unreferenced, in an application, clear of every blind spot, confirmed by more
+  than one signal. Commented-out blocks and orphaned files land here. These need no argument.
+- **Tier 2 — likely, needs a human.** Unreferenced but touching a blind spot, or reachable yet
+  apparently unexercised. Name the doubt exactly: *"no static caller, but the module loads handlers
+  by string — check the registry."*
+- **Tier 3 — a fence.** Something whose purpose the code doesn't explain. Chesterton's Fence
+  applies, so report it as the question *what is this for?* rather than as a candidate.
 
-## Rank by confidence, and say what would disprove each
+Sort by tier, then by size of win. An honestly short tier 1 beats a long list padded with tier 2.
 
-Every candidate carries **the evidence that it's dead** and **what would make it live** — the
-specific blind spot that could be hiding a caller. A candidate without its counter-evidence is an
-invitation to delete something load-bearing.
+*Done when:* every candidate sits in exactly one tier and carries its counter-evidence.
 
-- **Tier 1 — Safe.** Unreferenced, in an application (not a library), no dynamic-reference pattern
-  anywhere near it, and reachability confirmed by more than one signal. Commented-out blocks and
-  obviously orphaned files land here. Deleting these needs no argument.
-- **Tier 2 — Likely, needs a human.** Unreferenced but touching one of the five classes, or
-  reachable but apparently unexercised. Name the specific doubt: *"no static caller, but the module
-  loads its handlers by string — check the registry."*
-- **Tier 3 — Ask why the fence is there.** Something whose purpose isn't clear from the code.
-  Chesterton's Fence applies: don't propose removing what you can't explain. Report it as a question
-  — *what is this for?* — not as a candidate. (This framing is folklore rather than a citable source;
-  it's a good instinct, not an authority.)
+### 6. Look for refactor candidates, separately
 
-Sort by tier, then by size of the win. A tier-1 list that is honestly short beats a long list padded
-with tier-2 guesses.
+The second axis, and a different question: not *is this reachable* but *is this shaped well*. Walk
+`git log --oneline` for hot spots and read those for shallowness — modules whose interface is nearly
+as complex as their implementation, seams that leak, concepts that need three files to understand.
 
-## Sweep does not delete
+Apply the **deletion test** to each: would deleting this concentrate complexity, or just move it?
+"Concentrates" is the signal worth reporting.
 
-Sweep reports. **The deletion is a separate, explicit act** — you pick from the candidates, and what
-you pick becomes ordinary work on the spine, or a ticket via `/file-ticket`.
+These are proposals for work rather than cleanups, so they stay in their own section, clear of the
+deletion candidates.
 
-Two reasons this line is firm. Removal has its own cost, and a sweep that deletes has already
-decided that cost is worth paying on your behalf. And the tiers above exist precisely because some
-candidates are wrong — acting on them automatically would spend the one thing the tiering was built
-to protect.
-
-When the removal work does happen: small reviewable commits with the suite green between them, not
-one big sweep. Version control genuinely does make this cheap to reverse — so the appropriate
-posture is bold, not timid — but "git remembers" is an argument for deleting confidently, not for
-deleting unreviewably.
+*Done when:* each carries its deletion-test answer and a strength of `Strong`, `Worth exploring`, or
+`Speculative`.
 
 ## Rules
 
-- **Scope the sweep before running it.** A whole monorepo produces a list no one reads. Take a
-  package, a directory, a layer — and say what you scanned and what you didn't.
-- **Never report a candidate you haven't attacked.** Running the tool is step three of six. Handing
-  over raw tool output is not a sweep.
-- **A null result is a real result.** "This package is clean" is worth saying, and worth trusting
-  more than a padded list.
-- **Don't fix what you find.** Not even the obvious one-liner. Sweep's output is a list; the moment
-  it starts editing it has stopped being a sweep and become an unplanned refactor.
-- **The repo overrides.** A documented convention beats anything here, and tooling that already owns
-  a check owns it.
+- **Sweep reports; you choose; the spine does the work.** Removal carries its own cost, and a sweep
+  that deletes has decided that cost is worth paying on your behalf.
+- **Report what you scanned and what you left out.** A sweep's silence about an area reads as a
+  clean bill of health for it.
+- **A null result is a real result.** "This package is clean" is worth saying, and worth more trust
+  than a padded list.
+- **Leave what you find intact, including the obvious one-liner.** The moment Sweep edits, it has
+  become an unplanned refactor with no plan behind it.
+- **The repo overrides.** A documented convention wins, and a check that tooling already owns stays
+  with the tooling.
 
 ## Output
 
-Two sections, kept apart:
+Two sections, kept apart.
 
 **Dead code** — candidates by tier, each with its path, why it looks dead, and what would make it
-live. Say what was scanned and what wasn't.
+live. State the scope and what fell outside it.
 
-**Refactor candidates** — shallow modules and leaky seams worth deepening, each with its deletion-test
-answer, marked `Strong` / `Worth exploring` / `Speculative`.
+**Refactor candidates** — shallow modules and leaky seams, each with its deletion-test answer and
+strength.
 
-Then one line: what you'd do first, if it were yours.
+Then one line on what you'd do first.
+
+Say plainly what the case rests on: comprehension and maintenance cost, not defect rates — no
+evidence connects dead code to bugs. Background and sources:
+`docs/research/dead-code-detection-and-removal.md`.
