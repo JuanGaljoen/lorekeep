@@ -46,6 +46,23 @@ trust.** But until the oracle is vetted, treat green as unproven, not as done.
   compactly) rather than waiting it out on a strong model — and look at what the change is
   adjacent to.
 
+### Checks only I can run
+
+Some evidence needs my hands — a browser flow, a device, a rendered screen. That hands the pace of
+Verify to me, so hand over **one step, then stop on its outcome.**
+
+- **One step per turn, and wait for the result.** Not a numbered script I have to pull down a chunk
+  at a time. You're waiting on *what happened* — "red border, banner text matched" — not on me
+  asking for the next slab. A step whose result you never collected is evidence you don't have.
+- **Say what counts as pass and as fail.** Each step ends with the observable: what I should see if
+  the change works, and what I'd see if it didn't. Without the second half I can't report anything
+  but "looks fine".
+- **Never re-emit a step verbatim.** If I ask about one you already gave, answer the *delta* — what
+  changed, what to look at — or point back at it. Restating the same block is how a session ends up
+  looping on its own output.
+- **Collect, then judge.** My observation is the raw evidence; deciding whether it meets the
+  criterion is yours. "It didn't go red" is a finding, not a verdict.
+
 ### Running the suite without making it worse
 
 A long suite is the one place Verify can do real damage to a machine it doesn't own.
