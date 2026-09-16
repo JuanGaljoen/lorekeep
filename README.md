@@ -19,11 +19,12 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 | **Verify 🔍** | Did we build the right thing? | [`skills/verify`](skills/verify/SKILL.md) |
 | **Chronicle 📖** | What should future-us know? | [`skills/chronicle`](skills/chronicle/SKILL.md) |
 
-Plus one off-spine skill any phase can reach for:
+Plus two off-spine skills, which aren't phases and don't wait for a change to be in flight:
 
 | | Question | Skill |
 |-------|----------|-------|
 | **Research 🔬** | What does the world know that we don't? | [`skills/research`](skills/research/SKILL.md) |
+| **Sweep 🧹** | What in here is no longer earning its place? | [`skills/sweep`](skills/sweep/SKILL.md) |
 
 ## How it works
 
@@ -34,13 +35,25 @@ skill the agent reaches for automatically, or that you invoke by name (`/recall`
 Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` for decisions) by default, and
 **Obsidian** for the rare lesson that outlives a single repo.
 
-**Research 🔬** is the outward arm of Recall, and the one skill that isn't a phase. Recall loads what
+**Research 🔬** is the outward arm of Recall. Recall loads what
 *we* know; Research fetches what nobody here does — a trade tolerance, a standard, someone else's API
 contract — from primary sources, and leaves a cited note behind so the question is only asked once.
 It fires on a deliberately narrow tell: *about to justify a value with reasoning instead of a
 citation*. Not doubt — invention. A plausible derivation is indistinguishable from a correct one
 until someone checks, so Design researches before freezing a number and Verify treats any constant
 without a source as unverified, however green the suite is.
+
+**Sweep 🧹** is the other one, and it's the only skill you point at a whole repo with nothing in
+flight. Verify reads a diff; Sweep reads a codebase, and asks the one question a diff review
+structurally can't: *is this reachable at all?* It reports ranked candidates — unreferenced files and
+exports, orphaned dependencies, shallow modules worth deepening — and **never deletes anything**;
+what you pick from the list becomes ordinary work on the spine. Most of the skill is about not being
+wrong, because every dead-code tool in every ecosystem ships the same five blind spots (dynamic
+reference, framework-convention entry points, serialization targets, test-only usage, and a
+library's public API, where "no internal caller" is the correct state). Candidates come tiered by
+confidence, each carrying what would make it live. It's also honest about its own case: there's no
+evidence dead code causes bugs — the argument is comprehension and maintenance cost, not defect
+rates.
 
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
