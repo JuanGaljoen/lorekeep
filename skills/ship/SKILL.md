@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Commit, push the branch, and open a solid pull request once the work is done and verified — then, once the PR is merged, sync the default branch and clean up the merged branch. Use when the user says "ship it", "ship this", "push and open a PR", "raise the PR", "I merged the branch", "clean up the merged branch", or wants to deliver finished work to the remote.
+description: Commit, push the branch, and open a solid pull request once the work is done and verified — then, once the PR is merged, sync the default branch and delete the merged branch. Use when the user says "ship it" or wants finished work delivered to the remote, and again when they say "I merged the branch" and the merged branch needs cleaning up.
 ---
 
 # ship 🚢
@@ -33,16 +33,15 @@ before a long push/CI wait.
 ## Steps
 
 ### 1. Earn the ship
-Don't deliver work that isn't done. Confirm, quickly:
+Deliver only work that's finished. Confirm, quickly:
 - **Verify passed.** Tests green, success criteria met. If Verify never ran, say so and offer to run
-  it first — don't ship on faith.
+  it first; evidence is what earns the ship.
 - **Chronicle considered.** Verify hands off to Chronicle before delivery (see Verify, "Hand off to
-  Chronicle"), so on a normal flow the call was already made — **confirm it happened, don't re-ask.**
+  Chronicle"), so on a normal flow the call was already made — **confirm it happened.**
   Only if you arrived straight at ship without that handoff (no Verify this session) do you raise the
   Chronicle question yourself: did anything earn a record (a surprising bug, a hard-won decision, a
   lesson)? If yes and nothing's captured, offer `/chronicle` first; if genuinely nothing, say so.
-  Ship is the backstop, not a second prompt — don't let knowledge fall off the end silently, but
-  don't ask twice either.
+  Ship is the backstop: ask once if the handoff never happened, and otherwise trust that it did.
 - **There's something to ship.** If `git status` is clean *and* the branch is already pushed with a
   PR, there's nothing to do — say so and stop.
 
@@ -74,7 +73,8 @@ Then stop and tell me to re-run without `--dry-run` to actually ship.
 ### 4. Stage and commit
 - `git diff --stat` to show what's going in.
 - Stage changes, but **never stage secrets** — warn and exclude any `.env` / credential file rather
-  than committing it.
+  than committing it. The safety hook blocks these too, but it's a floor under you, not the check
+  itself.
 - Write a commit in the repo's house style (read recent commits — match `type(scope): summary`):
   - **Body** — the success criteria this delivers / what was built, not a file list.
   - **Footer** — `Refs: <KEY>` when a ticket's in play.
@@ -87,8 +87,8 @@ git push -u origin <branch>
 `-u` sets upstream so future pushes are one word. If already published, this just fast-forwards.
 
 ### 6. Open the PR — or report the one that exists
-Check first: `gh pr view` (or `gh pr status`). If a PR already exists for the branch, **don't make a
-second** — the push above updated it; report the existing one.
+Check first: `gh pr view` (or `gh pr status`). **One PR per branch** — if one already exists, the
+push above updated it, so report that one.
 
 Otherwise **build a real PR** — never GitHub's default (which mangles the branch slug into the title
 and leaves the body empty). Read the commits and diff, and a recent merged PR for house format:
@@ -102,7 +102,7 @@ gh pr view <recent-n>        # match the format
 (`feat(RNG-9): reusable gallery primitive + halo composition`). From `--title` if given, else the
 ticket title, else the commit — never the raw branch slug.
 
-**Body** — structured, sections that apply only (drop the rest, don't pad):
+**Body** — structured; include the sections that apply and leave out the rest:
 ```markdown
 ## Summary
 What this delivers and why it exists — one or two sentences.
@@ -125,16 +125,17 @@ End the body with:
 ```
 
 Show the draft (title + body + base branch) and **confirm before creating** — a PR is
-outward-facing. Then create it, passing the body via a file so markdown survives:
+outward-facing. Pushing your own branch needs no permission; opening the PR is the checkpoint. Then
+create it, passing the body via a file so markdown survives:
 ```bash
 gh pr create --base <default> --title "…" --body-file <path>
 ```
 
 **If, instead of confirming, I say it's already merged** — a normal shortcut: GitHub shows its own
 "Compare & pull request" banner right after every push, and it's easy to create and merge it there
-before answering here. Don't treat this as a mismatch to puzzle over. You never ran `gh pr create`,
-so creating one now would only make a duplicate — skip straight to verifying what's actually on the
-remote (`gh pr view <branch>`), and once it shows `MERGED`, jump to **step 9 (Land)**. Step 7 (Jira
+before answering here. Take it at face value and go and look: you never ran `gh pr create`, so
+creating one now would only make a duplicate. Verify what's actually on the remote
+(`gh pr view <branch>`), and once it shows `MERGED`, jump to **step 9 (Land)**. Step 7 (Jira
 → In Review) never ran in this path, and that's fine — Land's Jira step (9c) transitions from
 wherever the ticket actually is, not from an assumed In Review.
 
@@ -158,6 +159,7 @@ checkpoints still unticked after this one):
 
 Next: merge when checks pass, or keep iterating on this branch.
 ```
+It's shipped when the PR is actually open — if checks fail after the push, say so with the output.
 
 ### 9. Land — after the PR merges
 Triggered when I tell you the PR is merged (or `gh pr view` shows `MERGED`). This half syncs the
@@ -207,23 +209,3 @@ git branch -d <feature-branch>            # -d refuses to delete if it isn't mer
 
 Next: <the next piece of work, if one is obvious from the ticket/plan — else "ready for the next task">.
 ```
-
-## Rules
-- **Verified before shipped.** No green Verify, no ship — offer to run it, don't deliver on faith.
-- **Never push to the default branch.** On `main`? Branch first.
-- **Never stage a secret.** Warn and exclude `.env` / credential files — the safety hook blocks it
-  anyway, but don't rely on the floor.
-- **Confirm before the PR.** Show the draft; a PR is outward-facing. Pushing your own branch is fine
-  without asking; opening a PR is the checkpoint.
-- **`--dry-run` changes nothing.** Preview only, then stop.
-- **One PR per branch.** If one exists, push and report it — don't open a duplicate.
-- **Report honestly.** If checks fail after push, say so with the output. Not shipped until the PR is
-  actually open.
-- **Never delete on my word alone.** In Land, confirm `MERGED` via `gh pr view` before touching a
-  branch. Not merged → stop and say so. Never `git branch -D` (force) to work around an unmerged
-  check unless the PR is confirmed merged (squash/rebase case).
-- **Fast-forward only when syncing the default branch.** `git merge --ff-only` — never create a
-  merge commit on `main` during Land.
-- **Don't close a ticket mid-ticket.** A merged PR closes a *ticket* only when it finished the whole
-  ticket. If the PR delivered one checkpoint of many, the ticket stays **In Progress** — advance the
-  checkpoint, not the ticket. When unsure whether this was the last piece, ask before transitioning.

@@ -8,7 +8,7 @@ and asks the one question a diff review structurally cannot, because the answer 
 diff: **is this reachable?**
 
 Verify reads a diff; Sweep reads a codebase. Where the two overlap — judging whether code is any
-good — Verify's smell baseline (`skills/verify/SKILL.md`) is the single source for that vocabulary,
+good — Verify's smell baseline (`skills/verify/SMELLS.md`) is the single source for that vocabulary,
 and Sweep consults it rather than holding its own copy.
 
 Sweep reports. The candidates it produces become ordinary work on the spine, or a ticket via
