@@ -54,6 +54,10 @@ of the handoff, and they live here because this is the file that owns the run.
   looks stuck is usually a run that's competing.
 - **Stop the task, not the PID.** To end a background run, stop the *agent*. Killing its processes
   leaves the owner alive to start another — that's how one run becomes three.
+- **The report arrives once.** The runner's message *is* the result. The harness's "Agent finished"
+  notification is an echo of the same run arriving later, when the process exits — it carries no
+  numbers you don't already have. Don't spend a turn acknowledging it, and don't keep waiting on it
+  once the report is in hand: a green suite at 16m is green, whatever the exit notice says at 20m.
 - **`kill` is confirm-first.** It's destructive and it is never implied by "run the tests". Report
   what's running — PIDs, elapsed, command — and ask. Using `ps` to confirm something is gone
   afterwards is fine; using it to go hunting mid-run is the smell above.
