@@ -43,17 +43,14 @@ citation*. Not doubt — invention. A plausible derivation is indistinguishable 
 until someone checks, so Design researches before freezing a number and Verify treats any constant
 without a source as unverified, however green the suite is.
 
-**Sweep 🧹** is the other one, and it's the only skill you point at a whole repo with nothing in
-flight. Verify reads a diff; Sweep reads a codebase, and asks the one question a diff review
-structurally can't: *is this reachable at all?* It reports ranked candidates — unreferenced files and
-exports, orphaned dependencies, shallow modules worth deepening — and **never deletes anything**;
-what you pick from the list becomes ordinary work on the spine. Most of the skill is about not being
-wrong, because every dead-code tool in every ecosystem ships the same five blind spots (dynamic
-reference, framework-convention entry points, serialization targets, test-only usage, and a
-library's public API, where "no internal caller" is the correct state). Candidates come tiered by
-confidence, each carrying what would make it live. It's also honest about its own case: there's no
-evidence dead code causes bugs — the argument is comprehension and maintenance cost, not defect
-rates.
+**Sweep 🧹** is the other one, and the only skill you point at a whole repo with nothing in flight.
+Verify reads a diff; Sweep reads a codebase, and asks the question a diff review structurally can't:
+*is this reachable?* It reports candidates — unreferenced files and exports, orphaned dependencies,
+shallow modules worth deepening — tiered by confidence, each carrying **what would make it live**.
+That second half is the point, because a reachability graph is a model of the program rather than
+the program, and dynamic dispatch, framework convention and serialization all move real calls
+outside it. Sweep never deletes: you choose from the list, and what you choose becomes ordinary work
+on the spine.
 
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
