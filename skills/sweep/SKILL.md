@@ -128,5 +128,4 @@ strength.
 Then one line on what you'd do first.
 
 Say plainly what the case rests on: comprehension and maintenance cost, not defect rates — no
-evidence connects dead code to bugs. Background and sources:
-`docs/research/dead-code-detection-and-removal.md`.
+evidence connects dead code to bugs.
