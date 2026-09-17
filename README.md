@@ -60,9 +60,12 @@ Working code is not evidence you could defend it. So at Chronicle, when the work
 had to look up, Quiz offers five questions drawn **only from what this ticket touched** — the change
 is the retrieval cue that generic flashcards lack. Open questions, one at a time, graded honestly;
 domain rather than our code (*"why does curtailment spike at midday?"*, not *"why did we cache
-that?"*). A miss produces one **sourced** link to go read, and a line in a running gap log in
-Obsidian that the next quiz opens by re-asking. It never invents an answer or a URL — a quiz makes
-you believe things, which is exactly what makes a wrong one expensive.
+that?"*). Everything durable lands in **one running note per domain** in Obsidian, edited in place
+forever rather than a new file per session: open gaps on top (the next quiz opens by re-asking one),
+and below them the facts that survived a question, grouped by topic with their sources — the part
+you actually go back and re-read. A miss also produces one **sourced** primary link to go read. Quiz
+never invents an answer or a URL: it makes you believe things, which is exactly what makes a wrong
+one expensive.
 
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and

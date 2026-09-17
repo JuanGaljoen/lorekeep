@@ -56,7 +56,8 @@ Priority order when picking five:
 2. **The why underneath it** — the mechanism that makes that fact true. This is the one that
    transfers.
 3. **A term you used without defining** — the vocabulary you'd have to fake in a meeting.
-4. **One thing you got wrong last time** (see *The gap log*).
+4. **One thing you got wrong last time** (see *The domain note*) — and nothing already written in
+   its *What I know* section, which is the record of what's settled.
 
 ## How to run it
 
@@ -112,40 +113,74 @@ only actionable half, and without it "you conflated those two" is just a scorebo
   worse here than in prose, because a dead link still *looks* like homework and the failure only
   surfaces when I'm sitting down to read it.
 
-The link is written next to the gap in the log, not just said out loud — the moment I read it is
-never the moment I'm told.
+The link is written next to the gap in the domain note, not just said out loud — the moment I read
+it is never the moment I'm told.
 
-## The gap log
+## The domain note
 
-What I missed is the only durable output. Keep it in **Obsidian** (`~/ObsidianVault/Personal/`) —
-domain knowledge outlives this repo by definition, and the next ticket may be in a different one.
+Everything durable lands in **one running note per domain** in Obsidian
+(`~/ObsidianVault/Personal/clean-energy.md`) — domain knowledge outlives this repo by definition,
+and the next ticket may be in a different one.
 
-One running note per domain, e.g. `clean-energy.md`. Two lists, nothing more:
+Two sections, doing two different jobs. Keep them apart: gaps are a **worklist** that should stay
+short and get emptied; facts are a **reference** that grows and gets re-read. Merged, the worklist
+stops being actionable and nobody re-reads a page of their own wrong answers.
 
 ```markdown
-# Clean energy — gaps
+# Clean energy
 
-## Shaky
-- 2026-09-17 — Curtailment vs. negative pricing: I conflated them. (ENG-214, midday solar)
+## Open gaps
+- 2026-09-17 — Curtailment vs. negative pricing: I conflated them. (ENG-214)
   → https://www.caiso.com/…  (primary; cited in docs/research/curtailment.md)
 
-## Solid
-- 2026-09-17 — Capacity factor vs. availability factor
+## What I know
+
+### Curtailment
+- Curtailment is a **grid operator instruction to generate less**, not a price signal — it's an
+  answer to a constraint (transmission or oversupply), and it happens at any price.
+  (2026-09-17, ENG-214) → https://www.caiso.com/…
+
+### Capacity
+- **Capacity factor** = actual output ÷ nameplate over a period. **Availability factor** = time the
+  plant *could* run. A wind farm has a low capacity factor and a high availability factor — the
+  difference is the resource, not the machine. (2026-09-17, ENG-214) → https://www.nrel.gov/…
 ```
 
-At the **start** of the next quiz, re-ask one thing from *Shaky*. That single re-ask is the only
-mechanism here that moves retention, and it costs one question. When it comes back clean twice,
-move it to *Solid* and stop asking.
+**Gaps** — one line, dated, ticketed, with the link to read. **Open the next quiz by re-asking one
+of them.** That single re-ask is the only mechanism here that moves retention, and it costs one
+question. When it comes back clean twice, **delete the line** and make sure the fact is written
+below — a closed gap is not history worth keeping, it's a fact that graduated.
 
-Keep it dead simple: a line, a date, a ticket, a link. No schema, no scoring, no streak.
+**What I know** — one entry per fact that *survived a question*. Grouped by topic rather than by
+date, because you re-read by topic and you'd never scroll to find "that thing from September."
+
+Rules for the facts half, which is the half you'll actually trust:
+
+- **Only what was asked.** A fact earns a line by having been put to me and resolved — right, or
+  wrong and then told. Everything the ticket merely touched belongs in the repo's research notes,
+  not here. That filter is the only thing keeping this note short enough to re-read.
+- **Write the claim, not the question.** "Why does curtailment spike at midday?" is a quiz
+  transcript. The claim, stated flat, is a reference. One or two sentences, including *why* it's
+  true — the mechanism is what transfers; the bare fact decays.
+- **Every line carries its source.** Same bar as everything else here: the primary source, inline.
+  This note is the one artefact I'll read repeatedly and believe, so a wrong line in it is the most
+  expensive line in the whole workflow.
+- **Sharpen in place, don't append.** When the same ground comes up again with more precision, edit
+  the existing line. Two entries on one fact means re-reading it twice and trusting neither.
+- **Read it before the next quiz.** It's the memory of what's already solid: don't re-ask what's
+  written here — build the transfer question on top of it instead.
+
+No schema beyond those two headings, no scoring, no streak. A line, a date, a ticket, a link.
 
 ## Output
 
-The gaps, not the score. Close with the two or three things worth reading up on, and the path to
-the note — then get out of the way.
+**Write the note first, then report.** The note is the deliverable; the message is a receipt for it.
+Update both halves in the one domain file — new facts filed under their topic, the gap added or
+cleared — then close in three lines: what's now solid, what isn't, and the path.
 
-> 🎓 4/5. Solid on capacity factors. The gap: curtailment vs. negative pricing — you have them as
-> the same event, and they come apart when the constraint is transmission rather than supply.
-> Read: https://www.caiso.com/… (20 min). Logged in `~/ObsidianVault/Personal/clean-energy.md`.
+> 🎓 4/5. Two facts filed under *Curtailment* and *Capacity*. The gap: curtailment vs. negative
+> pricing — you have them as the same event, and they come apart when the constraint is
+> transmission rather than supply. Read: https://www.caiso.com/… (20 min).
+> `~/ObsidianVault/Personal/clean-energy.md`.
 
-No percentage, no "great job", no encouragement padding. The gap is the deliverable.
+No percentage, no "great job", no encouragement padding.

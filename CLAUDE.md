@@ -41,7 +41,9 @@ leaned on domain facts you had to look up, offer it in one line — *"Want a �
 capacity-market side of this? (5 questions, ~5 min)"* — and drop it if I say no. Never a gate before
 ship, never unasked, and never on a refactor whose domain content is zero. Questions come only from
 what this ticket touched, they're about the domain rather than our code, and a missed one produces
-one real sourced link to go read — never an invented answer or an invented URL.
+one real sourced link to go read — never an invented answer or an invented URL. It keeps **one
+running note per domain** in Obsidian, edited in place: open gaps on top, and below them the facts
+that survived a question, so there's always somewhere to go and refresh.
 
 ## Moving along the spine
 
