@@ -19,12 +19,13 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 | **Verify 🔍** | Did we build the right thing? | [`skills/verify`](skills/verify/SKILL.md) |
 | **Chronicle 📖** | What should future-us know? | [`skills/chronicle`](skills/chronicle/SKILL.md) |
 
-Plus two off-spine skills, which aren't phases and don't wait for a change to be in flight:
+Plus three off-spine skills, which aren't phases and don't wait for a change to be in flight:
 
 | | Question | Skill |
 |-------|----------|-------|
 | **Research 🔬** | What does the world know that we don't? | [`skills/research`](skills/research/SKILL.md) |
 | **Sweep 🧹** | What in here is no longer earning its place? | [`skills/sweep`](skills/sweep/SKILL.md) |
+| **Quiz 🎓** | What do *I* actually know now? | [`skills/quiz`](skills/quiz/SKILL.md) |
 
 ## How it works
 
@@ -51,6 +52,17 @@ That second half is the point, because a reachability graph is a model of the pr
 the program, and dynamic dispatch, framework convention and serialization all move real calls
 outside it. Sweep never deletes: you choose from the list, and what you choose becomes ordinary work
 on the spine.
+
+**Quiz 🎓** is the third, and the only one pointed at *you* rather than the code. On a domain you're
+still learning, the knowledge flow runs one way: Research fetches the market rule, Forge bakes it
+in, Chronicle writes the ADR — and all of it lands in the repo while none of it lands in your head.
+Working code is not evidence you could defend it. So at Chronicle, when the work leaned on facts you
+had to look up, Quiz offers five questions drawn **only from what this ticket touched** — the change
+is the retrieval cue that generic flashcards lack. Open questions, one at a time, graded honestly;
+domain rather than our code (*"why does curtailment spike at midday?"*, not *"why did we cache
+that?"*). A miss produces one **sourced** link to go read, and a line in a running gap log in
+Obsidian that the next quiz opens by re-asking. It never invents an answer or a URL — a quiz makes
+you believe things, which is exactly what makes a wrong one expensive.
 
 A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and

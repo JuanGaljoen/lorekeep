@@ -21,6 +21,9 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 | **Verify 🔍** | Did we build the right thing? | Run it. Check against success criteria. Review quality. Hunt regressions. |
 | **Chronicle 📖** | What should future-us know? | Record decisions and patterns worth keeping. Skip the trivial. |
 
+Off-spine, reachable from any phase: **Research 🔬** (what does the world know that we don't?),
+**Sweep 🧹** (what's no longer earning its place?), **Quiz 🎓** (what do *I* actually know now?).
+
 Each phase is a skill under `skills/`. The agent reaches for them as it moves through the
 work; you can also invoke any of them by name (`/recall`, `/understand`, …).
 
@@ -29,6 +32,16 @@ available; when a decision turns on one that isn't — a trade tolerance, a stan
 API contract — `skills/research` fetches it from primary sources. It fires on a narrow tell: *about
 to justify a value with my own reasoning instead of a citation*. Not doubt — invention. Understand
 and Design use it to get the number right up front; Verify uses it to catch one that was invented.
+
+**Quiz 🎓 is off-spine too, and it's the one that points at me.** Chronicle writes what the work
+taught *to the repo*; `skills/quiz` writes it *to me* — same moment, different destination, and only
+one of them still works away from the keyboard. On a domain I'm learning, correct code is no
+evidence I could defend it, and that gap compounds silently. So at **Chronicle**, when the work
+leaned on domain facts you had to look up, offer it in one line — *"Want a 🎓 quiz on the
+capacity-market side of this? (5 questions, ~5 min)"* — and drop it if I say no. Never a gate before
+ship, never unasked, and never on a refactor whose domain content is zero. Questions come only from
+what this ticket touched, they're about the domain rather than our code, and a missed one produces
+one real sourced link to go read — never an invented answer or an invented URL.
 
 ## Moving along the spine
 
