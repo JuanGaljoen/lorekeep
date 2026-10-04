@@ -90,6 +90,9 @@ confident the reading of the code.
   during Forge? Now is when refactoring happens, with tests green. Walk
   [SMELLS.md](SMELLS.md) — Fowler's catalogue — against the diff; it's the shared vocabulary for
   this judgement and it applies even where the repo documents no standards of its own.
+- **No workflow fingerprints** — grep the diff for the ticket key, `RED`/`GREEN`, and plan/spec
+  paths. Each hit gets rewritten to the reasoning it stood in for, not just deleted; if there was
+  no reasoning, the comment goes.
 - **Blast radius understood** — what else touches this code path? Anything downstream affected?
 - **Every magic number has a source.** Walk the constants, thresholds and tolerances this change
   introduced or moved, and ask where each one came from. A value justified by reasoning — or worse,

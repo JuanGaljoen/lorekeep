@@ -42,6 +42,10 @@ understand the implementation.
 - **Stay in the frozen plan.** A genuinely new idea goes on the list for later, not into this
   change. If the plan is wrong, stop and say so — don't quietly build something else.
 - **Follow the repo's existing patterns.** Match the surrounding code's naming and idiom.
+- **The workflow leaves no fingerprints in the code.** A comment or docstring says *why the code
+  is this way* or *what the test protects* — never which ticket, checkpoint or phase produced it.
+  No ticket keys, no "RED"/"GREEN", no "the implementer", no plan or spec paths. That history
+  lives in the commit and `specs/`; in the code it goes stale the day the ticket closes.
 - **Refactoring is not part of this loop.** Cleanup belongs to Verify, with tests green.
 - **Long runs go to the `runner` agent.** A quick red→green test is yours; a full suite or batch
   build is not — hand it to the Haiku-pinned runner and read its report. Never sit on a strong
