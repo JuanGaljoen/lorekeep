@@ -163,4 +163,4 @@ first; `uninstall.sh` restores it.
 
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —
 the small-and-composable philosophy, the grilling interview, the bug-diagnosis loop behind
-Diagnose, and Chronicle's three-bar test for an ADR.
+Diagnose, and two Chronicle rules: the three-bar test for an ADR, and a check before prose.
