@@ -3,8 +3,8 @@
 A lean, six-phase workflow for doing real engineering with Claude — not vibe coding.
 
 The philosophy: small, composable, adaptable. No orchestrator owns the process, no hook
-blocks your keystrokes, no state machine to appease. Just a spine you move along and six
-skills that hold the discipline. Steal from it, bend it, make it yours.
+blocks your keystrokes, no state machine to appease. Just a spine you move along and a
+handful of small skills that hold the discipline. Steal from it, bend it, make it yours.
 
 ## The spine
 

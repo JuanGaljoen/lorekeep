@@ -84,9 +84,9 @@ and the branch's commits. Jira is a mirror. When they drift (a progress write go
 
 ## Keeping the token window cheap
 
-On a Pro plan the usage window is the real constraint, so three moves protect it:
+On a Pro plan the usage window is the real constraint, so four moves protect it:
 
-- **Model discipline.** Thinking phases (Understand, Design, diagnosis) earn the strong model;
+- **Model discipline.** Thinking phases (Understand, Design, Diagnose) earn the strong model;
   mechanical phases don't. At each phase boundary the agent recommends the switch when the current
   model doesn't match the phase (e.g. "entering Forge — `/model sonnet` saves your window"). A
   recommendation, not a rule — keeping Opus on a gnarly Forge is your call.
@@ -162,4 +162,5 @@ first; `uninstall.sh` restores it.
 ## Credit
 
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —
-the small-and-composable philosophy and the grilling interview.
+the small-and-composable philosophy, the grilling interview, the bug-diagnosis loop behind
+Diagnose, and Chronicle's three-bar test for an ADR.
