@@ -47,6 +47,10 @@ is the default — reach for Obsidian only when the lesson genuinely travels bey
   The test: **could the agent find this by looking?** If yes, leave it in the environment, where it
   can't go stale. Chronicle what looking *can't* find — the unwritten convention, the reason behind
   the choice, the gotcha no config confesses.
+- **A check beats a sentence.** Before writing a rule into `CLAUDE.md`, ask whether a lint, a
+  test or a CI grep could enforce it instead. A mechanical rule ("no ticket keys in comments")
+  belongs in tooling, which can't be skimmed past; prose is for judgement calls a check can't
+  make. If a check fits, propose it — that's the entry.
 - **State the lesson, not the diff.** Git already has the diff. Record *why*, and what future-us
   should do differently — the thing the code can't tell them.
 - **Write it where it'll be found.** An entry nobody stumbles on later is wasted effort.
