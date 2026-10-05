@@ -76,4 +76,4 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
 
 A short plan: the chosen approach and why, the file-change list, the tests to write (with seams),
 and the top risks. For a decision that's hard to reverse or that future-us will question, flag it
-now — Chronicle will record it as an ADR.
+now — Chronicle decides whether it earns an ADR.
