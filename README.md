@@ -7,21 +7,22 @@ Just a spine you move along and a handful of small skills that hold the discipli
 easy to adapt, and yours to bend.
 
 ```
-Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  Verify 🔍  →  Chronicle 📖
+Recall 📚  →  Understand 🧭  →  Design ✍️    →  Forge ⚒️  →  Verify 🔍  →  Chronicle 📖
+                                Diagnose 🩺
+                              (feature | fix)
 ```
 
 | Phase | Question | Skill |
 |-------|----------|-------|
 | **Recall 📚** | What do we already know? | [`skills/recall`](skills/recall/SKILL.md) |
 | **Understand 🧭** | What problem are we solving? | [`skills/understand`](skills/understand/SKILL.md) |
-| **Design ✍️** | What's the cleanest way to build this? | [`skills/design`](skills/design/SKILL.md) |
+| **Design ✍️** | What's the cleanest way to build this? *(feature)* | [`skills/design`](skills/design/SKILL.md) |
+| **Diagnose 🩺** | What's actually causing this? *(fix)* | [`skills/diagnose`](skills/diagnose/SKILL.md) |
 | **Forge ⚒️** | Build exactly what's needed. | [`skills/forge`](skills/forge/SKILL.md) |
 | **Verify 🔍** | Did we build the right thing? | [`skills/verify`](skills/verify/SKILL.md) |
 | **Chronicle 📖** | What should future-us know? | [`skills/chronicle`](skills/chronicle/SKILL.md) |
 
-A fix walks the same spine with one swap: **Diagnose 🩺** ([`skills/diagnose`](skills/diagnose/SKILL.md))
-takes Design's place and asks *what's actually causing this?* — a reproducing loop, hypotheses that
-can be killed, and a regression test at the real seam, before Forge touches the fix.
+The third phase forks on the shape of the work: a feature gets Design, a fix gets Diagnose.
 
 Plus three off-spine skills, which aren't phases and don't wait for a change to be in flight:
 

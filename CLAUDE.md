@@ -9,14 +9,17 @@ handful of small skills that hold the discipline. Steal from it, bend it, make i
 ## The spine
 
 ```
-Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  Verify 🔍  →  Chronicle 📖
+Recall 📚  →  Understand 🧭  →  Design ✍️    →  Forge ⚒️  →  Verify 🔍  →  Chronicle 📖
+                                Diagnose 🩺
+                              (feature | fix)
 ```
 
 | Phase | Question | What it does |
 |-------|----------|--------------|
 | **Recall 📚** | What do we already know? | Load only the knowledge the task needs — repo `CLAUDE.md`, ADRs, past decisions. |
 | **Understand 🧭** | What problem are we solving? | Interview until aligned. Clarify, constrain, define success. Classify the work. |
-| **Design ✍️** | What's the cleanest way? | Explore one or two approaches, pick the simplest, name the files and tests. Freeze it. |
+| **Design ✍️** | What's the cleanest way? *(feature)* | Explore one or two approaches, pick the simplest, name the files and tests. Freeze it. |
+| **Diagnose 🩺** | What's actually causing this? *(fix)* | Reproduce with a pass/fail loop, kill hypotheses, pin a regression test at the real seam. |
 | **Forge ⚒️** | Build exactly what's needed. | Implement test-first in vertical slices. Only what the plan requires. |
 | **Verify 🔍** | Did we build the right thing? | Run it. Check against success criteria. Review quality. Hunt regressions. |
 | **Chronicle 📖** | What should future-us know? | Record decisions and patterns worth keeping. Skip the trivial. |
@@ -52,8 +55,6 @@ that survived a question, so there's always somewhere to go and refresh.
 - **Question** ("how…", "what…", "explain…") — answer directly. No spine.
 - **Fix** ("broken", "error", a stack trace) — Recall → Understand (lightly) → **Diagnose 🩺** → Forge →
   Verify → Chronicle (only if the bug was non-obvious).
-  Diagnose stands where Design does on a feature: prove the cause with a reproducing loop before
-  anything gets fixed (`skills/diagnose`).
 - **Feature** (new behaviour) — the full spine.
 
 Skip a phase when it adds nothing: a one-line config change doesn't need a Design doc, and a
