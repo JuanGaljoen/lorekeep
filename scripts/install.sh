@@ -2,7 +2,7 @@
 #
 # Install lorekeep for all personal projects.
 #
-#   - Symlinks the six phase skills into ~/.claude/skills/ (globally available).
+#   - Symlinks every skill under skills/ into ~/.claude/skills/ (globally available).
 #   - Symlinks the agents into ~/.claude/agents/ (globally available).
 #   - Symlinks the spine to ~/projects/personal/CLAUDE.md so Claude Code auto-loads
 #     it for anything under ~/projects/personal/ — but not globally.
