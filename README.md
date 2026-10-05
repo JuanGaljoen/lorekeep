@@ -19,6 +19,10 @@ Recall 📚  →  Understand 🧭  →  Design ✍️  →  Forge ⚒️  →  V
 | **Verify 🔍** | Did we build the right thing? | [`skills/verify`](skills/verify/SKILL.md) |
 | **Chronicle 📖** | What should future-us know? | [`skills/chronicle`](skills/chronicle/SKILL.md) |
 
+A fix walks the same spine with one swap: **Diagnose 🩺** ([`skills/diagnose`](skills/diagnose/SKILL.md))
+takes Design's place and asks *what's actually causing this?* — a reproducing loop, hypotheses that
+can be killed, and a regression test at the real seam, before Forge touches the fix.
+
 Plus three off-spine skills, which aren't phases and don't wait for a change to be in flight:
 
 | | Question | Skill |

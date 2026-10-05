@@ -32,7 +32,7 @@ each branch of the decision tree, resolving dependencies between decisions one a
 - **The real problem** — not the solution I first reached for. Why do we want this?
 - **Constraints and assumptions** — what must stay true, what we're taking for granted.
 - **Success criteria** — how we'll both know it's done and correct. Concrete and checkable.
-- **The shape of the work** — is this a *question* (just answer it), a *fix* (reproduce first),
+- **The shape of the work** — is this a *question* (just answer it), a *fix* (Diagnose before Forge),
   or a *feature* (full spine)? This decides how much process the rest of the work earns.
 
 ## Close with a recommendation

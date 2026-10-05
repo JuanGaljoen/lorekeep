@@ -50,7 +50,10 @@ that survived a question, so there's always somewhere to go and refresh.
 **Classify first, then walk only the phases the work earns.**
 
 - **Question** ("how…", "what…", "explain…") — answer directly. No spine.
-- **Fix** ("broken", "error", a stack trace) — Recall → Understand (lightly) → reproduce → Forge → Verify → Chronicle (only if the bug was non-obvious).
+- **Fix** ("broken", "error", a stack trace) — Recall → Understand (lightly) → **Diagnose 🩺** → Forge →
+  Verify → Chronicle (only if the bug was non-obvious).
+  Diagnose stands where Design does on a feature: prove the cause with a reproducing loop before
+  anything gets fixed (`skills/diagnose`).
 - **Feature** (new behaviour) — the full spine.
 
 Skip a phase when it adds nothing: a one-line config change doesn't need a Design doc, and a
@@ -63,8 +66,8 @@ emoji, and a clause on what it's doing here:
 
 > **🧭 Understand** — pinning CP4's request contract before any code
 
-Use the spine's emojis (Recall 📚 · Understand 🧭 · Design ✍️ · Forge ⚒️ · Verify 🔍 · Chronicle 📖 ·
-ship 🚢). One line, then get on with the work — don't turn it into a header block.
+Use the spine's emojis (Recall 📚 · Understand 🧭 · Design ✍️ · Diagnose 🩺 · Forge ⚒️ · Verify 🔍 ·
+Chronicle 📖 · ship 🚢). One line, then get on with the work — don't turn it into a header block.
 
 **Delivering the work.** The spine ends at knowledge, not delivery. When Verify is green and you
 want it on the remote, `/ship` publishes the branch and opens the PR in one motion (they're two
@@ -75,7 +78,7 @@ separate steps otherwise). Optional and outward-facing — it confirms before op
 Thinking phases and doing phases reward different models. Spend the strong model where judgement
 lives; use the cheaper, faster one where the work is mechanical.
 
-- **Strong model** (e.g. Opus) — **Understand, Design, diagnose.** Ambiguity, trade-offs, and
+- **Strong model** (e.g. Opus) — **Understand, Design, Diagnose.** Ambiguity, trade-offs, and
   hard bugs are where reasoning pays for itself.
 - **Cheaper/faster model** (e.g. Sonnet) — **Forge and routine edits.** Red→green against a frozen
   plan is mechanical; the strong model adds little and burns the budget.
