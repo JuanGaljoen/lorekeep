@@ -29,9 +29,7 @@ research essay.
    touching. A decision already made is a question you don't have to re-litigate.
 4. **The code itself** — existing patterns, the seam you'll work at, how similar things are done
    here. Facts live in the code; read it rather than guessing.
-5. **Obsidian** (`~/ObsidianVault/Personal/`) — *only* if the task smells like something hit
-   before in another repo. Don't trawl the vault for routine work.
-6. **The world outside the repo** — via **Research 🔬**. Everything above loads
+5. **The world outside the repo** — via **Research 🔬**. Everything above loads
    what *we* know; when the task turns on a fact nobody here holds — a trade tolerance, a standard,
    an API's real contract — that's Research's job, not Recall's. Recall reads; Research fetches.
    Research leaves cited notes in the repo's `docs/`, so sweep those alongside step 3 — a question

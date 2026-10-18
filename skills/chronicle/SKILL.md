@@ -30,12 +30,12 @@ patterns, hard-won lessons — and skip everything trivial. A chronicle of noise
 |------|------|
 | **A decision or hard-won lesson** (code-local) | `docs/adr/NNNN-title.md` — a **dated, immutable** ADR: the decision, *why*, and what it rules out. "We chose X; never do Y, it bit us" lives here. |
 | **A fact, convention, or vocabulary term** (code-local) | `CLAUDE.md` — the **living** project doc that loads every session. |
-| **A lesson that outlives this repo** (cross-project) | **Obsidian** (`~/ObsidianVault/Personal/`) — a dated file, a title, a paragraph. No schema, no ceremony. |
+| **A lesson that outlives this repo** (cross-project) | **lorekeep itself** — the skill or spine line that would have caught it. From another repo, propose the change; don't make it. |
 
 The split that matters: **decisions and lessons are ADRs** (dated; you don't edit them, you
 supersede them); **facts and conventions are `CLAUDE.md`** (living; you keep it current). A lesson
-never goes in `CLAUDE.md`; a live convention never goes in an ADR. There is no `CONTEXT.md`. In-repo
-is the default — reach for Obsidian only when the lesson genuinely travels beyond this repo.
+never goes in `CLAUDE.md`; a live convention never goes in an ADR. There is no `CONTEXT.md`. A lesson
+that genuinely travels is a lesson about the workflow — it sharpens a skill, not a vault.
 
 ## Rules
 

@@ -38,8 +38,8 @@ Plus three off-spine skills, which aren't phases and don't wait for a change to 
 work first (question / fix / feature), then walk only the phases the work earns. Each phase is a
 skill the agent reaches for automatically, or that you invoke by name (`/recall`, `/forge`, …).
 
-Knowledge lives in two homes: **in-repo** (`CLAUDE.md` for facts + `docs/adr/` for decisions) by default, and
-**Obsidian** for the rare lesson that outlives a single repo.
+Knowledge lives **in the repo**: `CLAUDE.md` for facts, `docs/adr/` for decisions. A lesson that
+outlives a single repo is a lesson about the workflow, so it becomes a change to lorekeep itself.
 
 **Research 🔬** is the outward arm of Recall. Recall loads what
 *we* know; Research fetches what nobody here does — a trade tolerance, a standard, someone else's API
@@ -65,7 +65,7 @@ Working code is not evidence you could defend it. So at Chronicle, when the work
 had to look up, Quiz offers five questions drawn **only from what this ticket touched** — the change
 is the retrieval cue that generic flashcards lack. Open questions, one at a time, graded honestly;
 domain rather than our code (*"why does curtailment spike at midday?"*, not *"why did we cache
-that?"*). Everything durable lands in **one running note per domain** in Obsidian, edited in place
+that?"*). Everything durable lands in **one running note per domain** (`docs/learning/<domain>.md`), edited in place
 forever rather than a new file per session: open gaps on top (the next quiz opens by re-asking one),
 and below them the facts that survived a question, grouped by topic with their sources — the part
 you actually go back and re-read. A miss also produces one **sourced** primary link to go read. Quiz

@@ -118,9 +118,9 @@ it is never the moment I'm told.
 
 ## The domain note
 
-Everything durable lands in **one running note per domain** in Obsidian
-(`~/ObsidianVault/Personal/clean-energy.md`) — domain knowledge outlives this repo by definition,
-and the next ticket may be in a different one.
+Everything durable lands in **one running note per domain**, in the repo whose work is in that
+domain (`docs/learning/clean-energy.md`) — version-controlled next to the code it explains, and
+read again the next time a ticket there touches the same ground.
 
 Two sections, doing two different jobs. Keep them apart: gaps are a **worklist** that should stay
 short and get emptied; facts are a **reference** that grows and gets re-read. Merged, the worklist
@@ -181,6 +181,6 @@ cleared — then close in three lines: what's now solid, what isn't, and the pat
 > 🎓 4/5. Two facts filed under *Curtailment* and *Capacity*. The gap: curtailment vs. negative
 > pricing — you have them as the same event, and they come apart when the constraint is
 > transmission rather than supply. Read: https://www.caiso.com/… (20 min).
-> `~/ObsidianVault/Personal/clean-energy.md`.
+> `docs/learning/clean-energy.md`.
 
 No percentage, no "great job", no encouragement padding.

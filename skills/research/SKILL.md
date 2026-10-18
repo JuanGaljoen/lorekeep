@@ -81,7 +81,7 @@ The researcher writes a cited Markdown note in the repo's existing docs conventi
 
 If the research **settled a decision** — we chose X over Y because the standard says so — that
 earns an ADR at Chronicle, with the note as its evidence. A pure fact lookup doesn't; it stays a
-note. Promote to Obsidian only if the lesson outlives this repo.
+note.
 
 ## Rules
 

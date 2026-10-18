@@ -45,7 +45,7 @@ capacity-market side of this? (5 questions, ~5 min)"* — and drop it if I say n
 ship, never unasked, and never on a refactor whose domain content is zero. Questions come only from
 what this ticket touched, they're about the domain rather than our code, and a missed one produces
 one real sourced link to go read — never an invented answer or an invented URL. It keeps **one
-running note per domain** in Obsidian, edited in place: open gaps on top, and below them the facts
+running note per domain** in the repo (`docs/learning/<domain>.md`), edited in place: open gaps on top, and below them the facts
 that survived a question, so there's always somewhere to go and refresh.
 
 ## Moving along the spine
@@ -109,19 +109,17 @@ Caveat — **auto mode**: in auto mode I won't pause to answer the phase-boundar
 
 ## Where knowledge lives
 
-Two homes, split by scope. Recall reads from both; Chronicle writes to the right one.
+One home: **the repo.** `CLAUDE.md` holds facts, conventions and vocabulary; `docs/adr/` holds
+dated decisions and lessons. Version-controlled, travels with a clone, and Recall reads it.
 
-| Scope | Example | Home |
-|-------|---------|------|
-| **Code-local** | this module's seam, a named concept, why we chose X *in this repo* | `CLAUDE.md` (facts, conventions, vocabulary) + `docs/adr/` (dated decisions & lessons) **in the repo** — version-controlled, travels with a clone |
-| **Cross-project** | a lesson that bit you in several repos, a pattern you reuse everywhere | **Obsidian** (`~/ObsidianVault/Personal/`) — the only thing that needs an external, cross-repo store |
-
-In-repo is the default. Promote to Obsidian only when the lesson outlives this repo, and keep
-it dead simple there: a dated file, a title, a paragraph. No index caps, no schema, no lint.
+There is no separate cross-project store. A lesson that outlives the repo it was learned in is a
+lesson about *how we work* — so it belongs in lorekeep itself, as a sharpened skill or a line in
+this spine, where it loads in every project. From another repo, Chronicle **proposes** that change
+rather than making it; the lorekeep edit is its own small piece of work.
 
 ## Source of truth for work in flight
 
-Knowledge has two homes above. *Work-in-progress state* — which checkpoint has landed, what's next
+Knowledge has its home above. *Work-in-progress state* — which checkpoint has landed, what's next
 — has exactly one. **The repo is the source of truth: the spec file (`specs/<TICKET-KEY>.md`) and
 the branch's commits. Orbit is a mirror.** When the spec and the tracker disagree, the spec wins;
 the tracker is what drifted.
