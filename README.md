@@ -65,14 +65,15 @@ Working code is not evidence you could defend it. So at Chronicle, when the work
 had to look up, Quiz offers five questions drawn **only from what this ticket touched** — the change
 is the retrieval cue that generic flashcards lack. Open questions, one at a time, graded honestly;
 domain rather than our code (*"why does curtailment spike at midday?"*, not *"why did we cache
-that?"*). Everything durable lands in **one running note per domain** (`docs/learning/<domain>.md`), edited in place
-forever rather than a new file per session: open gaps on top (the next quiz opens by re-asking one),
+that?"*). Everything durable lands in **one running note per domain** in the repo
+(`docs/learning/<domain>.md`), edited in place forever rather than a new file per session: open
+gaps on top (the next quiz opens by re-asking one),
 and below them the facts that survived a question, grouped by topic with their sources — the part
 you actually go back and re-read. A miss also produces one **sourced** primary link to go read. Quiz
 never invents an answer or a URL: it makes you believe things, which is exactly what makes a wrong
 one expensive.
 
-A third in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
+One more in-repo file is ticket-scoped rather than permanent: when **Design** freezes a plan that
 spans multiple checkpoints, it writes `specs/<TICKET-KEY>.md` — the approach, contracts, and
 per-checkpoint file list. `start-ticket` and `Recall` read it to resume mid-ticket instead of
 re-deriving the design, `Verify` checks off checkpoints there as they land, and `ship` reads them to
@@ -121,9 +122,20 @@ script auto-discovers both, so new ones are picked up on the next run.
 
 Alongside the six phases, a few optional skills bridge to the outside world. Two **Orbit** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and
-`file-ticket` (turn understood work into a ticket) — they call Orbit's REST API with `curl`, using
-`ORBIT_URL` and `ORBIT_API_TOKEN` from your shell. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
-branch and opens the pull request in one motion — the two steps people forget are separate.
+`file-ticket` (turn understood work into a ticket). And `ship` (`/ship`) is the delivery tail: once
+Verify is green, it publishes the branch and opens the pull request in one motion — the two steps
+people forget are separate — then moves the ticket to In Review, and to Done once it lands.
+
+The tracker is [Orbit](https://orbit-zeta-gilt.vercel.app/), reached over its REST API with plain
+`curl` — no MCP server to configure. Export two variables in your shell profile:
+
+```bash
+export ORBIT_URL=https://orbit-zeta-gilt.vercel.app
+export ORBIT_API_TOKEN=...   # from Orbit; ≥24 chars
+```
+
+Without them, the ticket skills stop and ask rather than guess. `ship` also needs the `gh` CLI,
+authed.
 
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
 reinstall, and a `git pull` keeps it current. To remove the symlinks (never the repo):
