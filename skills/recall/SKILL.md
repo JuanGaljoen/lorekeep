@@ -13,7 +13,7 @@ research essay.
 
 ## Where to look, in order
 
-1. **`specs/<TICKET-KEY>.md`**, if the task is a Jira ticket already in progress — a frozen,
+1. **`specs/<TICKET-KEY>.md`**, if the task is an Orbit ticket already in progress — a frozen,
    multi-checkpoint Design plan lives here (see Design). If it exists, that's the plan; read it
    before anything else so you resume the checkpoint rather than re-deriving the design. It carries
    more than the plan: the **classification** and the **success criteria** (the acceptance bar Verify

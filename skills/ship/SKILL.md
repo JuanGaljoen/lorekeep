@@ -27,7 +27,7 @@ before a long push/CI wait.
 
 **Optional flags** (read them off the invocation; all optional):
 - `--dry-run` — compute the branch, commit, and PR, print the preview, change nothing.
-- `--ticket <KEY>` — the Jira key to reference and transition (e.g. `RNG-9`).
+- `--ticket <KEY>` — the Orbit ticket key to reference and move (e.g. `RING-9`).
 - `--title "…"` — override the derived PR title.
 
 ## Steps
@@ -66,7 +66,7 @@ Then stop and tell me to re-run without `--dry-run` to actually ship.
 
 ### 3. Get onto a real branch
 - **If on `main`/the default branch, branch first** — never push straight to default. Name it in the
-  repo's convention (read a recent branch): `feat/rng-9-<slug>` for `--ticket RNG-9`, otherwise a
+  repo's convention (read a recent branch): `feat/ring-9-<slug>` for `--ticket RING-9`, otherwise a
   slug from the work. If you can't derive a sensible name, ask.
 - **If already on a feature branch,** use it.
 
@@ -99,7 +99,7 @@ gh pr view <recent-n>        # match the format
 ```
 
 **Title** (< 70 chars) — one crisp line naming the *outcome*, in the repo's commit style
-(`feat(RNG-9): reusable gallery primitive + halo composition`). From `--title` if given, else the
+(`feat(RING-9): reusable gallery primitive + halo composition`). From `--title` if given, else the
 ticket title, else the commit — never the raw branch slug.
 
 **Body** — structured; include the sections that apply and leave out the rest:
@@ -116,7 +116,7 @@ What this delivers and why it exists — one or two sentences.
 ## Test Plan
 - [ ] How a reviewer confirms it: what to run, what to look at.
 
-## Jira
+## Ticket
 Refs: <KEY>   <!-- link the ticket; or `Closes #<issue>` to auto-close on merge -->
 ```
 End the body with:
@@ -135,17 +135,17 @@ gh pr create --base <default> --title "…" --body-file <path>
 "Compare & pull request" banner right after every push, and it's easy to create and merge it there
 before answering here. Take it at face value and go and look: you never ran `gh pr create`, so
 creating one now would only make a duplicate. Verify what's actually on the remote
-(`gh pr view <branch>`), and once it shows `MERGED`, jump to **step 9 (Land)**. Step 7 (Jira
-→ In Review) never ran in this path, and that's fine — Land's Jira step (9c) transitions from
+(`gh pr view <branch>`), and once it shows `MERGED`, jump to **step 9 (Land)**. Step 7 (Orbit
+→ In Review) never ran in this path, and that's fine — Land's Orbit step (9c) moves it from
 wherever the ticket actually is, not from an assumed In Review.
 
-### 7. Update Jira — if a ticket's in play
+### 7. Update Orbit — if a ticket's in play
 When a `--ticket`/`Refs` key exists, close the loop on the tracker — but first check whether this
 PR is the **whole ticket** or **one checkpoint of many** (`specs/<TICKET-KEY>.md` exists with
 checkpoints still unticked after this one):
-- **Whole ticket** → transition to **In Review** (`mcp__jira__jira_get_transitions` →
-  `mcp__jira__jira_transition`) and comment the PR URL.
-- **One checkpoint of many** → **don't transition.** The ticket stays **In Progress** — a checkpoint
+- **Whole ticket** → set it to **In Review** (`PATCH tickets/<KEY>` with
+  `{"status": "in_review"}`) and comment the PR URL (`POST tickets/<KEY>/comments`).
+- **One checkpoint of many** → **don't move it.** The ticket stays **In Progress** — a checkpoint
   PR is not the ticket being ready for review. Just comment the PR URL, noting which checkpoint this
   is and that more are coming (matching Verify's checkpoint-comment format).
 
@@ -155,7 +155,7 @@ checkpoints still unticked after this one):
 - Branch: <branch>
 - Commit: <hash> — <summary>
 - PR:     <url>
-- Jira:   <KEY> → In Review   (if applicable; or "stays In Progress — CP<n> of <TICKET-KEY>, more to come")
+- Orbit:  <KEY> → In Review   (if applicable; or "stays In Progress — CP<n> of <TICKET-KEY>, more to come")
 
 Next: merge when checks pass, or keep iterating on this branch.
 ```
@@ -189,23 +189,23 @@ git branch -d <feature-branch>            # -d refuses to delete if it isn't mer
   see the merge (e.g. squash-merge). Confirm the PR is `MERGED` from step a, tell me it was a
   squash/rebase merge, and only then delete.
 
-**c. Update Jira — only if this finished the ticket.** A merge is not automatically "ticket done."
-- **Whole ticket delivered** → transition to **Done** (`mcp__jira__jira_get_transitions` →
-  `mcp__jira__jira_transition`) and comment the merge.
+**c. Update Orbit — only if this finished the ticket.** A merge is not automatically "ticket done."
+- **Whole ticket delivered** → set it to **Done** (`PATCH tickets/<KEY>` with
+  `{"status": "done"}`) and comment the merge.
 - **One checkpoint of many** → the ticket stays **In Progress** for the next checkpoint (if step 7
   bumped it to In Review, move it back). Don't re-author the progress note — Verify already recorded
   which checkpoint landed and ticked `specs/<TICKET-KEY>.md` when it closed the checkpoint (see
   Verify, "Close the checkpoint"). Just comment the merge URL, then run the idempotent reconcile
   (see start-ticket, *"Reconcile the tracker"*) so a mirror that drifted during the checkpoint gets
   repaired from the spec — a no-op when they already agree.
-- **Unsure which** → ask before transitioning. Closing a ticket mid-work is worse than a question.
+- **Unsure which** → ask before moving it. Closing a ticket mid-work is worse than a question.
 
 **d. Report the landing.**
 ```
 ## Landed 🛬
 - <default>: fast-forwarded to <hash> (the #<pr> merge) — in sync with origin/<default>
 - Merged branch <feature-branch> deleted (local<, and remote> if applicable)
-- Jira: <KEY> → Done   (or "stays In Progress — CP<n> landed, CP<n+1> next"; omit if no ticket)
+- Orbit: <KEY> → Done   (or "stays In Progress — CP<n> landed, CP<n+1> next"; omit if no ticket)
 
 Next: <the next piece of work, if one is obvious from the ticket/plan — else "ready for the next task">.
 ```

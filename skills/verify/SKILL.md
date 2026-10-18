@@ -140,7 +140,7 @@ entirely; ship moves the ticket when it delivers.
 
 A checkpoint is done the moment its slice passes Verify — but that's usually not a ship (you commit
 it and move to the next checkpoint on the same branch). Between ships, nothing else talks to the
-tracker, so if Verify doesn't, Jira drifts from the repo and a fresh session — or `/start-ticket`
+tracker, so if Verify doesn't, Orbit drifts from the repo and a fresh session — or `/start-ticket`
 resuming — can't tell where things stand. So when a checkpoint lands, record it in the source of
 truth, then mirror it:
 
@@ -151,7 +151,7 @@ truth, then mirror it:
   the source of truth and gives the mirror a real hash to cite; a checkpoint no one committed is the
   exact gap that used to bite. (The *terminal* checkpoint is the one exception — it flows on to
   Chronicle then ship, which commits and delivers it.)
-- **Comment the ticket — the mirror.** One line via `mcp__jira__jira_add_comment`, citing the hash
+- **Comment the ticket — the mirror.** One line via `POST tickets/<KEY>/comments` (Orbit API — see start-ticket), citing the hash
   from the commit above — what landed and what's next, e.g. *"CP2 complete (side_loc geometry, commit
   `98d15bb`). CP3 (MODULES/ARCHETYPES registration) next — stays In Progress."* If this write is
   interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile reposts it from
@@ -159,6 +159,6 @@ truth, then mirror it:
 - **Leave the status alone.** The ticket stays **In Progress** — a checkpoint is not the ticket.
   Transitioning (In Review / Done) is ship's job, at the terminal checkpoint.
 
-Order matters: tick and commit the spec **before** the Jira comment, so an interruption leaves the
+Order matters: tick and commit the spec **before** the Orbit comment, so an interruption leaves the
 mirror stale (recoverable) rather than the source of truth. Ship, when it later delivers, *reads*
 this progress rather than re-authoring it — so don't expect ship to re-post per-checkpoint notes.

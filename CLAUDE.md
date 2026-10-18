@@ -123,17 +123,17 @@ it dead simple there: a dated file, a title, a paragraph. No index caps, no sche
 
 Knowledge has two homes above. *Work-in-progress state* — which checkpoint has landed, what's next
 — has exactly one. **The repo is the source of truth: the spec file (`specs/<TICKET-KEY>.md`) and
-the branch's commits. Jira is a mirror.** When the spec and the tracker disagree, the spec wins;
+the branch's commits. Orbit is a mirror.** When the spec and the tracker disagree, the spec wins;
 the tracker is what drifted.
 
 This matters because state is written by hand from more than one place — Verify ticks the spec and
-comments Jira, ship transitions the ticket — and any of those writes can be interrupted. Rather than
-hope every write always fires, one is authoritative and the rest are recoverable:
+comments the Orbit ticket, ship moves its status — and any of those writes can be interrupted.
+Rather than hope every write always fires, one is authoritative and the rest are recoverable:
 
 - **The spec tick is the load-bearing write.** Checking a checkpoint off in `specs/<TICKET-KEY>.md`
-  is what makes it done. The Jira comment is a courtesy mirror — miss it and nothing is lost, only
+  is what makes it done. The Orbit comment is a courtesy mirror — miss it and nothing is lost, only
   the mirror goes stale.
-- **Reconcile is the recovery action.** Bringing Jira back in line with the spec is a single,
+- **Reconcile is the recovery action.** Bringing Orbit back in line with the spec is a single,
   idempotent step (see start-ticket, *"Reconcile the tracker"*) — safe to run any time, a no-op when
   they already agree. Recovery never depends on every earlier step having fired perfectly.
 

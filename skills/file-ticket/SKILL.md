@@ -1,11 +1,11 @@
 ---
 name: file-ticket
-description: Create a Jira ticket from work you've already thought through. Use when the user says "file a ticket", "raise a Jira for this", "turn this into a ticket", or wants to capture the current plan as a Jira issue.
+description: Create an Orbit ticket from work you've already thought through. Use when the user says "file a ticket", "raise a ticket for this", "turn this into a ticket", or wants to capture the current plan as an Orbit ticket.
 ---
 
 # file-ticket 🎫
 
-The reverse of `start-ticket`: take work you've understood and turn it into a Jira ticket. The
+The reverse of `start-ticket`: take work you've understood and turn it into an Orbit ticket. The
 ticket's quality comes from the thinking that precedes it — lorekeep's **Understand** phase is the
 validation gate, so a ticket filed straight off a vague idea is a ticket worth grilling first.
 
@@ -18,31 +18,41 @@ and success criteria are clear). Don't file a ticket that just says "improve the
 ### 2. Synthesize the ticket
 From the conversation, draft:
 - **Title** — one crisp line naming the outcome.
-- **Description** — the problem, the intended behaviour, constraints, and success criteria. Use
-  the project's vocabulary (`CLAUDE.md`) so it reads like the rest of the tracker.
-- **Type** — Feature / Bug / Task, inferred from the work; confirm if ambiguous.
+- **Description** — the problem, the intended behaviour, and constraints. Use the project's
+  vocabulary (`CLAUDE.md`) so it reads like the rest of the tracker.
+- **Acceptance criteria** — the success criteria as a `- [ ]` checklist. Orbit keeps these in their
+  own field, not buried in the description.
+- **Technical notes** — the approach or seams, if Understand/Design already settled them.
+- **Type** — `feature | bug | task | improvement | research | documentation`, inferred from the
+  work; confirm if ambiguous.
 
-### 3. Fill in Jira metadata
-Prompt for what the project needs — priority, labels, assignee, team, sprint/cycle — rather than
-guessing. Use the helper tools to offer valid values: `mcp__jira__jira_get_issue_types`,
-`mcp__jira__jira_get_priorities`, `mcp__jira__jira_search_users`. Auth via
-`mcp__jira__jira_get_myself` if needed.
+### 3. Fill in Orbit metadata
+Orbit is reached over its REST API (`docs/api.md` in the Orbit repo) using `ORBIT_URL` and
+`ORBIT_API_TOKEN`; if either is unset, stop and ask me to export them. Calls are
+`curl -s -H "Authorization: Bearer $ORBIT_API_TOKEN" -H 'content-type: application/json' "$ORBIT_URL/api/v1/<path>"`.
+
+Prompt for what the project needs — project, priority, labels, milestone — rather than guessing.
+`GET projects` lists the project keys and `GET milestones?project=<KEY>` the milestones. For
+priority and labels, an unknown name comes back as a 400 that lists the valid values, so a wrong
+guess corrects itself rather than filing garbage.
 
 ### 4. Link it into the backlog — never file standalone
 A ticket in a linked backlog that links to nothing is a bug. Before creating, **read one or two
-recent tickets** (`mcp__jira__jira_search`, `mcp__jira__jira_get_ticket`) to learn the house style,
-then match it:
+recent tickets** (`GET tickets?project=<KEY>&limit=5`, then `GET tickets/<KEY-n>`) to learn the
+house style, then match it:
 - **Dependencies & ordering** — what must land before this, and what it unblocks. If the project
-  writes an explicit note ("should land before RNG-9") or a **"Depends on"** section, include it.
-- **Issue links** — the real Jira links the relationship deserves (blocks / is blocked by /
-  relates to), via `mcp__jira__jira_get_link_types` + `mcp__jira__jira_link_tickets`.
-- **Parent / epic** — attach it under the epic or parent the related work sits in.
+  writes an explicit note ("should land before RING-9") or a **"Depends on"** section, include it.
+- **Blockers** — `blockedBy: [KEYs]` on create for what must land first; for a ticket this one
+  blocks, `POST tickets/<THAT-KEY>/blockers` with `{"blockedBy": "<NEW-KEY>"}` after creating.
+  Orbit has no "relates to" link — name related tickets in the description instead.
+- **Parent / milestone** — `parent: KEY` under the parent the related work sits in, and the
+  `milestone` it belongs to.
 
 Trace *why this ticket exists now*: what surfaced it, which earlier ticket introduced the gap —
 those are the links. If it genuinely blocks nothing, say so, but still link what it relates to.
 
 ### 5. Create it
-`mcp__jira__jira_create_ticket`. Show the draft (title + description + fields + links) and **confirm
+`POST tickets` with the JSON body. Show the draft (title + description + fields + links) and **confirm
 with me before creating** — a filed ticket is outward-facing.
 
 ### 6. Return the handle

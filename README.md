@@ -80,7 +80,7 @@ deliver. Unlike an ADR (a permanent decision record written by Chronicle), a spe
 scaffolding for the life of the ticket — it doesn't need to outlive it.
 
 For a ticket in flight, **the repo is the source of truth** for where things stand — the spec file
-and the branch's commits. Jira is a mirror. When they drift (a progress write got interrupted),
+and the branch's commits. Orbit is a mirror. When they drift (a progress write got interrupted),
 `start-ticket` reconciles the tracker from the spec on the next resume; the spec always wins.
 
 ## Keeping the token window cheap
@@ -119,10 +119,10 @@ in any session), every agent under `agents/` into `~/.claude/agents/` (the `runn
 auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
 script auto-discovers both, so new ones are picked up on the next run.
 
-Alongside the six phases, a few optional skills bridge to the outside world. Two **Jira** skills
+Alongside the six phases, a few optional skills bridge to the outside world. Two **Orbit** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine) and
-`file-ticket` (turn understood work into a ticket) — they use the Jira MCP server configured in
-`~/.claude.json`. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
+`file-ticket` (turn understood work into a ticket) — they call Orbit's REST API with `curl`, using
+`ORBIT_URL` and `ORBIT_API_TOKEN` from your shell. And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the
 branch and opens the pull request in one motion — the two steps people forget are separate.
 
 The symlinks point back into this repo, so editing a skill here updates your live workflow with no
