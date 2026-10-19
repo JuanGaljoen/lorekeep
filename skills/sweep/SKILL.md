@@ -118,11 +118,14 @@ fails into one of these:
 - **A no-op or a duplicate** — it doesn't change what the agent does, or it repeats another line
   or what the environment already says.
 
-Nothing gets dropped, only moved: every cut names where its content lives or will live. Report the
-line count and ticket-key count before, and an estimate of both after.
+Nothing gets dropped, only moved: every cut names where its content lives or will live. **Git is
+not a destination** — "it's in the history" is a place nobody looks. History goes to the ticket's
+`## Outcome`, creating the spec if none exists; only a line that duplicates an existing spec, ADR or
+tracker entry is deleted outright.
 
-*Done when:* every failing line has a category and a destination, and every destination has been
-checked to say whether it already holds the content.
+*Done when:* every failing line has a category and a destination, every destination has been
+checked to say whether it already holds the content, and the report states the line count and
+ticket-key count before and the estimate after.
 
 ## Rules
 
