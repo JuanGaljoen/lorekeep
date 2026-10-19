@@ -30,12 +30,31 @@ patterns, hard-won lessons — and skip everything trivial. A chronicle of noise
 |------|------|
 | **A decision or hard-won lesson** (code-local) | `docs/adr/NNNN-title.md` — a **dated, immutable** ADR: the decision, *why*, and what it rules out. "We chose X; never do Y, it bit us" lives here. |
 | **A fact, convention, or vocabulary term** (code-local) | `CLAUDE.md` — the **living** project doc that loads every session. |
+| **What a ticket did** — what shipped, what surprised us, which ADRs it left | `specs/<TICKET-KEY>.md`, under `## Outcome`. History, kept by key, loaded only when that ticket comes up. No spec yet? Create one holding just the Outcome. |
+| **What's open, what's next, ticket status** | **The tracker.** Never the repo's docs. |
 | **A lesson that outlives this repo** (cross-project) | **lorekeep itself** — the skill or spine line that would have caught it. From another repo, propose the change; don't make it. |
 
 The split that matters: **decisions and lessons are ADRs** (dated; you don't edit them, you
 supersede them); **facts and conventions are `CLAUDE.md`** (living; you keep it current). A lesson
 never goes in `CLAUDE.md`; a live convention never goes in an ADR. There is no `CONTEXT.md`. A lesson
 that genuinely travels is a lesson about the workflow — it sharpens a skill, not a vault.
+
+## What `CLAUDE.md` is — and isn't
+
+`CLAUDE.md` describes **the system as it is now**, in the present tense, for an agent about to touch
+it. Every line is paid for on every turn of every session, so it earns its place harder than
+anything else in the repo.
+
+It is **not** a backlog, a status board, a "where we stand" or "next" section, a changelog, or a
+place for per-ticket retrospectives. Those already have homes (above). A ticket key in `CLAUDE.md`
+is a smell: the sentence around it is usually history wearing a fact's clothes.
+
+**The admission test, per line:** *would this still be true and useful if the tracker and the git
+history were deleted tomorrow?* If not, it's history — it goes in the spec's Outcome or the tracker.
+And *does it change what the agent does?* If not, it's a no-op — leave it out.
+
+**Why it bloats anyway:** adding feels safe and removing feels risky, so stale layers settle. Every
+write to `CLAUDE.md` is also a chance to remove one.
 
 ## Rules
 
@@ -54,6 +73,14 @@ that genuinely travels is a lesson about the workflow — it sharpens a skill, n
 - **State the lesson, not the diff.** Git already has the diff. Record *why*, and what future-us
   should do differently — the thing the code can't tell them.
 - **Write it where it'll be found.** An entry nobody stumbles on later is wasted effort.
+- **Edit in place; never append a dated paragraph.** A fact has one home. When it changes, find
+  that line and rewrite it — don't add "as of TICKET-12, …" underneath. Two versions of a fact is
+  a stale fact waiting to be believed.
+- **Check the budget before every `CLAUDE.md` write.** Run `wc -l CLAUDE.md` and grep it for the
+  tracker key (the prefix on `specs/` filenames, e.g. `grep -c 'RING-'`). Over ~200 lines, or any
+  ticket key present: consolidate first — move history to its Outcome, fold duplicates, delete
+  no-ops — and propose that cleanup to me before adding the new line. The number is a tripwire,
+  not a law; crossing it means *look*, not *fail*.
 
 ## Output
 

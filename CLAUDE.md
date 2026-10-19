@@ -110,7 +110,13 @@ Caveat — **auto mode**: in auto mode I won't pause to answer the phase-boundar
 ## Where knowledge lives
 
 One home: **the repo.** `CLAUDE.md` holds facts, conventions and vocabulary; `docs/adr/` holds
-dated decisions and lessons. Version-controlled, travels with a clone, and Recall reads it.
+dated decisions and lessons; `specs/<TICKET-KEY>.md` holds each ticket's plan and, once it lands,
+its `## Outcome`. Version-controlled, travels with a clone, and Recall reads it.
+
+**`CLAUDE.md` is the present tense of the system, never its history.** No ticket ledger, no
+"current phase", no per-ticket retros: those rot it into a file that's paid for on every turn and
+trusted by nobody. Chronicle holds the line on write, Recall flags a breach on load, Sweep cleans
+one up.
 
 There is no separate cross-project store. A lesson that outlives the repo it was learned in is a
 lesson about *how we work* — so it belongs in lorekeep itself, as a sharpened skill or a line in

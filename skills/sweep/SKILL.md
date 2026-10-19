@@ -1,6 +1,6 @@
 ---
 name: sweep
-description: Scan a whole repo for code that stopped earning its place — unreachable files and exports, orphaned dependencies, shallow modules worth deepening — and report ranked candidates with evidence. Use for "sweep", "garbage collect", "find dead code", "what can we delete", or a codebase-health pass with no change in flight.
+description: Scan a whole repo for code that stopped earning its place — unreachable files and exports, orphaned dependencies, shallow modules worth deepening, and a CLAUDE.md that has rotted into a ledger — and report ranked candidates with evidence. Use for "sweep", "garbage collect", "find dead code", "what can we delete", "clean up CLAUDE.md", or a codebase-health pass with no change in flight.
 ---
 
 Every other skill on the spine follows a change. Sweep is pointed at a repo with nothing in flight,
@@ -102,6 +102,28 @@ deletion candidates.
 *Done when:* each carries its deletion-test answer and a strength of `Strong`, `Worth exploring`, or
 `Speculative`.
 
+### 7. Sweep `CLAUDE.md`
+
+The knowledge file rots the same way code does, and nothing else on the spine reads it whole. Hold
+it against Chronicle's definition (*"What `CLAUDE.md` is — and isn't"*) and sort every line that
+fails into one of these:
+
+- **History** — ticket keys, statuses, "current phase", "next", per-ticket retros. Its home is the
+  ticket's `specs/<KEY>.md` `## Outcome` or the tracker. Check that home first: often it's already
+  there and the line is a pure duplicate.
+- **A lesson** — "we learned…", "the trap is…". Its home is an ADR. Name the ADR that already holds
+  it, or flag that one is missing.
+- **Stale** — a claim the code now contradicts. Check it against the code, never against memory, and
+  cite the `file:line` that disagrees.
+- **A no-op or a duplicate** — it doesn't change what the agent does, or it repeats another line
+  or what the environment already says.
+
+Nothing gets dropped, only moved: every cut names where its content lives or will live. Report the
+line count and ticket-key count before, and an estimate of both after.
+
+*Done when:* every failing line has a category and a destination, and every destination has been
+checked to say whether it already holds the content.
+
 ## Rules
 
 - **Sweep reports; you choose; the spine does the work.** Removal carries its own cost, and a sweep
@@ -117,13 +139,17 @@ deletion candidates.
 
 ## Output
 
-Two sections, kept apart.
+Three sections, kept apart.
 
 **Dead code** — candidates by tier, each with its path, why it looks dead, and what would make it
 live. State the scope and what fell outside it.
 
 **Refactor candidates** — shallow modules and leaky seams, each with its deletion-test answer and
 strength.
+
+**`CLAUDE.md`** — failing lines grouped by category, each with its destination and whether that
+destination already holds it; line and ticket-key counts before and after. Skip it if the scope
+excludes it.
 
 Then one line on what you'd do first.
 

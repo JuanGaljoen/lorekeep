@@ -24,7 +24,9 @@ research essay.
    conversation. This is what makes a `/clear` mid-ticket a routine move rather than a loss.
 2. **The repo's `CLAUDE.md`** — the project's facts, conventions, and vocabulary. It auto-loads each
    session, so it's usually already in front of you; re-read the parts your task touches so your
-   names and questions match the project's language.
+   names and questions match the project's language. If it's over ~200 lines or carries ticket
+   keys, say so in one line and suggest a `/sweep` of it — it's rotting into a ledger (see
+   Chronicle, *"What `CLAUDE.md` is — and isn't"*). Flag, don't fix; the task comes first.
 3. **`docs/adr/`** (or wherever this repo keeps ADRs) — past decisions in the area you're
    touching. A decision already made is a question you don't have to re-litigate.
 4. **The code itself** — existing patterns, the seam you'll work at, how similar things are done
