@@ -16,7 +16,9 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
    isn't hiding a trap. Name the trade-off that separates them.
 2. **Choose the simplest that satisfies the success criteria.** The best change is the smallest
    one that solves the real problem. Favour deep modules: a lot of behaviour behind a small
-   interface, placed at a clean seam, testable through that interface.
+   interface, placed at a clean seam, testable through that interface. When the work *is*
+   deepening a module — a Sweep refactor candidate, or a shallow layer the obvious approach would
+   add — read [DEEPENING.md](DEEPENING.md) and design the interface twice before freezing.
 3. **Name the files to modify** — the actual paths, and a line on what changes in each.
 4. **Name the tests to write** — which seams, and what behaviour each test pins. Confirm the
    seams with me before Forge writes anything.

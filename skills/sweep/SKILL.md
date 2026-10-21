@@ -97,7 +97,9 @@ Apply the **deletion test** to each: would deleting this concentrate complexity,
 "Concentrates" is the signal worth reporting.
 
 These are proposals for work rather than cleanups, so they stay in their own section, clear of the
-deletion candidates.
+deletion candidates. Name the friction, not the fix: interfaces get designed after you pick one,
+when it walks Understand → Design (which reads `skills/design/DEEPENING.md`) → Forge. Skip a
+candidate an ADR already rejected unless the friction is now strong enough to reopen it.
 
 *Done when:* each carries its deletion-test answer and a strength of `Strong`, `Worth exploring`, or
 `Speculative`.

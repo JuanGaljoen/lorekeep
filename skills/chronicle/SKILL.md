@@ -16,7 +16,9 @@ patterns, hard-won lessons — and skip everything trivial. A chronicle of noise
   a real trade-off between live alternatives. Why we chose this over the alternative — so nobody
   re-litigates it or quietly undoes it. → an **ADR**. Miss any one and it isn't one: easy to undo
   means just undo it; obvious from the code needs no record; no real alternative means there
-  was no decision.
+  was no decision. One exception to "hard to reverse": a **refactor we chose not to do** earns an
+  ADR when the reason isn't visible in the code, because otherwise every future Sweep will suggest
+  it again.
 - **A non-obvious lesson** — a bug whose cause surprised you, a sharp edge in a dependency, a
   gotcha the next person will hit. → an **ADR** (it's a dated finding).
 - **A reusable pattern or convention** the codebase should follow consistently. → a note in
