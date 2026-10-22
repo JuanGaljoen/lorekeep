@@ -1,6 +1,6 @@
 ---
 name: start-ticket
-description: Begin work from an Orbit ticket. Use when the user says "start TICKET-ID", "let's pick up RING-12", "work on this ticket", or gives an Orbit ticket key to begin. Fetches the ticket, branches, and feeds it into the spine.
+description: Begin work from an Orbit ticket. Use when the user says "start TICKET-ID", "let's pick up RING-12", "work on this ticket", gives an Orbit ticket key to begin, or asks "what's next" on a ticketed project. Fetches the ticket, branches, and feeds it into the spine.
 ---
 
 # start-ticket 🎫
@@ -12,7 +12,8 @@ The on-ramp from Orbit onto the spine. Turn a ticket into a ready workspace, the
 ## Steps
 
 ### 1. Identify the ticket
-Take the ticket key from the request (e.g. `RING-12`). If none was given, ask for it.
+Take the ticket key from the request (e.g. `RING-12`). If none was given, read the backlog (below)
+rather than asking cold.
 
 Orbit is reached over its REST API (`docs/api.md` in the Orbit repo) with two env vars, `ORBIT_URL`
 and `ORBIT_API_TOKEN`. If either is unset, stop and ask me to export them — don't guess a URL. Every
@@ -21,6 +22,13 @@ call in this skill is this shape:
 curl -s -H "Authorization: Bearer $ORBIT_API_TOKEN" -H 'content-type: application/json' \
   "$ORBIT_URL/api/v1/<path>" [-X PATCH|POST -d '<json>']
 ```
+
+**No key? Read the backlog.** `GET tickets?project=<PROJECT>` lists a project's tickets (`GET projects`
+lists the projects). Find the project key in the repo's `CLAUDE.md` or the `specs/<KEY>-*.md`
+prefixes; if neither names one, ask. Drop tickets whose `status.category` is `done` and those with
+`blocked: true`, then rank by `priority.rank` (lower is more urgent). Show me the top few, one line
+each, with your pick. If the conversation gives you a reason to prefer another ticket, say why.
+Wait for my yes before step 2. Picking the ticket is my call.
 
 ### 2. Fetch it
 `GET tickets/<KEY>` — pull title, description, acceptance criteria, technical notes, type/labels,
