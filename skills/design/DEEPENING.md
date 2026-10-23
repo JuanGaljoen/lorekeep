@@ -37,16 +37,19 @@ What a deepened module hides decides where its seam goes and how it's tested:
 
 ## Design it twice
 
-The first interface you think of is rarely the deepest. Before freezing, draft **at least three
-radically different interfaces** for the deepened module, each under one constraint:
+The first interface you think of is rarely the deepest. Before freezing, draft **two radically
+different interfaces** for the deepened module, each under one constraint:
 
 1. **Minimal** — one to three entry points, as much hidden as possible.
-2. **Flexible** — supports the widest range of callers.
-3. **Common-case** — makes the most frequent caller trivial.
+2. **Common-case** — makes the most frequent caller trivial.
+
+Add a third, **Flexible** (supports the widest range of callers), only when the module has many
+callers with genuinely different needs. That's where a wider search pays for itself.
 
 Frame the problem first (constraints, the dependency category, a rough sketch of callers), then
-draft each one independently. Sub-agents in parallel keep the drafts from converging; where there
-are none, draft them one after another and don't revise an earlier one while writing a later one.
+draft them one after another in this session, and don't revise an earlier one while writing a later
+one. Parallel sub-agents keep drafts from converging further, but each one starts cold and re-reads
+the code. Use them only when asked.
 
 Compare them on **depth, locality and seam placement**, then recommend one — or a hybrid — rather
 than presenting a menu. The comparison goes in the plan's *Approach*.
