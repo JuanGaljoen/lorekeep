@@ -19,12 +19,15 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
    interface, placed at a clean seam, testable through that interface. When the work *is*
    deepening a module — a Sweep refactor candidate, or a shallow layer the obvious approach would
    add — read [DEEPENING.md](DEEPENING.md) and design the interface twice before freezing.
-3. **Name the files to modify** — the actual paths, and a line on what changes in each.
-4. **Name the tests to write** — which seams, and what behaviour each test pins. Confirm the
+3. **Name the trust boundaries it touches** — auth, user or external input, files and paths,
+   outbound requests, secrets, LLM prompts — or say "none". This line is what tells Verify to run
+   its security pass, so a missing one means a skipped check.
+4. **Name the files to modify** — the actual paths, and a line on what changes in each.
+5. **Name the tests to write** — which seams, and what behaviour each test pins. Confirm the
    seams with me before Forge writes anything.
-5. **Freeze the plan.** Once we agree, that's the plan. Scope creep — "while I'm in here…" — is
+6. **Freeze the plan.** Once we agree, that's the plan. Scope creep — "while I'm in here…" — is
    how simple changes become balls of mud. New ideas go on a list for later, not into this change.
-6. **If the plan spans more than one checkpoint** (CP1, CP2, …), write it to a durable spec file —
+7. **If the plan spans more than one checkpoint** (CP1, CP2, …), write it to a durable spec file —
    `specs/<TICKET-KEY>.md` — before Forge starts. This is the **resume artifact**: a fresh session
    (or `/start-ticket`, or Recall) rebuilds the whole picture from it without re-deriving anything,
    so it has to carry the *bar* as well as the *plan* — otherwise a resuming Verify has nothing to
@@ -34,7 +37,8 @@ hours of untangling a clever one. The output is a plan concrete enough to build 
    - **Success criteria** — the definition of done from Understand, verbatim, as a `- [ ]` checklist.
      This is the acceptance bar Verify checks against; if it lives only in the conversation it dies
      with the session.
-   - **Approach & contracts** — the chosen approach and the placement/formula/contract details.
+   - **Approach & contracts** — the chosen approach, the placement/formula/contract details, and
+     the trust boundaries from step 3, so a resuming Verify knows whether to run its security pass.
    - **Checkpoints** — a `- [ ]` tickbox list, one line per checkpoint with its file list, so Verify
      can commit and tick each off as it lands (see Verify, "Close the checkpoint") and the spec stays
      in step with the tracker.

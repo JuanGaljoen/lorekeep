@@ -99,9 +99,13 @@ confident the reading of the code.
   by how the output looked, or by my reaction to it — is **unverified**, not verified, however
   green the suite is. Tests confirm the code does what you told it; they can't tell you that what
   you told it is right. Send those to **Research 🔬** before you call this done.
+- **Trust boundaries hold.** If the plan names a trust boundary, or the diff plainly crosses one
+  the plan missed (auth, external input, files, outbound requests, secrets, LLM prompts), walk
+  [SECURITY.md](SECURITY.md) against the diff. No boundary, no pass.
 
-*Done when:* every constant the change introduced or moved has a named source, and every smell in
-[SMELLS.md](SMELLS.md) has been weighed against the diff.
+*Done when:* every constant the change introduced or moved has a named source, every smell in
+[SMELLS.md](SMELLS.md) has been weighed against the diff, and any trust boundary it crosses has had
+its security pass.
 
 ## Rules
 

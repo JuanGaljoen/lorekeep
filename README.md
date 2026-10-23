@@ -177,3 +177,7 @@ first; `uninstall.sh` restores it.
 Shaped by [Matt Pocock's "Skills For Real Engineers"](https://github.com/mattpocock/skills) —
 the small-and-composable philosophy, the grilling interview, the bug-diagnosis loop behind
 Diagnose, and two Chronicle rules: the three-bar test for an ADR, and a check before prose.
+
+Verify's security pass is adapted from Cloudflare's
+[security-audit-skill](https://github.com/cloudflare/security-audit-skill) (MIT): the candidate
+gate, the severity anchors, and the rule that a guess about deployment is not a finding.
