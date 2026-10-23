@@ -69,18 +69,40 @@ routing by convention, and stdlib imports (`ext:os`, `ext:fs`) all land slightly
 at fifteen nodes; read it with the tree and the manifest, don't open files to fix it.
 
 ### 3. Collapse it into ≤ ~15 nodes
-A `flowchart LR`, reading left to right:
-- **Entry points** — routes, pages, CLI, workers, whatever the manifest and tree say receives traffic.
+A `flowchart LR`, reading left to right, with one `subgraph` per layer — **named the way `CLAUDE.md`
+names its layers**. Absent that, something like:
+- **Entry** — routes, pages, CLI, workers, whatever the manifest and tree say receives traffic.
 - **Core** — the domain / service layer the entry points call.
 - **Data** — DB clients, schemas, caches.
-- **External services** — the `ext:` packages that are a *service* (Stripe, Prisma's database, an
-  LLM API, S3), not a library. One node per service.
+- **External** — only what sits **across a process or network boundary**: things that can be down,
+  slow, or billed (Stripe, a hosted database, an LLM API, S3). One node per service.
 
-Merge groups that play the same role; drop UI-library internals (`components/ui`, `@radix-ui/*`,
-icon sets), stdlib, and utility packages (`zod`, `clsx`, `lodash`) — they're plumbing, not
-architecture. Keep an edge only where the count says the link is real. Use safe ids with quoted
-labels (`api["app/api"]`) and a `subgraph` per layer if it reads better. Name things the way
-`CLAUDE.md` does.
+What goes where:
+- **A library is not a service.** In-process libraries (Trimesh, build123d, Prisma's client) are
+  drawn only when they're the system's engine, labelled `library`, inside the layer that uses them.
+- **Vendored or bundled code isn't external.** `static/vendor/three` belongs to whatever ships it.
+- **Drop the plumbing:** tests, UI-library internals (`components/ui`, `@radix-ui/*`, icon sets),
+  stdlib, utility packages (`zod`, `clsx`, `lodash`). Merge groups that play the same role.
+
+How it's drawn:
+- **One arrow meaning, stated once.** Arrows mean *calls / depends on* — the response is implied.
+  Say so in a key node: `key["→ calls / depends on (returns implied)"]`. Without it, readers take
+  arrows for message flow and go looking for the replies.
+- **Edge labels name the call, not the traffic.** `POST spec → STL`, not `HTTP JSON / STL`. A label
+  that names a request *and* a response makes every unlabelled edge look one-way. Most edges need
+  no label.
+- **No counts on edges, ever.** Counts decide which edges to keep, then stay out of the picture.
+- **Shapes mean something.** A cylinder `[( )]` is only for what stores data — database, cache,
+  bucket. Services and libraries are rectangles.
+- **Untangle crossings.** If two edges into the same target cross, drop the weaker one (lower
+  count) or merge the sources. Fewer true edges beat a complete hairball.
+- Safe ids with quoted labels: `api["app/api"]`.
+
+### 3b. Read the render before showing it
+Write it to a temp file (`F=$(mktemp)`), then check it parses — `npx -y @mermaid-js/mermaid-cli -i "$F" -o /tmp/diagram.svg` if Node is around;
+otherwise re-read the source for unbalanced brackets and unquoted labels. Then ask: **what would a
+newcomer wrongly conclude from this?** A missing key, a library in the External box, an edge that
+reads as a reply. Fix those before step 5.
 
 ### 4. Find the project key
 The same way `start-ticket` does: the repo's `CLAUDE.md`, or the prefix of `specs/<KEY>-*.md`. If
@@ -92,9 +114,8 @@ Show the Mermaid and the commit it describes. If `git status --porcelain` is non
 diagram is of `HEAD`, not the working tree. **Confirm before the PUT** — it overwrites the project's
 current diagram.
 
-Write the Mermaid to a temp file and let Python do the JSON escaping:
+Send the file from 3b and let Python do the JSON escaping:
 ```bash
-F=$(mktemp)   # write the diagram here
 python3 -c 'import json,subprocess,sys; print(json.dumps({"mermaid": open(sys.argv[1]).read(), "commit": subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()}))' "$F" \
   | curl -s -w '\nHTTP %{http_code}\n' -X PUT --data-binary @- \
       -H "Authorization: Bearer $ORBIT_API_TOKEN" -H 'content-type: application/json' \
@@ -114,6 +135,8 @@ Diagram: <KEY> @ <short-sha>   ·   <n> nodes
   wrong, say so in the report rather than opening files to second-guess them.
 - **Architecture, not inventory.** Fifteen nodes is a ceiling. A diagram that lists every folder
   shows nothing.
+- **Every visual element means one thing.** Arrows mean *depends on*, cylinders mean *stores data*,
+  the External box means *across a network boundary*. Anything drawn for looks misleads.
 - **Confirm before the PUT.** It's outward-facing and it overwrites.
 - **The diagram is a mirror.** Nothing in the repo depends on it, so it never needs a hand edit —
   rerun instead.
