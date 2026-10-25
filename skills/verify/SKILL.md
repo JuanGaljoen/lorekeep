@@ -148,7 +148,7 @@ tracker, so if Verify doesn't, Orbit drifts from the repo and a fresh session �
 resuming — can't tell where things stand. So when a checkpoint lands, record it in the source of
 truth, then mirror it:
 
-- **Tick the spec, then commit — together the source-of-truth write.** Check the landed checkpoint
+- **Tick the spec, then commit — together the source-of-truth write.** Check the verified checkpoint
   off in `specs/<TICKET-KEY>.md`, then commit the slice — its code, its tests, and the spec tick —
   on the feature branch, in the repo's house style (match recent commits; no `Co-Authored-By`
   trailer). **This commit is Verify's to make.** It's what makes the closed checkpoint durable in
@@ -156,7 +156,7 @@ truth, then mirror it:
   exact gap that used to bite. (The *terminal* checkpoint is the one exception — it flows on to
   Chronicle then ship, which commits and delivers it.)
 - **Comment the ticket — the mirror.** One line via `POST tickets/<KEY>/comments` (Orbit API — see start-ticket), citing the hash
-  from the commit above — what landed and what's next, e.g. *"CP2 verified (side_loc geometry, commit
+  from the commit above — what was verified and what's next, e.g. *"CP2 verified (side_loc geometry, commit
   `98d15bb`) — PR next."* Say *verified*, not *complete*: the PR isn't open yet, and only ship's
   *merged* comment means done. If this write is
   interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile reposts it from

@@ -82,7 +82,7 @@ between ticking the spec and commenting the ticket. Bring the tracker back in li
 - **In sync? Do nothing.** If the ticket already reflects the spec's state, say "tracker in sync"
   and move on. This is the common case and the reason it's safe to run every resume.
 - **Behind? Post the delta.** If a checkpoint is ticked in the spec but not noted on the ticket,
-  post one catch-up comment (`POST tickets/<KEY>/comments` with `{"body": "…"}`) naming the checkpoints that have landed
+  post one catch-up comment (`POST tickets/<KEY>/comments` with `{"body": "…"}`) naming the checkpoints that have been verified
   and what's next — match Verify's format, *"CPn verified (…, commit `<hash>`)"* (see Verify,
   *"Close the checkpoint"*); never *complete*, which reads as merged. Don't touch the
   status: a checkpoint isn't the ticket; transitioning is ship's job at the terminal checkpoint.
