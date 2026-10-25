@@ -156,8 +156,9 @@ truth, then mirror it:
   exact gap that used to bite. (The *terminal* checkpoint is the one exception — it flows on to
   Chronicle then ship, which commits and delivers it.)
 - **Comment the ticket — the mirror.** One line via `POST tickets/<KEY>/comments` (Orbit API — see start-ticket), citing the hash
-  from the commit above — what landed and what's next, e.g. *"CP2 complete (side_loc geometry, commit
-  `98d15bb`). CP3 (MODULES/ARCHETYPES registration) next — stays In Progress."* If this write is
+  from the commit above — what landed and what's next, e.g. *"CP2 verified (side_loc geometry, commit
+  `98d15bb`) — PR next."* Say *verified*, not *complete*: the PR isn't open yet, and only ship's
+  *merged* comment means done. If this write is
   interrupted, don't panic — it's only the mirror; the next `/start-ticket` reconcile reposts it from
   the spec (see start-ticket, *"Reconcile the tracker"*).
 - **Leave the status alone.** The ticket stays **In Progress** — a checkpoint is not the ticket.

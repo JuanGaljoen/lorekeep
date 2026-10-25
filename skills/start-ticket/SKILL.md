@@ -83,7 +83,8 @@ between ticking the spec and commenting the ticket. Bring the tracker back in li
   and move on. This is the common case and the reason it's safe to run every resume.
 - **Behind? Post the delta.** If a checkpoint is ticked in the spec but not noted on the ticket,
   post one catch-up comment (`POST tickets/<KEY>/comments` with `{"body": "…"}`) naming the checkpoints that have landed
-  and what's next — match Verify's format (see Verify, *"Close the checkpoint"*). Don't touch the
+  and what's next — match Verify's format, *"CPn verified (…, commit `<hash>`)"* (see Verify,
+  *"Close the checkpoint"*); never *complete*, which reads as merged. Don't touch the
   status: a checkpoint isn't the ticket; transitioning is ship's job at the terminal checkpoint.
 
 Idempotent by construction — it posts only the missing delta and is a no-op once spec and tracker

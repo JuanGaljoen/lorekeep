@@ -146,8 +146,8 @@ checkpoints still unticked after this one):
 - **Whole ticket** → set it to **In Review** (`PATCH tickets/<KEY>` with
   `{"status": "in_review"}`) and comment the PR URL (`POST tickets/<KEY>/comments`).
 - **One checkpoint of many** → **don't move it.** The ticket stays **In Progress** — a checkpoint
-  PR is not the ticket being ready for review. Just comment the PR URL, noting which checkpoint this
-  is and that more are coming (matching Verify's checkpoint-comment format).
+  PR is not the ticket being ready for review. Just comment the PR URL, naming the checkpoint:
+  *"CP2 PR opened: <url>"*.
 
 ### 8. Report
 ```
@@ -195,7 +195,9 @@ git branch -d <feature-branch>            # -d refuses to delete if it isn't mer
 - **One checkpoint of many** → the ticket stays **In Progress** for the next checkpoint (if step 7
   bumped it to In Review, move it back). Don't re-author the progress note — Verify already recorded
   which checkpoint landed and ticked `specs/<TICKET-KEY>.md` when it closed the checkpoint (see
-  Verify, "Close the checkpoint"). Just comment the merge URL, then run the idempotent reconcile
+  Verify, "Close the checkpoint"). Just comment the merge — *"CP2 merged (PR #14, `a1b2c3d`). CP3
+  started (MODULES/ARCHETYPES registration)."* — the only comment that means a checkpoint is done.
+  Then run the idempotent reconcile
   (see start-ticket, *"Reconcile the tracker"*) so a mirror that drifted during the checkpoint gets
   repaired from the spec — a no-op when they already agree.
 - **Unsure which** → ask before moving it. Closing a ticket mid-work is worse than a question.
