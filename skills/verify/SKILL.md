@@ -155,7 +155,7 @@ truth, then mirror it:
   the source of truth and gives the mirror a real hash to cite; a checkpoint no one committed is the
   exact gap that used to bite. (The *terminal* checkpoint is the one exception — it flows on to
   Chronicle then ship, which commits and delivers it.)
-- **Comment the ticket — the mirror.** One line via `POST tickets/<KEY>/comments` (Orbit API — see start-ticket), citing the hash
+- **Comment the ticket — the mirror.** One line via `POST $ORBIT_URL/api/v1/tickets/<KEY>/comments` (bearer `$ORBIT_API_TOKEN`; call shape in start-ticket step 1 — don't guess the URL, never print the token), citing the hash
   from the commit above — what was verified and what's next, e.g. *"CP2 verified (side_loc geometry, commit
   `98d15bb`) — PR next."* Say *verified*, not *complete*: the PR isn't open yet, and only ship's
   *merged* comment means done. If this write is

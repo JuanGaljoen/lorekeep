@@ -140,6 +140,9 @@ creating one now would only make a duplicate. Verify what's actually on the remo
 wherever the ticket actually is, not from an assumed In Review.
 
 ### 7. Update Orbit — if a ticket's in play
+Paths below are relative to `$ORBIT_URL/api/v1/` with `Authorization: Bearer $ORBIT_API_TOKEN` — the
+exact `curl` shape is in start-ticket, step 1. Don't guess a URL; on a 401 or redirect, check the
+path before suspecting the token, and never print the token (test it with `[ -n "$ORBIT_API_TOKEN" ]`).
 When a `--ticket`/`Refs` key exists, close the loop on the tracker — but first check whether this
 PR is the **whole ticket** or **one checkpoint of many** (`specs/<TICKET-KEY>.md` exists with
 checkpoints still unticked after this one):
