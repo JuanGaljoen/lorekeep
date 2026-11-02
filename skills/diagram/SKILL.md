@@ -39,6 +39,11 @@ claude plugin install floorplan@floorplan
 Let Floorplan run its own scripts (`node …`) — that's the mechanical part and costs no tokens. For
 a multi-repo app, run from the folder that holds them all.
 
+**Don't open the map locally when it's going to Orbit.** Floorplan's own last step runs `open.mjs`,
+which starts a background server and opens a browser tab. If an Orbit project is in play (step 3),
+skip that step: build, push, and let the Architecture tab be the only place I look. Only run
+`open.mjs` when there's no Orbit project, or if I ask to see it locally.
+
 By default it writes for the app's owner, in everyday words. If I asked for developers, say
 *"Rewrite the floorplan for developers."*
 
@@ -67,7 +72,7 @@ curl -s -X PUT "$ORBIT_URL/api/v1/projects/<KEY>/floorplan" \
 ### 4. Report
 ```
 Floorplan: <repo> @ <short-sha>   ·   <n> parts · <k> flows
-Map: floorplan/index.html   (open it, or `node floorplan/serve.mjs` for the Ask bar)
+Map: <Orbit URL if pushed | floorplan/index.html — `node floorplan/serve.mjs` for the Ask bar>
 Orbit: <pushed to <KEY> | skipped — no project | endpoint not deployed (404)>
 Health: <anything serious it flagged, or none>
 ```
