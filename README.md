@@ -123,9 +123,9 @@ script auto-discovers both, so new ones are picked up on the next run.
 
 Alongside the six phases, a few optional skills bridge to the outside world. Three **Orbit** skills
 bridge the tracker: `start-ticket` (fetch a ticket, branch, and drop onto the spine),
-`file-ticket` (turn understood work into a ticket), and `diagram` (push a Mermaid architecture
-diagram of `HEAD` to the project, built from an import-count pipeline rather than by reading source
-files). And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the branch and opens the pull request in one motion — the two steps
+`file-ticket` (turn understood work into a ticket), and `diagram` (experimental: wraps the
+[Floorplan](https://github.com/haydenschmitty/floorplan) plugin to build an interactive map of the repo
+locally; publishing it to Orbit isn't wired up yet). And `ship` (`/ship`) is the delivery tail: once Verify is green, it publishes the branch and opens the pull request in one motion — the two steps
 people forget are separate — then moves the ticket to In Review, and to Done once it lands.
 
 The tracker is [Orbit](https://orbit-zeta-gilt.vercel.app/), reached over its REST API with plain
