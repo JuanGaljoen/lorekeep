@@ -24,13 +24,14 @@ Recall 📚  →  Understand 🧭  →  Design ✍️    →  Forge ⚒️  → 
 
 The third phase forks on the shape of the work: a feature gets Design, a fix gets Diagnose.
 
-Plus three off-spine skills, which aren't phases and don't wait for a change to be in flight:
+Plus four off-spine skills, which aren't phases and don't wait for a change to be in flight:
 
 | | Question | Skill |
 |-------|----------|-------|
 | **Research 🔬** | What does the world know that we don't? | [`skills/research`](skills/research/SKILL.md) |
 | **Sweep 🧹** | What in here is no longer earning its place? | [`skills/sweep`](skills/sweep/SKILL.md) |
 | **Quiz 🎓** | What do *I* actually know now? | [`skills/quiz`](skills/quiz/SKILL.md) |
+| **Rotate 🔑** | Can we replace every secret this repo uses without breaking it? | [`skills/rotate`](skills/rotate/SKILL.md) |
 
 ## How it works
 

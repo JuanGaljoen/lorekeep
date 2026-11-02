@@ -25,7 +25,8 @@ Recall 📚  →  Understand 🧭  →  Design ✍️    →  Forge ⚒️  → 
 | **Chronicle 📖** | What should future-us know? | Record decisions and patterns worth keeping. Skip the trivial. |
 
 Off-spine, reachable from any phase: **Research 🔬** (what does the world know that we don't?),
-**Sweep 🧹** (what's no longer earning its place?), **Quiz 🎓** (what do *I* actually know now?).
+**Sweep 🧹** (what's no longer earning its place?), **Quiz 🎓** (what do *I* actually know now?),
+**Rotate 🔑** (can we replace every secret this repo uses without breaking it?).
 
 Each phase is a skill under `skills/`. The agent reaches for them as it moves through the
 work; you can also invoke any of them by name (`/recall`, `/understand`, …).
