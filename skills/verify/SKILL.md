@@ -79,6 +79,11 @@ A long suite is the one place Verify can do real damage to a machine it doesn't 
 
 Full contract, both sides of the handoff: `agents/runner.md`.
 
+**Decisions reached the code.** Walk the spec's `## Decisions` (or the decisions made in this
+session). Each behaviour or safety line names a test that exists and goes red when the decision is
+broken — the mutation check above, applied to it. A text line names the file that now says it. A
+decision with no evidence is unbuilt, however settled it felt in chat.
+
 *Done when:* every success criterion carries its own evidence — a command's output, a rendered
 screen, an observation you collected. A criterion with no artifact behind it is unchecked, however
 confident the reading of the code.
@@ -103,9 +108,17 @@ confident the reading of the code.
   the plan missed (auth, external input, files, outbound requests, secrets, LLM prompts), walk
   [SECURITY.md](SECURITY.md) against the diff. No boundary, no pass.
 
+### Independent review
+
+When Design named a hard-to-undo category, hand the change to the **`reviewer` agent**
+(`agents/reviewer.md`) in diff mode: write the diff, the spec, the names of the tests that gate it,
+and the open-ticket list to a scratch directory and point it there. It never sees this conversation.
+Present its verdict as **advice** — each finding with your read of it — and fix what we agree is
+real before calling Verify done. No hard-to-undo category, no review; say so in one line.
+
 *Done when:* every constant the change introduced or moved has a named source, every smell in
-[SMELLS.md](SMELLS.md) has been weighed against the diff, and any trust boundary it crosses has had
-its security pass.
+[SMELLS.md](SMELLS.md) has been weighed against the diff, any trust boundary it crosses has had
+its security pass, and any hard-to-undo category has had its independent review.
 
 ## Rules
 

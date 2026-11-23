@@ -38,6 +38,10 @@ raw material Understand will sharpen; read it, don't skim it. Also check for `sp
 its branch rather than start fresh, and Recall reads the spec next, so don't re-derive the design
 from scratch.
 
+Then glance across the other open tickets (the backlog call from step 1) and name, in one line, any
+that touch the same area or block this one — *"RING-14 also reworks the export path; it's open."* No
+overlap, say nothing.
+
 ### 3. Branch — or resume onto the existing one
 The branch name is `<type>/<lowercase-key>-<short-kebab-title>` — `feature/` by default, `fix/`
 if the ticket type is `bug` or a `bug` label is present, `refactor/` if a `refactor` label is

@@ -13,7 +13,9 @@ this boundary, if you're on the strong model (Opus), **stop, recommend the switc
 — `/model sonnet` saves your window"* — and **wait for my go**. Already on the cheap/fast model? Just
 build. In auto mode, flag it and carry on (auto is "run, don't check in"). It's a recommendation, not
 a rule — I may keep Opus on a gnarly Forge — but the offer must be *made* every time, not swallowed
-because the plan's ready or a resume gave you momentum.
+because the plan's ready or a resume gave you momentum. **The exception:** when Design named a
+hard-to-undo category, recommend *keeping* the strong model — a slip there costs money, data or
+access, and that's where judgement earns its price even in a mechanical loop.
 
 Implementation. Build only what the plan requires, in small verifiable steps, with tests leading
 where they earn their keep.
@@ -38,6 +40,12 @@ understand the implementation.
 
 ## Rules
 
+- **Write the decision down before you act on it.** When I make a call mid-build, add it to the
+  spec's `## Decisions` (or the plan in this conversation, for single-shot work) *first*, then build
+  it. A behaviour or safety decision gets a test that fails without it; name the test on its line.
+- **A changed decision changes everywhere.** When a decision alters a command, message or behaviour,
+  search every place that describes it — docs, help text, specs — and every test that pins its
+  text, and update them in the same slice. One stale description is a second, wrong spec.
 - **Minimum to satisfy the plan.** No speculative features, no "while I'm here". YAGNI.
 - **Stay in the frozen plan.** A genuinely new idea goes on the list for later, not into this
   change. If the plan is wrong, stop and say so — don't quietly build something else.

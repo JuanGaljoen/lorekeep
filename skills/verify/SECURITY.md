@@ -39,7 +39,13 @@ Miss one and it's a hardening note, not a finding. Say so and keep it out of the
   constant time. Generated with secure randomness.
 - **Business logic.** Can a flow skip a step, replay, or race (check-then-act without atomicity)?
   Negative, zero or huge quantities? What is the posture when config is missing or a dependency is
-  down: does it fail closed?
+  down: does it fail closed? For a state field that matters — payment status, a role, an approval —
+  **who can set it?** If the answer includes the client, the client decides.
+- **External retries.** Anything an outside system retries — a webhook, a queue delivery, a payment
+  callback — must be idempotent: the second delivery changes nothing. Does any reply tell the
+  retrier to stop before the work is safely done? Is a lock held across a network call?
+- **Least privilege, least data.** Does each role, token and service account hold only what this
+  path needs? Is data kept that nothing reads? Ask what a leaked credential could do *today*.
 - **LLM input.** Is text from a document, page or tool result able to steer actions the user
   didn't ask for? Is model output used as a query, command, URL or HTML without the same handling
   as user input?

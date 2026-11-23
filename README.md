@@ -105,6 +105,11 @@ On a Pro plan the usage window is the real constraint, so four moves protect it:
   in its context; a dozen lines come back. Sonnet rather than Haiku because judging whether a source
   actually owns the answer takes real judgement — but deciding what to do with the finding comes
   back to your session.
+- **The reviewer agent** ([`agents/reviewer.md`](agents/reviewer.md)). An **Opus-pinned** second
+  reader for work that's hard to undo — money, permissions, deleting data, running cost, external
+  retries, legal wording. It reads the plan before Design freezes and the diff before Verify closes,
+  from files only, never the conversation that wrote them. Verdict is BLOCK / FIX FIRST / PASS, and
+  it's advice: the call stays yours.
 - **Disposable context.** Because the spec's ticks and the branch's commits are the complete
   working state, a `/clear` mid-ticket loses nothing — Recall rebuilds from those two and continues
   at the open checkpoint. Clearing a heavy context is a routine move, not a loss.
@@ -116,8 +121,8 @@ scripts/install.sh
 ```
 
 This symlinks every skill under `skills/` into `~/.claude/skills/` (so `/recall`, `/forge`, … work
-in any session), every agent under `agents/` into `~/.claude/agents/` (the `runner` and the
-`researcher`, above), and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
+in any session), every agent under `agents/` into `~/.claude/agents/` (the `runner`, the
+`researcher` and the `reviewer`, above), and symlinks the spine to `~/projects/personal/CLAUDE.md`, so Claude Code
 auto-loads the workflow for every project under `~/projects/personal/` — and nowhere else. The
 script auto-discovers both, so new ones are picked up on the next run.
 

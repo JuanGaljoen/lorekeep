@@ -35,6 +35,10 @@ Concretely, fire when:
   the right value is*.
 - The work depends on **someone else's contract** — an API's actual behaviour, a format's spec, a
   library's documented guarantee — and we're going from memory.
+- A **factual claim about an outside party** — a provider's behaviour, a bank's settlement timing,
+  a legal rule — is going into customer-facing text or a launch checklist. Words a customer or
+  operator will act on are a contract too, and a confident sentence is invented just as easily as a
+  number.
 - The user says some version of **"I don't know the answer either."** Two people guessing is not
   more reliable than one.
 

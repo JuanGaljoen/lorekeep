@@ -125,6 +125,11 @@ not a destination** — "it's in the history" is a place nobody looks. History g
 `## Outcome`, creating the spec if none exists; only a line that duplicates an existing spec, ADR or
 tracker entry is deleted outright.
 
+**Then specs and ADRs**, for one category only: **built-claims the code denies.** A checkpoint
+ticked done, an `## Outcome` or an ADR saying a guard, a check or a behaviour exists — read the code
+for it and cite the `file:line` that shows it isn't there. A guard ticked done but never built is
+worse than no guard: everyone downstream trusts it.
+
 *Done when:* every failing line has a category and a destination, every destination has been
 checked to say whether it already holds the content, and the report states the line count and
 ticket-key count before and the estimate after.

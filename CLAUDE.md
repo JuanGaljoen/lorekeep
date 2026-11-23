@@ -105,6 +105,12 @@ its context, a dozen lines come back. Sonnet rather than Haiku because judging w
 actually owns the answer takes more than the runner needs. Deciding what to *do* with the finding
 stays here.
 
+**Review never happens in the session that wrote the work.** When Design names something hard to
+undo, the **`reviewer` agent** (`agents/reviewer.md`, pinned to Opus) reads the plan before it
+freezes and the diff before Verify closes — from files in a scratch directory, never this
+conversation, because a plan judged by its own author shares its author's blind spots. Opus because
+this is judgement, not mechanics. Its verdict is advice; the call stays mine.
+
 Caveat — **auto mode**: in auto mode I won't pause to answer the phase-boundary offer (auto mode is
 "run, don't check in"), so there you'll just flag it and continue.
 
@@ -169,4 +175,6 @@ boundaries between checkpoints, not inside one.
   to make; put the reasoning under it, short. If a paragraph doesn't change what I do next, cut
   it. Length is not thoroughness — it's the cost I pay to find the one line I needed.
 - **Confirm before the irreversible.** Deletes, pushes, anything outward-facing — check first
-  unless I've told you to just go.
+  unless I've told you to just go. Show it, then stop: posting an issue, opening a PR, sending
+  anything outside the repo happens in a *later* turn than the draft, after my yes. Never show and
+  send in the same breath.
