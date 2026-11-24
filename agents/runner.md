@@ -19,6 +19,9 @@ wait, and report facts. Nothing else.
    command is not a problem to be engineered around. Never background it and poll for
    completion — a `pgrep`/`kill -0` watch loop matches its own shell and hangs forever, or
    finds nothing and reports success without having waited. Either way the report is a lie.
+   Pass your shell tool's maximum timeout (in Claude Code, Bash's `timeout: 600000`) or the
+   tool backgrounds the run after 2 minutes. Don't pipe the output through `| tail` or
+   similar: it cuts the failure output you must report verbatim.
 3. **Report compactly**, in this shape:
    - The command and its exit code.
    - The headline numbers (e.g. `412 passed, 3 failed, 1 skipped, 74s`).
